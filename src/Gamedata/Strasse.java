@@ -8,7 +8,7 @@ public class Strasse extends Feld{
 	private ArrayList<Integer> nachbarn = new ArrayList<>();
 
 	
-	public Strasse(int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn) {
+	public Strasse(String name, int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn) {
 		this.pos = pos;
 		this.preis = preis;
 		this.hauskosten = hauskosten;

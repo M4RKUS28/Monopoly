@@ -13,17 +13,16 @@ public class Game {
 	
 	private int[] felderMap = new int[40];
 	
-	private Strasse[] strassen;
-	private Bahn[] bahnen;
-	private Werk[] werke;
-	
-	private Feld[] alleFelder;
-	
 	private Zeugfeld zeugfeld;
+	
+	private JSON_READER jsonReader;
 	
 	private boolean pasch;
 	private int paschZahl;
 	
+	private ArrayList<Feld> alleFelder;
+
+
 	public Game() {
 		
 		for (int i = 0; i < 4; i++) {

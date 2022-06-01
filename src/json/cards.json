@@ -1,415 +1,309 @@
 {
-"Titel":"Datenbank"
-	"Strassenkarten":[
-		{
-			"Name" : "Badstrasse"
-			"Position" : 1
-			"Preis" : 1200
-			"Mietkosten" : [40,200,600,1800,3200,5000]
-			"Hauskosten" : 0
-			"Hypothekenwert" : 600
-		},
-		
-		{
-			"Name" : "Turmstrasse"
-			"Position" : 3
-			"Preis" : 1200
-			"Mietkosten" : [80,400,1200,3600,6400,9000]
-			"Hauskosten" : 0
-			"Hypothekenwert" : 600
-		},
-		
-		{
-			"Name" : "Chauseestrasse"
-			"Position" : 6
-			"Preis" : 2000
-			"Mietkosten" : [120,600,1800,5400,8000,11000]
-			"Hauskosten" : 0
-			"Hypothekenwert" : 1000
-		},
-		
-		{
-			"Name" : "Elisenstrasse"
-			"Position" : 8
-			"Preis" : 2000
-			"Mietkosten" : [120,600,1800,5400,8000,11000]
-			"Hauskosten" : 0
-			"Hypothekenwert" : 1000
-		},
-		
-		{
-			"Name" : "Poststrasse"
-			"Position" : 9
-			"Preis" : 2400
-			"Mietkosten" : [160,800,2000,6000,9000,12000]
-			"Hauskosten" : 0
-			"Hypothekenwert" : 1200
-		},
-		
-		{
-			"Name" : "Seestrasse"
-			"Position" : 11
-			"Preis" : 2800
-			"Mietkosten" : [200,1000,3000,9000,12500,15000]
-			"Hauskosten" : 1
-			"Hypothekenwert" : 1400
-		},
-		
-		{
-			"Name" : "Hafenstrasse"
-			"Position" : 13
-			"Preis" : 2800
-			"Mietkosten" : [200,1000,3000,9000,12500,15000]
-			"Hauskosten" : 1
-			"Hypothekenwert" : 1400
-		},
-		
-		{
-			"Name" : "Neue Strasse"
-			"Position" : 14
-			"Preis" : 3200
-			"Mietkosten" : [240,1200,3600,10000,14000,18000]
-			"Hauskosten" : 1
-			"Hypothekenwert" : 1600
-		},
-		
-		"Muenchner Strasse":{
-			"Position" : 16
-			"Preis" : 3600
-			"Mietkosten" : [280,1400,4000,11000,15000,19000]
-			"Hauskosten" : 1
-			"Hypothekenwert" : 1800
-		},
-		
-		"Wiener Strasse":{
-			"Position" : 18
-			"Preis" : 3600
-			"Mietkosten" : [280,1400,4000,11000,15000,19000]
-			"Hauskosten" : 1
-			"Hypothekenwert" : 1800
-		},
-		
-		"Berliner Strasse":{
-			"Position" : 19
-			"Preis" : 4000
-			"Mietkosten" : [320,1600,4400,12000,16000,20000]
-			"Hauskosten" : 1
-			"Hypothekenwert" : 2000
-		},
-		
-		"Theaterstrasse":{
-		"Position": 21
-		"Preis": 4400
-		"Mietkosten": [360,1800,5000,14000,17500,21000]
-		"Hauskosten": 2
-		"Hypothekenwert" : 2200
-     		}
-   
-		"Museumstrasse":{
-		"Position": 23
-		"Preis": 4400
-		"Mietkosten": [360,1800,5000,14000,17500,21000]
-		"Hauskosten": 2
-		"Hypothekenwert": 2200
-	 	}
-   
-		"Opernplatz":{
-		"Position": 24 
-		"Preis": 4800
-		"Mietkosten": [400,2000,6000,15000,18500,22000]
-		"Hauskosten": 2
-		"Hypothekenwert": 2400
-		}
-
-		"Lessingstrasse":{
-		"Position": 26 
-		"Preis": 5200
-		"Mietkosten": [440,2200,6600,16000,19500,23000]
-		"Hauskosten": 2
-		"Hypothekenwert": 2600
-	 	}
-
-		"Schillerstrasse":{
-		"Position": 27 
-		"Preis": 5200
-		"Mietkosten": [440,2200,6600,16000,19500,23000]
-		"Hauskosten": 2
-		"Hypothekenwert": 2600
-	 	}
-
-		"Goethestrasse":{
-		"Position": 29
-		"Preis": 5600
-		"Mietkosten": [580,2400,7200,17000,20500,24000]
-		"Hauskosten": 2
-		"Hypothekenwert": 2800
-	 	}
-
-		"Rathausplatz":{
-		"Position": 31
-		"Preis": 6000
-		"Mietkosten": [520,2600,7800,18000,22000,25500]
-		"Hauskosten": 3
-		"Hypothekenwert": 3000
-		}
-
-		"Hauptstrasse":{
-		"Position": 32
-		"Preis": 6000
-		"Mietkosten": [520,2600,7800,18000,22000,25500]
-		"Hauskosten": 3
-		"Hypothekenwert": 3000
-		}
-
-		"Bahnhofsstrasse":{
-		"Position": 34
-		"Preis": 6400
-		"Mietkosten": [560,3000,9000,20000,24000,28000]
-		"Hauskosten": 3
-		"Hypothekenwert": 3200
-		}
-
-		"Parkstrasse":{
-		"Position": 37
-		"Preis": 7000
-		"Mietkosten": [700,3500,10000,22000,26000,30000]
-		"Hauskosten": 3
-		"Hypothekenwert": 3500
-		}
-
-		"Schlossallee":{
-		"Position": 39
-		"Preis": 8000
-		"Mietkosten": [1000,4000,12000,28000,34000,40000]
-		"Hauskosten": 3
-		"Hypothekenwert": 4000
-		}
-	],
-
-	"Bahnhofkarten":[
-		{
-			"Name" : "Suedbahnhof"
-			"Position" : 5
-			"Preis" : 4000
-			"Mietkosten" : [500,1000,2000,4000]
-			"Hypothekenwert" : 2000
-		}
-				
-		{
-			"Name" : "Westbahnhof"
-			"Position" : 15
-			"Preis" : 4000
-			"Mietkosten" : [500,1000,2000,4000]
-			"Hypothekenwert" : 2000
-		}
-				
-		{
-			"Name" : "Nordbahnhof"
-			"Position" : 25
-			"Preis" : 4000
-			"Mietkosten" : [500,1000,2000,4000]
-			"Hypothekenwert" : 2000
-		}
-				
-		{
-			"Name" : "Hauptbahnhof"
-			"Position" : 35
-			"Preis" : 4000
-			"Mietkosten" : [500,1000,2000,4000]
-			"Hypothekenwert" : 2000
-		}
-		
-	],
+    "Titel": "Spielkarten",
+	"Startgeld": 10000,
+	"Ueberlosgeld": 2000,
 	
-	"Infrastrukturkarten":[
-		"Elektrizitaets-Werk":{
-			"Position" : 12
-			"Preis" : 3000
-			"Mietkosten" : 80
-			"Hypothekenwert" : 1500
-		}
-		
-		"Wasser-Werk":{
-			"Position" : 28
-			"Preis" : 3000
-			"Mietkosten" : 80
-			"Hypothekenwert" : 1500
-		}
-	],
+    "Strassenkarten": [{
+            "Name": "Badstrasse",
+            "Position": 1,
+            "Preis": 1200,
+            "Mietkosten": [40, 200, 600, 1800, 3200, 5000],
+            "Hauskosten": 0,
+            "Hypothekenwert": 600
+        }, {
+            "Name": "Turmstrasse",
+            "Position": 3,
+            "Preis": 1200,
+            "Mietkosten": [80, 400, 1200, 3600, 6400, 9000],
+            "Hauskosten": 0,
+            "Hypothekenwert": 600
+        }, {
+            "Name": "Chauseestrasse",
+            "Position": 6,
+            "Preis": 2000,
+            "Mietkosten": [120, 600, 1800, 5400, 8000, 11000],
+            "Hauskosten": 0,
+            "Hypothekenwert": 1000
+        }, {
+            "Name": "Elisenstrasse",
+            "Position": 8,
+            "Preis": 2000,
+            "Mietkosten": [120, 600, 1800, 5400, 8000, 11000],
+            "Hauskosten": 0,
+            "Hypothekenwert": 1000
+        }, {
+            "Name": "Poststrasse",
+            "Position": 9,
+            "Preis": 2400,
+            "Mietkosten": [160, 800, 2000, 6000, 9000, 12000],
+            "Hauskosten": 0,
+            "Hypothekenwert": 1200
+        }, {
+            "Name": "Seestrasse",
+            "Position": 11,
+            "Preis": 2800,
+            "Mietkosten": [200, 1000, 3000, 9000, 12500, 15000],
+            "Hauskosten": 1,
+            "Hypothekenwert": 1400
+        }, {
+            "Name": "Hafenstrasse",
+            "Position": 13,
+            "Preis": 2800,
+            "Mietkosten": [200, 1000, 3000, 9000, 12500, 15000],
+            "Hauskosten": 1,
+            "Hypothekenwert": 1400
+        }, {
+            "Name": "Neue Strasse",
+            "Position": 14,
+            "Preis": 3200,
+            "Mietkosten": [240, 1200, 3600, 10000, 14000, 18000],
+            "Hauskosten": 1,
+            "Hypothekenwert": 1600
+        }, {
+            "Name": "Muenchner Strasse",
+            "Position": 16,
+            "Preis": 3600,
+            "Mietkosten": [280, 1400, 4000, 11000, 15000, 19000],
+            "Hauskosten": 1,
+            "Hypothekenwert": 1800
+        }, {
+            "Name": "Wiener Strasse",
+            "Position": 18,
+            "Preis": 3600,
+            "Mietkosten": [280, 1400, 4000, 11000, 15000, 19000],
+            "Hauskosten": 1,
+            "Hypothekenwert": 1800
+        }, {
+            "Name": "Berliner Strasse",
+            "Position": 19,
+            "Preis": 4000,
+            "Mietkosten": [320, 1600, 4400, 12000, 16000, 20000],
+            "Hauskosten": 1,
+            "Hypothekenwert": 2000
+        }, {
+            "Name": "Theaterstrasse",
+            "Position": 21,
+            "Preis": 4400,
+            "Mietkosten": [360, 1800, 5000, 14000, 17500, 21000],
+            "Hauskosten": 2,
+            "Hypothekenwert": 2200
+        }, {
+            "Name": "Museumstrasse",
+            "Position": 23,
+            "Preis": 4400,
+            "Mietkosten": [360, 1800, 5000, 14000, 17500, 21000],
+            "Hauskosten": 2,
+            "Hypothekenwert": 2200
+        }, {
+            "Name": "Opernplatz",
+            "Position": 24,
+            "Preis": 4800,
+            "Mietkosten": [400, 2000, 6000, 15000, 18500, 22000],
+            "Hauskosten": 2,
+            "Hypothekenwert": 2400
+        }, {
+            "Name": "Lessingstrasse",
+            "Position": 26,
+            "Preis": 5200,
+            "Mietkosten": [440, 2200, 6600, 16000, 19500, 23000],
+            "Hauskosten": 2,
+            "Hypothekenwert": 2600
+        }, {
+            "Name": "Schillerstrasse",
+            "Position": 27,
+            "Preis": 5200,
+            "Mietkosten": [440, 2200, 6600, 16000, 19500, 23000],
+            "Hauskosten": 2,
+            "Hypothekenwert": 2600
+        }, {
+            "Name": "Goethestrasse",
+            "Position": 29,
+            "Preis": 5600,
+            "Mietkosten": [580, 2400, 7200, 17000, 20500, 24000],
+            "Hauskosten": 2,
+            "Hypothekenwert": 2800
+        }, {
+            "Name": "Rathausplatz",
+            "Position": 31,
+            "Preis": 6000,
+            "Mietkosten": [520, 2600, 7800, 18000, 22000, 25500],
+            "Hauskosten": 3,
+            "Hypothekenwert": 3000
+        }, {
+            "Name": "Hauptstrasse",
+            "Position": 32,
+            "Preis": 6000,
+            "Mietkosten": [520, 2600, 7800, 18000, 22000, 25500],
+            "Hauskosten": 3,
+            "Hypothekenwert": 3000
+        }, {
+            "Name": "Bahnhofsstrasse",
+            "Position": 34,
+            "Preis": 6400,
+            "Mietkosten": [560, 3000, 9000, 20000, 24000, 28000],
+            "Hauskosten": 3,
+            "Hypothekenwert": 3200
+        }, {
+            "Name": "Parkstrasse",
+            "Position": 37,
+            "Preis": 7000,
+            "Mietkosten": [700, 3500, 10000, 22000, 26000, 30000],
+            "Hauskosten": 3,
+            "Hypothekenwert": 3500
+        }, {
+            "Name": "Schlossallee",
+            "Position": 39,
+            "Preis": 8000,
+            "Mietkosten": [1000, 4000, 12000, 28000, 34000, 40000],
+            "Hauskosten": 3,
+            "Hypothekenwert": 4000
+        }
+    ],
 
+    "Bahnhofkarten": [{
+            "Name": "Suedbahnhof",
+            "Position": 5,
+            "Preis": 4000,
+            "Mietkosten": [500, 1000, 2000, 4000],
+            "Hypothekenwert": 2000
+        }, {
+            "Name": "Westbahnhof",
+            "Position": 15,
+            "Preis": 4000,
+            "Mietkosten": [500, 1000, 2000, 4000],
+            "Hypothekenwert": 2000
+        }, {
+            "Name": "Nordbahnhof",
+            "Position": 25,
+            "Preis": 4000,
+            "Mietkosten": [500, 1000, 2000, 4000],
+            "Hypothekenwert": 2000
+        }, {
+            "Name": "Hauptbahnhof",
+            "Position": 35,
+            "Preis": 4000,
+            "Mietkosten": [500, 1000, 2000, 4000],
+            "Hypothekenwert": 2000
+        }
 
-"Ereigniskarten": [
+    ],
 
-	{
-		"ID" : 1
-		"Text" : "Gehe in das Gefängnis. Begib dich dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
-	},
-	
-	{
-		"ID": 2
-		"Text" : "Du kommst aus dem Gefängnis./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
-	},
-	
-	{
-		"ID": 3
-		"Text" : "Rücke vor bis zum Opernplatz./nWenn Du über Los kommst ziehe DM 4000 ein."
-	},
-	
-	{
-		"ID": 4
-		"Text" : "Gehe 3 Felder zurück"
-	},
-	
-	{
-		"ID": 5
-		"Text" : "Rücke vor bist zum nächsten Bahnhof. Der Eigentümer erhält das doppelte der normalen Miete./nHat noch kein Spieler einen Bahnhof, so kann er ihn von der Bank kaufen."
-	},
-	
-	{
-		"ID": 6
-		"Text" : "Mache einen Ausflug nach dem Süd-Bahnhof,/nund wenn Du über Los kommst, ziehe DM 4000 ein."
-	}
-	
-	{
-		"ID": 7
-		"Text" : "Rücke vor bis zur Seestrasse./nWenn Du über Los kommst, ziehe DM 4000 ein."
-	}
-	
-	{
-		"ID": 8
-		"Text" : "Rücke bis auf Los vor."
-	}
-	
-	{
-		"ID": 9
-		"Text" : "Gehe zurück nach der Badstrasse."
-	}
-	
-	{
-		"ID": 10
-		"Text" : "Rücke vor bis zur Schlossallee."
-	}
-	
-	{
-		"ID": 11
-		"Text" : "Lasse alle Deine Häuser renovieren./nZahle an die Bank/nfür jedes Haus DM 500/nfür jedes Hotel DM2000"
-	}
-	
-	{
-		"ID": 12
-		"Text" : "Du wurdest zum Vorstand gewählt. Zahle jedem Spieler/nDM 1000"
-	}
-	
-	{
-		"ID": 13
-		"Text" : "Strafe für zu schnelles fahren./nDM 300"
-	}
-	
-	{
-		"ID": 14
-		"Text" : "Zahle eine Strafe von DM 200/noder nimm eine Gemeinschaftskarte."
-	}
-	
-	{
-		"ID": 15
-		"Text" : "Die Bank zahlt Dir eine Dividende von/nDM 1000"
-	}
-	
-	{
-		"ID": 16
-		"Text" : "Miete und Anleihzinsen werden fällig./ndie Bank zahlt Dir DM 3000"
-	}
-],
+    "Infrastrukturkarten": [{
+            "Name": "Elektrizitaets-Werk",
+            "Position": 12,
+            "Preis": 3000,
+            "Mietkosten": 80,
+            "Hypothekenwert": 1500
+        }, {
+            "Name": "Wasser-Werk",
+            "Position": 28,
+            "Preis": 3000,
+            "Mietkosten": 80,
+            "Hypothekenwert": 1500
+        }
+    ],
 
+    "Ereigniskarten": [{
+            "ID": 1,
+            "Text": "Gehe in das Gefängnis. Begib dich dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
+        }, {
+            "ID": 2,
+            "Text": "Du kommst aus dem Gefängnis./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
+        }, {
+            "ID": 3,
+            "Text": "Rücke vor bis zum Opernplatz./nWenn Du über Los kommst ziehe DM 4000 ein."
+        }, {
+            "ID": 4,
+            "Text": "Gehe 3 Felder zurück"
+        }, {
+            "ID": 5,
+            "Text": "Rücke vor bist zum nächsten Bahnhof. Der Eigentümer erhält das doppelte der normalen Miete./nHat noch kein Spieler einen Bahnhof, so kann er ihn von der Bank kaufen."
+        }, {
+            "ID": 6,
+            "Text": "Mache einen Ausflug nach dem Süd-Bahnhof,/nund wenn Du über Los kommst, ziehe DM 4000 ein."
+        }, {
+            "ID": 7,
+            "Text": "Rücke vor bis zur Seestrasse./nWenn Du über Los kommst, ziehe DM 4000 ein."
+        }, {
+            "ID": 8,
+            "Text": "Rücke bis auf Los vor."
+        }, {
+            "ID": 9,
+            "Text": "Gehe zurück nach der Badstrasse."
+        }, {
+            "ID": 10,
+            "Text": "Rücke vor bis zur Schlossallee."
+        }, {
+            "ID": 11,
+            "Text": "Lasse alle Deine Häuser renovieren./nZahle an die Bank/nfür jedes Haus DM 500/nfür jedes Hotel DM2000"
+        }, {
+            "ID": 12,
+            "Text": "Du wurdest zum Vorstand gewählt. Zahle jedem Spieler/nDM 1000"
+        }, {
+            "ID": 13,
+            "Text": "Strafe für zu schnelles fahren./nDM 300"
+        }, {
+            "ID": 14,
+            "Text": "Zahle eine Strafe von DM 200/noder nimm eine Gemeinschaftskarte."
+        }, {
+            "ID": 15,
+            "Text": "Die Bank zahlt Dir eine Dividende von/nDM 1000"
+        }, {
+            "ID": 16,
+            "Text": "Miete und Anleihzinsen werden fällig./ndie Bank zahlt Dir DM 3000"
+        }
+    ],
 
-"Gemeinschaftskarten" :
-[
-   
-   {
-		"ID": 1
-		"Text" : "Zahle Schulgeld DM 3000."
-   }
-   
-   {
-		"ID": 2
-		"Text" : "Zahle an das Krankenhaus DM 2000."
-   }
+    "Gemeinschaftskarten": [{
+            "ID": 1,
+            "Text": "Zahle Schulgeld DM 3000."
+        }, {
+            "ID": 2,
+            "Text": "Zahle an das Krankenhaus DM 2000."
+        }, {
+            "ID": 3,
+            "Text": "Artzt-Kosten Zahle DM 1000."
+        }, {
+            "ID": 4,
+            "Text": "Du wirst zu Strassenausbesserungsarbeiten herangezogen. Zahle für Deine Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
+        }, {
+            "ID": 5,
+            "Text": "Gehe in das Gefängnis. Begib Dich direkt dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
+        }, {
+            "ID": 6,
+            "Text": "Du kommst aus dem Gefängnis frei./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
+        }, {
+            "ID": 7,
+            "Text": "Die Jahresrente wird fällig Ziehe DM 2000 ein."
+        }, {
+            "ID": 8,
+            "Text": "Du erhältst auf Vorzugs-Aktien 7% Dividende/nDM 900."
+        }, {
+            "ID": 9,
+            "Text": "Du hast in einem Kreuzworträtsel-Wettbewerb gewonnen/nZiehe DM 2000 ein."
+        }, {
+            "ID": 10,
+            "Text": "Rücke vor bis auf Los."
+        }, {
+            "ID": 11,
+            "Text": "Aus Lagerverkäufen erhältst Du/nDM 500."
+        }, {
+            "ID": 12,
+            "Text": "Du hast den 2. Preis in einer Schönheitskonkurrenz gewonnen./nZiehe DM 200 ein."
+        }, {
+            "ID": 13,
+            "Text": "Es ist dein Geburtstag.Ziehe von jedem Spieler DM 1000 ein."
+        }, {
+            "ID": 14,
+            "Text": "Bank-Irrtum zu Deinen Gunsten/nZiehe DM 4000 ein."
+        }, {
+            "ID": 15,
+            "Text": "Einkommensteuer-Rückzahlung/nZiehe DM 400 ein."
+        }, {
+            "ID": 16,
+            "Text": "Du erbst DM 2000."
+        }
 
-   {
-		"ID": 3
-		"Text" : "Artzt-Kosten Zahle DM 1000."
-   }
-
-   {
-		"ID": 4
-		"Text" : "Du wirst zu Strassenausbesserungsarbeiten herangezogen. Zahle für Deine Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
-   }
-
-   {
-		"ID": 5
-		"Text" : "Gehe in das Gefängnis. Begib Dich direkt dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
-   }
-
-   {
-		"ID": 6
-		"Text" : "Du kommst aus dem Gefängnis frei./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
-   }
-
-   {
-		"ID": 7
-		"Text" : "Die Jahresrente wird fällig Ziehe DM 2000 ein."
-   }
-
-   {
-		"ID": 8
-		"Text" : "Du erhältst auf Vorzugs-Aktien 7% Dividende/nDM 900."
-   }
-
-   {
-		"ID": 9
-		"Text" : "Du hast in einem Kreuzworträtsel-Wettbewerb gewonnen/nZiehe DM 2000 ein."
-   }
-
-   {
-		"ID": 10
-		"Text" : "Rücke vor bis auf Los."
-   }
-
-   {
-		"ID": 11
-		"Text" : "Aus Lagerverkäufen erhältst Du/nDM 500."
-   }
-
-   {
-		"ID": 12
-		"Text" : "Du hast den 2. Preis in einer Schönheitskonkurrenz gewonnen./nZiehe DM 200 ein."
-   }
-
-   {
-		"ID": 13
-		"Text" : "Es ist dein Geburtstag.Ziehe von jedem Spieler DM 1000 ein."
-   }
-
-   {
-		"ID": 14
-		"Text" : "Bank-Irrtum zu Deinen Gunsten/nZiehe DM 4000 ein."
-   }
-
-   {
-		"ID": 15
-		"Text" : "Einkommensteuer-Rückzahlung/nZiehe DM 400 ein."
-   }
-
-   {
-		"ID": 16
-		"Text" : "Du erbst DM 2000."
-   }
-  
-],
-
-
+    ]
 
 }
-
-
-
