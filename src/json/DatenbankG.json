@@ -1,0 +1,88 @@
+"Gemeinschaftskarten" :
+[
+  "Karten wo man Zahlen muss"
+   
+   "1":
+   {
+   "Text" : "Zahle Schulgeld DM 3000."
+   }
+   
+   "2":
+   {
+   "Text" : "Zahle an das Krankenhaus DM 2000."
+   }
+   
+   "3":
+   {
+   "Text" : "Artzt-Kosten Zahle DM 1000."
+   }
+   
+   "4":
+   {
+   "Text" : "Du wirst zu Strassenausbesserungsarbeiten herangezogen. Zahle für Deine Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
+   }
+   
+  "Karten die wo Gefängnis machen"
+   
+   "5":
+   {
+   "Text" : "Gehe in das Gefängnis. Begib Dich direkt dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
+   }
+   
+   "6":
+   {
+   "Text" : "Du kommst aus dem Gefängnis frei./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
+   }
+   
+  "Karten die wo Geld geben"
+   "7":
+   {
+   "Text" : "Die Jahresrente wird fällig Ziehe DM 2000 ein."
+   }
+   
+   "8":
+   {
+   "Text" : "Du erhältst auf Vorzugs-Aktien 7% Dividende/nDM 900."
+   }
+   
+   "9":
+   {
+   "Text" : "Du hast in einem Kreuzworträtsel-Wettbewerb gewonnen/nZiehe DM 2000 ein."
+   }
+   
+   "10":
+   {
+   "Text" : "Rücke vor bis auf Los."
+   }
+   
+   "11":
+   {
+   "Text" : "Aus Lagerverkäufen erhältst Du/nDM 500."
+   }
+   
+   "12":
+   {
+   "Text" : "Du hast den 2. Preis in einer Schönheitskonkurrenz gewonnen./nZiehe DM 200 ein."
+   }
+   
+   "13":
+   {
+   "Text" : "Es ist dein Geburtstag.Ziehe von jedem Spieler DM 1000 ein."
+   }
+   
+   "14":
+   {
+   "Text" : "Bank-Irrtum zu Deinen Gunsten/nZiehe DM 4000 ein."
+   }
+   
+   "15":
+   {
+   "Text" : "Einkommensteuer-Rückzahlung/nZiehe DM 400 ein."
+   }
+   
+   "16":
+   {
+   "Text" : "Du erbst DM 2000."
+   }
+  
+]
