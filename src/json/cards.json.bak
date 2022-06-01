@@ -2,7 +2,7 @@
 "Titel":"Datenbank"
 	"Strassenkarten":[
 		{
-			"Name" : "Badstrasse"
+			"Name: : "Badstrasse"
 			"Position" : 1
 			"Preis" : 1200
 			"Mietkosten" : [40,200,600,1800,3200,5000]
@@ -10,8 +10,7 @@
 			"Hypothekenwert" : 600
 		},
 		
-		{
-			"Name" : "Turmstrasse"
+		"Turmstrasse":{
 			"Position" : 3
 			"Preis" : 1200
 			"Mietkosten" : [80,400,1200,3600,6400,9000]
@@ -19,8 +18,7 @@
 			"Hypothekenwert" : 600
 		},
 		
-		{
-			"Name" : "Chauseestrasse"
+		"Chausseestrasse":{
 			"Position" : 6
 			"Preis" : 2000
 			"Mietkosten" : [120,600,1800,5400,8000,11000]
@@ -28,8 +26,7 @@
 			"Hypothekenwert" : 1000
 		},
 		
-		{
-			"Name" : "Elisenstrasse"
+		"Elisenstrasse":{
 			"Position" : 8
 			"Preis" : 2000
 			"Mietkosten" : [120,600,1800,5400,8000,11000]
@@ -37,8 +34,7 @@
 			"Hypothekenwert" : 1000
 		},
 		
-		{
-			"Name" : "Poststrasse"
+		"Poststrasse":{
 			"Position" : 9
 			"Preis" : 2400
 			"Mietkosten" : [160,800,2000,6000,9000,12000]
@@ -46,8 +42,7 @@
 			"Hypothekenwert" : 1200
 		},
 		
-		{
-			"Name" : "Seestrasse"
+		"Seestrasse":{
 			"Position" : 11
 			"Preis" : 2800
 			"Mietkosten" : [200,1000,3000,9000,12500,15000]
@@ -55,8 +50,7 @@
 			"Hypothekenwert" : 1400
 		},
 		
-		{
-			"Name" : "Hafenstrasse"
+		"Hafenstrasse":{
 			"Position" : 13
 			"Preis" : 2800
 			"Mietkosten" : [200,1000,3000,9000,12500,15000]
@@ -64,8 +58,7 @@
 			"Hypothekenwert" : 1400
 		},
 		
-		{
-			"Name" : "Neue Strasse"
+		"Neue Strasse":{
 			"Position" : 14
 			"Preis" : 3200
 			"Mietkosten" : [240,1200,3600,10000,14000,18000]
@@ -187,32 +180,28 @@
 	],
 
 	"Bahnhofkarten":[
-		{
-			"Name" : "Suedbahnhof"
+		"Suedbahnhof":{
 			"Position" : 5
 			"Preis" : 4000
 			"Mietkosten" : [500,1000,2000,4000]
 			"Hypothekenwert" : 2000
 		}
 				
-		{
-			"Name" : "Westbahnhof"
+		"Westbahnhof":{
 			"Position" : 15
 			"Preis" : 4000
 			"Mietkosten" : [500,1000,2000,4000]
 			"Hypothekenwert" : 2000
 		}
 				
-		{
-			"Name" : "Nordbahnhof"
+		"Nordbahnhof":{
 			"Position" : 25
 			"Preis" : 4000
 			"Mietkosten" : [500,1000,2000,4000]
 			"Hypothekenwert" : 2000
 		}
 				
-		{
-			"Name" : "Hauptbahnhof"
+		"Hauptbahnhof":{
 			"Position" : 35
 			"Preis" : 4000
 			"Mietkosten" : [500,1000,2000,4000]
@@ -245,78 +234,63 @@
 		"Text" : "Gehe in das Gefängnis. Begib dich dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
 	},
 	
-	{
-		"ID": 2
+	"2":{
 		"Text" : "Du kommst aus dem Gefängnis./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
 	},
 	
-	{
-		"ID": 3
+	"3":{
 		"Text" : "Rücke vor bis zum Opernplatz./nWenn Du über Los kommst ziehe DM 4000 ein."
 	},
 	
-	{
-		"ID": 4
+	"4":{
 		"Text" : "Gehe 3 Felder zurück"
 	},
 	
-	{
-		"ID": 5
+	"5":{
 		"Text" : "Rücke vor bist zum nächsten Bahnhof. Der Eigentümer erhält das doppelte der normalen Miete./nHat noch kein Spieler einen Bahnhof, so kann er ihn von der Bank kaufen."
 	},
 	
-	{
-		"ID": 6
+	"6":{
 		"Text" : "Mache einen Ausflug nach dem Süd-Bahnhof,/nund wenn Du über Los kommst, ziehe DM 4000 ein."
 	}
 	
-	{
-		"ID": 7
+	"7":{
 		"Text" : "Rücke vor bis zur Seestrasse./nWenn Du über Los kommst, ziehe DM 4000 ein."
 	}
 	
-	{
-		"ID": 8
+	"8":{
 		"Text" : "Rücke bis auf Los vor."
 	}
 	
-	{
-		"ID": 9
+	"9":{
 		"Text" : "Gehe zurück nach der Badstrasse."
 	}
 	
-	{
-		"ID": 10
+	"10":{
 		"Text" : "Rücke vor bis zur Schlossallee."
 	}
 	
-	{
-		"ID": 11
+	"11":{
 		"Text" : "Lasse alle Deine Häuser renovieren./nZahle an die Bank/nfür jedes Haus DM 500/nfür jedes Hotel DM2000"
 	}
 	
-	{
-		"ID": 12
+	"12":{
 		"Text" : "Du wurdest zum Vorstand gewählt. Zahle jedem Spieler/nDM 1000"
 	}
 	
-	{
-		"ID": 13
+	"13":{
 		"Text" : "Strafe für zu schnelles fahren./nDM 300"
 	}
 	
-	{
-		"ID": 14
+	"14":{
 		"Text" : "Zahle eine Strafe von DM 200/noder nimm eine Gemeinschaftskarte."
 	}
 	
-	{
-		"ID": 15
+	"15":{
 		"Text" : "Die Bank zahlt Dir eine Dividende von/nDM 1000"
 	}
 	
-	{
-		"ID": 16
+	"16":{
 		"Text" : "Miete und Anleihzinsen werden fällig./ndie Bank zahlt Dir DM 3000"
 	}
 ],
@@ -324,85 +298,89 @@
 
 "Gemeinschaftskarten" :
 [
+  "Karten wo man Zahlen muss"
    
+   "1":
    {
-		"ID": 1
-		"Text" : "Zahle Schulgeld DM 3000."
+   "Text" : "Zahle Schulgeld DM 3000."
    }
    
+   "2":
    {
-		"ID": 2
-		"Text" : "Zahle an das Krankenhaus DM 2000."
+   "Text" : "Zahle an das Krankenhaus DM 2000."
    }
-
+   
+   "3":
    {
-		"ID": 3
-		"Text" : "Artzt-Kosten Zahle DM 1000."
+   "Text" : "Artzt-Kosten Zahle DM 1000."
    }
-
+   
+   "4":
    {
-		"ID": 4
-		"Text" : "Du wirst zu Strassenausbesserungsarbeiten herangezogen. Zahle für Deine Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
+   "Text" : "Du wirst zu Strassenausbesserungsarbeiten herangezogen. Zahle für Deine Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
    }
-
+   
+  "Karten die wo Gefängnis machen"
+   
+   "5":
    {
-		"ID": 5
-		"Text" : "Gehe in das Gefängnis. Begib Dich direkt dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
+   "Text" : "Gehe in das Gefängnis. Begib Dich direkt dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
    }
-
+   
+   "6":
    {
-		"ID": 6
-		"Text" : "Du kommst aus dem Gefängnis frei./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
+   "Text" : "Du kommst aus dem Gefängnis frei./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
    }
-
+   
+  "Karten die wo Geld geben"
+   "7":
    {
-		"ID": 7
-		"Text" : "Die Jahresrente wird fällig Ziehe DM 2000 ein."
+   "Text" : "Die Jahresrente wird fällig Ziehe DM 2000 ein."
    }
-
+   
+   "8":
    {
-		"ID": 8
-		"Text" : "Du erhältst auf Vorzugs-Aktien 7% Dividende/nDM 900."
+   "Text" : "Du erhältst auf Vorzugs-Aktien 7% Dividende/nDM 900."
    }
-
+   
+   "9":
    {
-		"ID": 9
-		"Text" : "Du hast in einem Kreuzworträtsel-Wettbewerb gewonnen/nZiehe DM 2000 ein."
+   "Text" : "Du hast in einem Kreuzworträtsel-Wettbewerb gewonnen/nZiehe DM 2000 ein."
    }
-
+   
+   "10":
    {
-		"ID": 10
-		"Text" : "Rücke vor bis auf Los."
+   "Text" : "Rücke vor bis auf Los."
    }
-
+   
+   "11":
    {
-		"ID": 11
-		"Text" : "Aus Lagerverkäufen erhältst Du/nDM 500."
+   "Text" : "Aus Lagerverkäufen erhältst Du/nDM 500."
    }
-
+   
+   "12":
    {
-		"ID": 12
-		"Text" : "Du hast den 2. Preis in einer Schönheitskonkurrenz gewonnen./nZiehe DM 200 ein."
+   "Text" : "Du hast den 2. Preis in einer Schönheitskonkurrenz gewonnen./nZiehe DM 200 ein."
    }
-
+   
+   "13":
    {
-		"ID": 13
-		"Text" : "Es ist dein Geburtstag.Ziehe von jedem Spieler DM 1000 ein."
+   "Text" : "Es ist dein Geburtstag.Ziehe von jedem Spieler DM 1000 ein."
    }
-
+   
+   "14":
    {
-		"ID": 14
-		"Text" : "Bank-Irrtum zu Deinen Gunsten/nZiehe DM 4000 ein."
+   "Text" : "Bank-Irrtum zu Deinen Gunsten/nZiehe DM 4000 ein."
    }
-
+   
+   "15":
    {
-		"ID": 15
-		"Text" : "Einkommensteuer-Rückzahlung/nZiehe DM 400 ein."
+   "Text" : "Einkommensteuer-Rückzahlung/nZiehe DM 400 ein."
    }
-
+   
+   "16":
    {
-		"ID": 16
-		"Text" : "Du erbst DM 2000."
+   "Text" : "Du erbst DM 2000."
    }
   
 ],
