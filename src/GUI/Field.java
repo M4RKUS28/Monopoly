@@ -1,13 +1,14 @@
+package GUI;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-public abstract class Feld extends JPanel{
+public abstract class Field extends JPanel{
 	public String name;
 	public int position;	
 	
-	public Feld(String name, int position) {
+	public Field(String name, int position) {
 		this.name = name;
 		this.position = position;
 	}

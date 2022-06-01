@@ -1,6 +1,8 @@
+package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Straßenkarte extends Feld{
+public class Straßenkarte extends Field{
 	private Figure[] player;
  	public Straßenkarte(String name, int position, int width, int height) {
 		super(name, position);
@@ -27,6 +29,49 @@ public class Straßenkarte extends Feld{
 		//this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		//this.setLayout(new FlowLayout(FlowLayout.LEADING ,0, 0));
 		this.setLayout(new BorderLayout());
+		createBorder();
+		
+		JPanel colorStripe = new JPanel();
+		colorStripe.setBackground(Color.cyan);
+		colorStripe.setPreferredSize(new Dimension(width-1, 27));
+		if (position == 1 || position == 21) {
+			colorStripe.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
+		} else {
+			colorStripe.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+
+		}
+		
+		this.add(colorStripe, BorderLayout.NORTH);
+		
+		JPanel textpanel = new JPanel();
+		textpanel.setBackground(null);
+		textpanel.setLayout(new FlowLayout());
+		textpanel.setPreferredSize(new Dimension(width-1, 34));
+		
+		JLabel name = new JLabel();
+		name.setText("<html><body>Badstraße<br>DM 1200.-</body></html>");
+		name.setHorizontalAlignment(SwingConstants.CENTER);
+		name.setFont(new Font("Helvetica", Font.BOLD, 12));
+		textpanel.add(name);
+	
+	
+		this.add(textpanel, BorderLayout.CENTER);
+		
+		JPanel figures = new JPanel();
+		figures.setBackground(null);
+		figures.setPreferredSize(new Dimension(width-1, 49));
+
+		figures.setLayout(new GridLayout(2, 2));
+		
+		for (int i = 0; i < 4; i++) {
+			player[i] = new Figure(Color.red);
+			figures.add(player[i]);
+		}
+		this.add(figures, BorderLayout.SOUTH);
+		
+	}
+	
+	private void createBorder() {
 		if (position < 20) {
 			if (position == 1) {
 				this.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 1, Color.BLACK));
@@ -47,49 +92,6 @@ public class Straßenkarte extends Feld{
 
 			}
 		}
-		
-		JPanel colorStripe = new JPanel();
-		colorStripe.setBackground(Color.cyan);
-		colorStripe.setPreferredSize(new Dimension(width-1, 27));
-		if (position == 1 || position == 21) {
-			colorStripe.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 1, Color.BLACK));
-		} else {
-			colorStripe.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-
-		}
-		
-		this.add(colorStripe, BorderLayout.NORTH);
-		
-		JPanel textpanel = new JPanel();
-		textpanel.setBackground(null);
-		textpanel.setLayout(new BorderLayout());
-		textpanel.setPreferredSize(new Dimension(width-1, 34));
-		
-		JLabel name = new JLabel();
-		name.setText("<html><body>Badstraße</body></html>");
-		name.setHorizontalAlignment(SwingConstants.CENTER);
-		name.setFont(new Font("Helvetica", Font.BOLD, 12));
-		textpanel.add(name, BorderLayout.NORTH);
-	
-		JLabel price = new JLabel();
-		price.setText("DM 1200.-");
-		price.setHorizontalAlignment(SwingConstants.CENTER);
-		price.setFont(new Font("Helvetica", Font.BOLD, 12));
-		textpanel.add(price, BorderLayout.CENTER);
-		this.add(textpanel, BorderLayout.CENTER);
-		
-		JPanel figures = new JPanel();
-		figures.setBackground(null);
-		figures.setPreferredSize(new Dimension(width-1, 49));
-
-		figures.setLayout(new GridLayout(2, 2));
-		
-		for (int i = 0; i < 4; i++) {
-			player[i] = new Figure(Color.red);
-			figures.add(player[i]);
-		}
-		this.add(figures, BorderLayout.SOUTH);
-		
 	}
 	
 	public void playerOnField(int player) {

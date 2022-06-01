@@ -1,3 +1,4 @@
+package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +22,7 @@ import javax.swing.JPanel;
 public class Spielfeld {
 	private JFrame frame;
 	private JPanel board;
-	private ArrayList<Feld> felder;
+	private ArrayList<Field> felder;
 	private JPanel center;
 	private ArrayList<JPanel> borderPanels;
 	Font kabel;
@@ -40,7 +41,7 @@ public class Spielfeld {
 		frame = new JFrame();
 		frame.setTitle("Monopoly");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.setSize(new Dimension(868, 896));
 		board = new JPanel();
 		board.setSize(new Dimension(868, 896));
