@@ -1,4 +1,6 @@
 package Gamelogic;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 import Gamedata.*;
@@ -22,8 +24,10 @@ public class Game {
 	
 	private ArrayList<Feld> alleFelder;
 
+	private JSON_READER data;
 
 	public Game() {
+		data = new JSON_READER(null);
 		
 		for (int i = 0; i < 4; i++) {
 			pla[i] = new Player(this, i);
