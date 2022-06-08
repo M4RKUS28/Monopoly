@@ -1,6 +1,6 @@
  package Gamedata; 
 
-public class Ereigniskarte extends Feld{
+public class Ereigniskarte{
 	private int id;
 	private String text;
 	

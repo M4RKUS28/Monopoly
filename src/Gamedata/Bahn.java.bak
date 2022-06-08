@@ -2,7 +2,10 @@
 
 public class Bahn extends Feld{
     private int[] miete = new int[4];
+    private boolean hypo;
     private String name;
+    private int preis;
+    private int hypothekwert;
 
     public Bahn(String name, int pos, int preis, int hypothekwert,int miete[]) {
         this.pos = pos;
