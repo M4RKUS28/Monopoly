@@ -13,19 +13,32 @@ public class JSON_READER
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
 
-    private Strasse[] strassen;
+    /*private Strasse[] strassen;
     private Bahn[] bahnen;
     private Werk[] werke;
+    private ArrayList<Ereigniskarte> ecards;
+    */private ArrayList<Gemeinschaftskarte> gcards;
+	
+	private ArrayList<Strasse> strassen;
+    private ArrayList<Bahn> bahnen;
+    private ArrayList<Werk> werke;
     private ArrayList<Ereigniskarte> ecards;
     private ArrayList<Gemeinschaftskarte> gcards;
 
     public JSON_READER(String path)
     {
-        strassen = new Strasse[22];
+        /*strassen = new Strasse[22];
         bahnen = new Bahn[4]; 
         werke = new Werk[2];
         ecards = new ArrayList<Ereigniskarte>();
+        */gcards = new ArrayList<Gemeinschaftskarte>();
+		
+		strassen = new ArrayList<Strasse>();
+        bahnen = new ArrayList<Bahn>(); 
+        werke = new ArrayList<Werk>();
+        ecards = new ArrayList<Ereigniskarte>();
         gcards = new ArrayList<Gemeinschaftskarte>();
+		
 
         int startGeld = 0;
         int ueberlosGeld = 0;
@@ -98,12 +111,12 @@ public class JSON_READER
                 return;
             }
 
-            //            System.out.println("\n" );
-            //   System.out.println( "Name: " +   strasse.getString("Name")    );
-            //   System.out.println( "Position: " +   strasse.getInt("Position")    );
-            //    System.out.println( "Preis: " +   strasse.getInt("Preis")    );
-            //    System.out.println( "Hauskosten: " +   strasse.getInt("Hauskosten")    );
-            //    System.out.println( "Hypothekenwert: " +   strasse.getInt("Hypothekenwert")    );
+            /*            System.out.println("\n" );
+               System.out.println( "Name: " +   strasse.getString("Name")    );
+               System.out.println( "Position: " +   strasse.getInt("Position")    );
+                System.out.println( "Preis: " +   strasse.getInt("Preis")    );
+                System.out.println( "Hauskosten: " +   strasse.getInt("Hauskosten")    );
+            */    System.out.println( "Hypothekenwert: " +   strasse.getInt("Hypothekenwert")    );
 
             for( int m = 0; m < mieten.length(); m++) {
                 mietenList[m] = (int) mieten.get(m);
@@ -112,10 +125,17 @@ public class JSON_READER
             }
 
             //int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn
-			int pos = getInt("Position");
-			if( pos < 0 || pos >= strassen.length() ) {
-				System.out.println( "ERROR: " +  mietenList[m]    );
+			int pos = getInt("Position") /*OPERATION um aus pos index zu machen*/;
+			
+			/*if( pos < 0 || pos >= strassen.length() ) {
+				System.out.println( "ERROR: "  );
+				continue;
 			}
+			strassen[pos] = new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>() );
+			
+			*/
+			
+			//
             strassen.add( new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>() ) );
 
         }
@@ -134,11 +154,11 @@ public class JSON_READER
                 return;
             }
 
-            //  System.out.println("\n" );
-            //  System.out.println( "Name: " +   hof.getString("Name")    );
-            //  System.out.println( "Position: " +   hof.getInt("Position")    );
-            //   System.out.println( "Preis: " +   hof.getInt("Preis")    );
-            //   System.out.println( "Hypothekenwert: " +   hof.getInt("Hypothekenwert")    );
+            /*  System.out.println("\n" );
+              System.out.println( "Name: " +   hof.getString("Name")    );
+              System.out.println( "Position: " +   hof.getInt("Position")    );
+               System.out.println( "Preis: " +   hof.getInt("Preis")    );
+            */   System.out.println( "Hypothekenwert: " +   hof.getInt("Hypothekenwert")    );
 
             for( int m = 0; m < mieten.length(); m++) {
                 mietenList[m] = (int) mieten.get(m);
@@ -158,12 +178,12 @@ public class JSON_READER
         for (int i = 0; i < infrastrukturkarten.length(); i++) {
             JSONObject bahn = ( JSONObject ) infrastrukturkarten.get(i);
 
-            // System.out.println("\n" );
-            // System.out.println( "Name: " +   bahn.getString("Name")    );
-            // System.out.println( "Position: " +   bahn.getInt("Position")    );
-            //System.out.println( "Preis: " +   bahn.getInt("Preis")    );
-            //System.out.println( "Hypothekenwert: " +   bahn.getInt("Hypothekenwert")    );
-            //System.out.println( "Mietkosten: " +   bahn.getInt("Mietkosten")    );
+            /* System.out.println("\n" );
+             System.out.println( "Name: " +   bahn.getString("Name")    );
+             System.out.println( "Position: " +   bahn.getInt("Position")    );
+            System.out.println( "Preis: " +   bahn.getInt("Preis")    );
+            System.out.println( "Hypothekenwert: " +   bahn.getInt("Hypothekenwert")    );
+            */System.out.println( "Mietkosten: " +   bahn.getInt("Mietkosten")    );
 
             //public Werk(String name, int pos, int preis, int hauskosten,int hypothekwert,int miete) {
             werke.add( new Werk(  bahn.getString("Name") , bahn.getInt("Position"), bahn.getInt("Preis"), -1  , bahn.getInt("Hypothekenwert"), bahn.getInt("Mietkosten") ) );
@@ -178,9 +198,9 @@ public class JSON_READER
         for (int i = 0; i < ereigniskarten.length(); i++) {
             JSONObject ecard = ( JSONObject ) ereigniskarten.get(i);
 
-            // System.out.println("\nE-Karte" );
-            //  System.out.println( "Text: " +   ecard.getString("Text")    );
-            //  System.out.println( "ID: " +   ecard.getInt("ID")    );
+            /* System.out.println("\nE-Karte" );
+              System.out.println( "Text: " +   ecard.getString("Text")    );
+            */  System.out.println( "ID: " +   ecard.getInt("ID")    );
 
             ecards.add( new Ereigniskarte( ecard.getInt("ID"), ecard.getString("Text") ) );
         }
@@ -193,9 +213,9 @@ public class JSON_READER
         for (int i = 0; i < gemeinschaftskarten.length(); i++) {
             JSONObject gcard = ( JSONObject ) gemeinschaftskarten.get(i);
 
-            //  System.out.println("\nG-Karte" );
-            //   System.out.println( "Text: " +   gcard.getString("Text")    );
-            //   System.out.println( "ID: " +   gcard.getInt("ID")    );
+            /*  System.out.println("\nG-Karte" );
+               System.out.println( "Text: " +   gcard.getString("Text")    );
+            */   System.out.println( "ID: " +   gcard.getInt("ID")    );
 
             gcards.add( new Gemeinschaftskarte( gcard.getInt("ID"), gcard.getString("Text") ) );
         }
