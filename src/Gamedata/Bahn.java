@@ -1,4 +1,4 @@
- 
+  package Gamedata;
 
 public class Bahn extends Feld{
     private int[] miete = new int[4];

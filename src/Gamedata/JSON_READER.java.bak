@@ -1,8 +1,6 @@
 import org.json.*;
 import java.util.ArrayList;
 
- package Gamedata;
-
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -112,11 +110,7 @@ public class JSON_READER
             }
 
             //int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn
-			int pos = getInt("Position");
-			if( pos < 0 || pos >= strassen.length() ) {
-				System.out.println( "ERROR: " +  mietenList[m]    );
-			}
-            strassen.add( new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>() ) );
+            strassen.add( new Strasse(  strasse.getString("Name") , strasse.getInt("Position"), strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>() ) );
 
         }
     }
