@@ -19,12 +19,11 @@ public class JSON_READER
     private ArrayList<Ereigniskarte> ecards;
     */private ArrayList<Gemeinschaftskarte> gcards;
 	
-	private Strasse [] strassen;
-    private Bahn[] bahnen;
-    private Werk[] werke;
-    private Ereigniskarte[] ecards;
-    private Gemeinschaftskarte[] gcards;
-	private int [] felderMap;
+	private ArrayList<Strasse> strassen;
+    private ArrayList<Bahn> bahnen;
+    private ArrayList<Werk> werke;
+    private ArrayList<Ereigniskarte> ecards;
+    private ArrayList<Gemeinschaftskarte> gcards;
 
     public JSON_READER(String path)
     {
@@ -32,23 +31,14 @@ public class JSON_READER
         bahnen = new Bahn[4]; 
         werke = new Werk[2];
         ecards = new ArrayList<Ereigniskarte>();
-        gcards = new Gemeinschaftskarte[24];*/
+        */gcards = new ArrayList<Gemeinschaftskarte>();
 		
-		strassen = new Strasse[22];
-        bahnen = new Bahn[4]; 
-        werke = new Werk[2];
-        ecards = new Ereigniskarte[16];
-        gcards = new Gemeinschaftskarte[16];
-		felderMap = new int[40];
+		strassen = new ArrayList<Strasse>();
+        bahnen = new ArrayList<Bahn>(); 
+        werke = new ArrayList<Werk>();
+        ecards = new ArrayList<Ereigniskarte>();
+        gcards = new ArrayList<Gemeinschaftskarte>();
 		
-		
-		int zeiger_strassen = 0;
-		int zeiger_bahnen = 0;
-		int zeiger_werke = 0;
-		int zeiger_ecards = 0;
-		int zeiger_gcards = 0;
-
-
 
         int startGeld = 0;
         int ueberlosGeld = 0;
@@ -146,13 +136,8 @@ public class JSON_READER
 			*/
 			
 			//
-			if( zeiger_strassen < strassen.length && pos >= 0 && pos < felderMap.length )
-				felderMap[pos] = zeiger_strassen;
-				strassen[zeiger_strassen++] = ( new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>() ) );
-			else {
-				
-			}
-				
+            strassen.add( new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>() ) );
+
         }
     }
 
@@ -182,12 +167,7 @@ public class JSON_READER
             }
 
             // public Bahn(String name, int pos, int preis, int hypothekwert,int miete[]) {
-			if( zeiger_bahnen < bahnen.length && hof.getInt("Position") >= 0 && hof.getInt("Position") < felderMap.length )
-				felderMap[hof.getInt("Position")] = zeiger_strassen;
-				bahnen[zeiger_bahnen++] = ( new Bahn(  hof.getString("Name") , hof.getInt("Position"), hof.getInt("Preis"), hof.getInt("Hypothekenwert"), mietenList ) );
-			else {
-				
-			}
+            bahnen.add( new Bahn(  hof.getString("Name") , hof.getInt("Position"), hof.getInt("Preis"), hof.getInt("Hypothekenwert"), mietenList ) );
         }
 
     }
@@ -196,22 +176,17 @@ public class JSON_READER
     {
         JSONArray infrastrukturkarten = obj.getJSONArray("Infrastrukturkarten");
         for (int i = 0; i < infrastrukturkarten.length(); i++) {
-            JSONObject werk = ( JSONObject ) infrastrukturkarten.get(i);
+            JSONObject bahn = ( JSONObject ) infrastrukturkarten.get(i);
 
             /* System.out.println("\n" );
-             System.out.println( "Name: " +   werk.getString("Name")    );
-             System.out.println( "Position: " +   werk.getInt("Position")    );
-            System.out.println( "Preis: " +   werk.getInt("Preis")    );
-            System.out.println( "Hypothekenwert: " +   werk.getInt("Hypothekenwert")    );
-            */System.out.println( "Mietkosten: " +   werk.getInt("Mietkosten")    );
+             System.out.println( "Name: " +   bahn.getString("Name")    );
+             System.out.println( "Position: " +   bahn.getInt("Position")    );
+            System.out.println( "Preis: " +   bahn.getInt("Preis")    );
+            System.out.println( "Hypothekenwert: " +   bahn.getInt("Hypothekenwert")    );
+            */System.out.println( "Mietkosten: " +   bahn.getInt("Mietkosten")    );
 
-            //public werk(String name, int pos, int preis, int hauskosten,int hypothekwert,int miete) {
-			if( zeiger_werke < werke.length && v.getInt("Position") >= 0 && werk.getInt("Position") < felderMap.length )
-				felderMap[werk.getInt("Position")] = zeiger_strassen;
-				werke[zeiger_werke++] = ( new Werk(  werk.getString("Name") , werk.getInt("Position"), werk.getInt("Preis"), -1  , werk.getInt("Hypothekenwert"), werk.getInt("Mietkosten") ) );
-			else {
-				
-			}
+            //public Werk(String name, int pos, int preis, int hauskosten,int hypothekwert,int miete) {
+            werke.add( new Werk(  bahn.getString("Name") , bahn.getInt("Position"), bahn.getInt("Preis"), -1  , bahn.getInt("Hypothekenwert"), bahn.getInt("Mietkosten") ) );
 
         }
 
@@ -226,11 +201,8 @@ public class JSON_READER
             /* System.out.println("\nE-Karte" );
               System.out.println( "Text: " +   ecard.getString("Text")    );
             */  System.out.println( "ID: " +   ecard.getInt("ID")    );
-			if( zeiger_werke < ecards.length )
-				ecards[zeiger_werke++] = ( new Ereigniskarte( ecard.getInt("ID"), ecard.getString("Text") ) );
-			else {
-				
-			}
+
+            ecards.add( new Ereigniskarte( ecard.getInt("ID"), ecard.getString("Text") ) );
         }
 
     }
@@ -244,11 +216,8 @@ public class JSON_READER
             /*  System.out.println("\nG-Karte" );
                System.out.println( "Text: " +   gcard.getString("Text")    );
             */   System.out.println( "ID: " +   gcard.getInt("ID")    );
-			if( zeiger_werke < werke.length )
-				gcards[zeiger_werke++] = ( new Gemeinschaftskarte( gcard.getInt("ID"), gcard.getString("Text") ) );
-			else {
-				
-			}
+
+            gcards.add( new Gemeinschaftskarte( gcard.getInt("ID"), gcard.getString("Text") ) );
         }
 
     }
