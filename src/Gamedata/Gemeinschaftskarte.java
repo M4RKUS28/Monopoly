@@ -1,6 +1,6 @@
- package Gamedata; 
+   
 
-public class Gemeinschaftskarte extends Feld{
+public class Gemeinschaftskarte {
 	private int id;
 	private String text;
 	
