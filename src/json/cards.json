@@ -9,154 +9,176 @@
             "Preis": 1200,
             "Mietkosten": [40, 200, 600, 1800, 3200, 5000],
             "Hauskosten": 0,
-            "Hypothekenwert": 600
+            "Hypothekenwert": 600,
+			"Farbe": "braun"
         }, {
             "Name": "Turmstrasse",
             "Position": 3,
             "Preis": 1200,
             "Mietkosten": [80, 400, 1200, 3600, 6400, 9000],
             "Hauskosten": 0,
-            "Hypothekenwert": 600
+            "Hypothekenwert": 600,
+			"Farbe": "braun"
         }, {
             "Name": "Chauseestrasse",
             "Position": 6,
             "Preis": 2000,
             "Mietkosten": [120, 600, 1800, 5400, 8000, 11000],
             "Hauskosten": 0,
-            "Hypothekenwert": 1000
+            "Hypothekenwert": 1000,
+			"Farbe": "blau_hell"
         }, {
             "Name": "Elisenstrasse",
             "Position": 8,
             "Preis": 2000,
             "Mietkosten": [120, 600, 1800, 5400, 8000, 11000],
             "Hauskosten": 0,
-            "Hypothekenwert": 1000
+            "Hypothekenwert": 1000,
+			"Farbe": "blau_hell"
         }, {
             "Name": "Poststrasse",
             "Position": 9,
             "Preis": 2400,
             "Mietkosten": [160, 800, 2000, 6000, 9000, 12000],
             "Hauskosten": 0,
-            "Hypothekenwert": 1200
+            "Hypothekenwert": 1200,
+			"Farbe": "blau_hell"
         }, {
             "Name": "Seestrasse",
             "Position": 11,
             "Preis": 2800,
             "Mietkosten": [200, 1000, 3000, 9000, 12500, 15000],
             "Hauskosten": 1,
-            "Hypothekenwert": 1400
+            "Hypothekenwert": 1400,
+			"Farbe": "pink"
         }, {
             "Name": "Hafenstrasse",
             "Position": 13,
             "Preis": 2800,
             "Mietkosten": [200, 1000, 3000, 9000, 12500, 15000],
             "Hauskosten": 1,
-            "Hypothekenwert": 1400
+            "Hypothekenwert": 1400,
+			"Farbe": "pink"
         }, {
             "Name": "Neue Strasse",
             "Position": 14,
             "Preis": 3200,
             "Mietkosten": [240, 1200, 3600, 10000, 14000, 18000],
             "Hauskosten": 1,
-            "Hypothekenwert": 1600
+            "Hypothekenwert": 1600,
+			"Farbe": "pink"
         }, {
             "Name": "Muenchner Strasse",
             "Position": 16,
             "Preis": 3600,
             "Mietkosten": [280, 1400, 4000, 11000, 15000, 19000],
             "Hauskosten": 1,
-            "Hypothekenwert": 1800
+            "Hypothekenwert": 1800,
+			"Farbe": "orange"
         }, {
             "Name": "Wiener Strasse",
             "Position": 18,
             "Preis": 3600,
             "Mietkosten": [280, 1400, 4000, 11000, 15000, 19000],
             "Hauskosten": 1,
-            "Hypothekenwert": 1800
+            "Hypothekenwert": 1800,
+			"Farbe": "orange"
         }, {
             "Name": "Berliner Strasse",
             "Position": 19,
             "Preis": 4000,
             "Mietkosten": [320, 1600, 4400, 12000, 16000, 20000],
             "Hauskosten": 1,
-            "Hypothekenwert": 2000
+            "Hypothekenwert": 2000,
+			"Farbe": "orange"
         }, {
             "Name": "Theaterstrasse",
             "Position": 21,
             "Preis": 4400,
             "Mietkosten": [360, 1800, 5000, 14000, 17500, 21000],
             "Hauskosten": 2,
-            "Hypothekenwert": 2200
+            "Hypothekenwert": 2200,
+			"Farbe": "rot"
         }, {
             "Name": "Museumstrasse",
             "Position": 23,
             "Preis": 4400,
             "Mietkosten": [360, 1800, 5000, 14000, 17500, 21000],
             "Hauskosten": 2,
-            "Hypothekenwert": 2200
+            "Hypothekenwert": 2200,
+			"Farbe": "rot"
         }, {
             "Name": "Opernplatz",
             "Position": 24,
             "Preis": 4800,
             "Mietkosten": [400, 2000, 6000, 15000, 18500, 22000],
             "Hauskosten": 2,
-            "Hypothekenwert": 2400
+            "Hypothekenwert": 2400,
+			"Farbe": "rot"
         }, {
             "Name": "Lessingstrasse",
             "Position": 26,
             "Preis": 5200,
             "Mietkosten": [440, 2200, 6600, 16000, 19500, 23000],
             "Hauskosten": 2,
-            "Hypothekenwert": 2600
+            "Hypothekenwert": 2600,
+			"Farbe": "gelb"
         }, {
             "Name": "Schillerstrasse",
             "Position": 27,
             "Preis": 5200,
             "Mietkosten": [440, 2200, 6600, 16000, 19500, 23000],
             "Hauskosten": 2,
-            "Hypothekenwert": 2600
+            "Hypothekenwert": 2600,
+			"Farbe": "gelb"
         }, {
             "Name": "Goethestrasse",
             "Position": 29,
             "Preis": 5600,
             "Mietkosten": [580, 2400, 7200, 17000, 20500, 24000],
             "Hauskosten": 2,
-            "Hypothekenwert": 2800
+            "Hypothekenwert": 2800,
+			"Farbe": "gelb"
         }, {
             "Name": "Rathausplatz",
             "Position": 31,
             "Preis": 6000,
             "Mietkosten": [520, 2600, 7800, 18000, 22000, 25500],
             "Hauskosten": 3,
-            "Hypothekenwert": 3000
+            "Hypothekenwert": 3000,
+			"Farbe": "gruen"
         }, {
             "Name": "Hauptstrasse",
             "Position": 32,
             "Preis": 6000,
             "Mietkosten": [520, 2600, 7800, 18000, 22000, 25500],
             "Hauskosten": 3,
-            "Hypothekenwert": 3000
+            "Hypothekenwert": 3000,
+			"Farbe": "gruen"
         }, {
             "Name": "Bahnhofsstrasse",
             "Position": 34,
             "Preis": 6400,
             "Mietkosten": [560, 3000, 9000, 20000, 24000, 28000],
             "Hauskosten": 3,
-            "Hypothekenwert": 3200
+            "Hypothekenwert": 3200,
+			"Farbe": "gruen"
         }, {
             "Name": "Parkstrasse",
             "Position": 37,
             "Preis": 7000,
             "Mietkosten": [700, 3500, 10000, 22000, 26000, 30000],
             "Hauskosten": 3,
-            "Hypothekenwert": 3500
+            "Hypothekenwert": 3500,
+			"Farbe": "blau"
         }, {
             "Name": "Schlossallee",
             "Position": 39,
             "Preis": 8000,
             "Mietkosten": [1000, 4000, 12000, 28000, 34000, 40000],
             "Hauskosten": 3,
-            "Hypothekenwert": 4000
+            "Hypothekenwert": 4000,
+			"Farbe": "blau"
         }
     ],
 
