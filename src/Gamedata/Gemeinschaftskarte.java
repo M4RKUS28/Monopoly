@@ -1,4 +1,4 @@
-   
+   package Gamedata;   
 
 public class Gemeinschaftskarte {
 	private int id;

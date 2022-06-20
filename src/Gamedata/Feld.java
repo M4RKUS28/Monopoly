@@ -1,4 +1,4 @@
-   
+   package Gamedata;   
 
 public abstract class Feld {
     protected int pos, preis, hypothekwert, gehoert;
