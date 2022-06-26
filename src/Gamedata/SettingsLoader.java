@@ -8,16 +8,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+
+// Kartenlader: Läd aus Json-Datei die Spielkarten und speichert diese in Java Objekten
+// Zugriff durch zwei Möglichkeiten:
+// 	- Durch einzelne Listen, z.B. bahnen, mit den 4 Bahnhöfen
+// 	  Zuordnung auf Spielfeld durch "Map"-Liste: Liste, die zu jedem Feld die Arrayposition der Einzelliste speichert
+// 	- Durch abstrakte Spielfeld-Liste, die alle Karten ( außer Ereignis und Gemeinschaftskarten ) enthält
+//	  Basis Feldklasse enthält Attribut Kartentype & cast-Methoden, z.B. Karte.toBahnHof()
+
 public class SettingsLoader
 {
-    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-
-    /*private Strasse[] strassen;
-    private Bahn[] bahnen;
-    private Werk[] werke;
-    private ArrayList<Ereigniskarte> ecards;
-    private ArrayList<Gemeinschaftskarte> gcards; */
-    
+	//Attribute - Kartenlisten
     private Strasse [] strassen;
     private Bahn[] bahnen;
     private Werk[] werke;
@@ -25,40 +26,51 @@ public class SettingsLoader
     private Gemeinschaftskarte[] gcards;
     private int [] felderMap;
     
+	// Zeiger für Arrays
     private int zeiger_strassen = 0;
     private int zeiger_bahnen = 0;
     private int zeiger_werke = 0;
     private int zeiger_ecards = 0;
     private int zeiger_gcards = 0;
     
-    
-    
+    // Abstrakte Liste -> ohne Zeiger -> gefüllt mit von Basis Klasse Erbenden Karten
     private Feld [] felder;
     
     
 
     public SettingsLoader(String path)
     {
+		// Einzellisten für Methode_1:
         strassen = new Strasse[22];
         bahnen = new Bahn[4]; 
         werke = new Werk[2];
-        ecards = new Ereigniskarte[16];
-        gcards = new Gemeinschaftskarte[16];
-        felderMap = new int[40];
-        felder = new Feld[40];
-        
+		
+		// Zeiger für Einzellisten
         zeiger_strassen = 0;
         zeiger_bahnen = 0;
         zeiger_werke = 0;
+		
+		// Map für Zuordnung
+		felderMap = new int[40];
+
+		// Listen für Gemeinschafts- und Ereigniskarten
+		ecards = new Ereigniskarte[16];
+        gcards = new Gemeinschaftskarte[16];
+		
+		// Zeiger für Gemeinschafts- und Ereigniskarten
         zeiger_ecards = 0;
         zeiger_gcards = 0;
+		
+		// Methode_2:
+		// Abstrakte Liste, gefüllt mit allen Karten -> Zugriff mit integrirtem Typecast
+		felder = new Feld[40];
 
+		// Spiel Einstellungen
         int startGeld = 0;
         int ueberlosGeld = 0;
-
-        path = "E:/INFO ZEUG/Test/json/cards.json";
         String content = "";
 
+		// Versuche das JSon File zu öffnen und Inhalt auszulesen
         try {
             content = new String( Files.readAllBytes( Paths.get( path )  ) );
 
@@ -66,13 +78,16 @@ public class SettingsLoader
             e.printStackTrace();
         }
 
+		// Versuche JSON Objekt zu extrahieren und Titel auszulesen
         try {
             JSONObject obj = new JSONObject(content);
             System.out.println("Titel: " + obj.getString("Titel")) ;
 
+			// Lade Spieleinstellungen
             startGeld = obj.getInt("Startgeld");
             ueberlosGeld = obj.getInt("Ueberlosgeld");
 
+			// Lade die Karten
             loadStrassenkarten(obj);
             loadBahnhofkarten(obj);
             loadInfrastrukturkarten(obj);
@@ -88,52 +103,82 @@ public class SettingsLoader
 
     public Strasse [] getStrassenList()
     {
+		// Gib Straßenliste zurück
         return strassen;
     }
 
     public Bahn [] getBahnenList()
     {
+		// Gib Bahnhöfeliste zurück
         return bahnen;
     }
 
     public Werk [] getWerkeList()
     {
+		// Gib Infrastrukturkartenliste zurück
         return werke;
     }
 
     public Ereigniskarte [] getEcardsList()
     {
+		// Gib Ereigniskartenliste zurück
         return ecards;
     }
 
     public Gemeinschaftskarte [] getGcardsList()
     {
+		// Gib Gemeinschaftskarteliste zurück
         return gcards;
     }
     
     public Feld [] getFelderList()
     {
+		// Gib abstrakte FelderListe zurück
         return felder;
     }
-
+	
+	public int [] getFelderMap()
+    {
+		// Gib abstrakte FelderListe zurück
+        return felder;
+    }
+	
     private void loadStrassenkarten(JSONObject obj)
     {
+		// JSON_OBJECT Strassenkarten {
+		//		int Miete[6]
+		//		String Name
+		//		int Position
+		//		int Preis
+		//		int Hauskosten
+		//		int Hypothekenwert
+		//		String Farbe
+		//}
+		
+		// Jsava Objekt Kunstruktor:
+		// Strasse(String name, int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn, String farbe)
+
+		
         JSONArray strassenkarten = obj.getJSONArray("Strassenkarten");
         for (int i = 0; i < strassenkarten.length(); i++) {
             JSONObject strasse = ( JSONObject ) strassenkarten.get(i);
+			
+			// Miete:
             int mietenList[] = new int[6];
 
             JSONArray mieten = strasse.getJSONArray("Mietkosten");
             if( mieten.length() != 6 ) {
                 System.out.println( "ERROR: Ungültiger Eintrag: " +  strasse.getString("Name")  );
                 continue;
-            }
-            for( int m = 0; m < mieten.length(); m++)
-                mietenList[m] = (int) mieten.get(m);
+            } else
+				for( int m = 0; m < mieten.length(); m++)
+					mietenList[m] = (int) mieten.get(m);
             
+			//Position -> überprüfe, ob diese in Array-Range ist
             int pos = strasse.getInt("Position");
             if( zeiger_strassen < strassen.length && pos >= 0 && pos < felderMap.length ) {
                 felderMap[pos] = zeiger_strassen;
+				
                 strassen[zeiger_strassen++] = ( new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>(), strasse.getString("Farbe")  ) );
                 felder[pos] = new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>(), strasse.getString("Farbe") );
             } else {
