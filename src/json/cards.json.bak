@@ -225,7 +225,7 @@
         }
     ],
 	
-	"Sonderfeldkarten":[{
+	"Sonderfelder":[{
 			"Name": "Los",
 			"Position": 0
 		}, {
