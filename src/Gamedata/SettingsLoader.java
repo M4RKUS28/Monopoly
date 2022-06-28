@@ -35,6 +35,8 @@ public class SettingsLoader
     
     // Abstrakte Liste -> ohne Zeiger -> gefüllt mit von Basis Klasse Erbenden Karten
     private Feld [] felder;
+	
+	
     
     
 
@@ -93,10 +95,18 @@ public class SettingsLoader
             loadInfrastrukturkarten(obj);
             loadEreigniskarten(obj);
             loadGemeinschaftskarten(obj);
+			
+			for ( int i = i; i < felder.length; i++ )
+				if ( felder[i] == null ) {
+					System.out.println( "ERROR: Ungültige Liste: Feldender Eintrag für Feld " + String.valueOf(i)  );
+					return;
+				}
+
 
         } catch(JSONException e) {
-            System.out.println( "ERRRORRRRRRRRR: "     );
+            System.out.println( "Error: " );
             e.printStackTrace();
+			
         }
 
     }
@@ -268,5 +278,21 @@ public class SettingsLoader
         }
 
     }
+	
+	private void loadSonderfeldkarten(JSONObject obj)
+    {
+        JSONArray sonderfelder = obj.getJSONArray("Sonderfeldkarten");
+        for (int i = 0; i < sonderfelder.length(); i++) {
+            JSONObject sonder_card = ( JSONObject ) sonderfelder.get(i);
 
+            int pos = sonder_card.getInt("Position");
+            if( pos >= 0 && pos< felder.length ) {
+                felder[pos] = new Sonderfeld(  werk.getString("Name") , pos );
+            } else {
+                System.out.println( "ERROR: Ungültiger Eintrag: " +  werk.getString("Name")  );
+                continue;
+            }
+        }
+
+    }
 }
