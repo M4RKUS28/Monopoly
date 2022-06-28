@@ -15,13 +15,14 @@ public abstract class Feld {
         BAHN,
         STRASSE,
         WERK,
+		SONDERFELD,
         UNKNOWN
     }
-    TYPE type = Feld.TYPE.UNKNOWN;
+    TYPE my_type = Feld.TYPE.UNKNOWN;
     
     public Bahn toBahnHof()
     {
-        if(type == TYPE.BAHN)
+        if(my_type == TYPE.BAHN)
             return (Bahn)this;
         else
             return null;
@@ -29,7 +30,7 @@ public abstract class Feld {
     
     public Strasse toStrasse()
     {
-        if(type == TYPE.BAHN)
+        if(my_type == TYPE.BAHN)
             return (Strasse)this;
         else
             return null;
@@ -37,12 +38,25 @@ public abstract class Feld {
     
     public Werk toWerk()
     {
-        if(type == TYPE.BAHN)
+        if(my_type == TYPE.BAHN)
             return (Werk)this;
         else
             return null;
     }
+	
+	public Sonderfeld toSonderFeld()
+	{
+		if(my_type == TYPE.SONDERFELD)
+            return (Sonderfeld)this;
+        else
+            return null;
+	}
     
+	public TYPE type() {
+		return my_type;
+	}
+	
+	
     
     
 }

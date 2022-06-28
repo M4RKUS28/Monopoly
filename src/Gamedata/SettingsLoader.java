@@ -1,6 +1,8 @@
 import org.json.*;
 import java.util.ArrayList;
 
+import java.util.TreeMap;
+import java.util.Map;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -37,11 +39,16 @@ public class SettingsLoader
     private Feld [] felder;
 	
 	
-    
+    // Für Anzahl einer Kartenfarbe
+	Map<String, Integer> colourMap;
     
 
     public SettingsLoader(String path)
     {
+		// Für Anzahl der Karten einer Farbe
+		colourMap = new TreeMap<String, String>()
+		
+		
 		// Einzellisten für Methode_1:
         strassen = new Strasse[22];
         bahnen = new Bahn[4]; 
@@ -100,6 +107,13 @@ public class SettingsLoader
 				if ( felder[i] == null ) {
 					System.out.println( "ERROR: Ungültige Liste: Feldender Eintrag für Feld " + String.valueOf(i)  );
 					return;
+					
+				} else if( felder[i].type() == TYPE.STRASSE ) {
+					String colour = felder[i].toStrasse().getFarbe();
+					if(colourMap.contains(colour))
+						colourMap.put( colour, colourMap(colour) + 1  )
+					else
+						colourMap.put( colour, 1  )
 				}
 
 
@@ -295,4 +309,19 @@ public class SettingsLoader
         }
 
     }
+	
+	private bool hasAllCards(int[] cardsList, String colour)
+	{
+		if( ! colourMap.contains(colour) ) {
+			System.out.println( "ERROR: Unbekannte Farbe: " +  colour  );
+			return false;
+		}
+		int count = 0;
+		for ( int i = 0; i < cardsList.legth; i++)
+			if ( cardsList[i] >= 0 &&  cardsList[i] < felder.legth &&  felder[i].type == TYPE.STRASSE && felder[i].toStrasse().getFarbe() == colour )
+				count ++;
+		return this.colourMap.get( colour ) == count;
+	}
+	
+	
 }
