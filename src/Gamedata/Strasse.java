@@ -1,4 +1,4 @@
-   package Gamedata;   
+package Gamedata;          
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class Strasse extends Feld{
         hauszahl = 0;
         hypo = false;
         
-        this.type = Feld.TYPE.STRASSE;
+        this.my_type = Feld.TYPE.STRASSE;
 
     }
     

@@ -1,24 +1,18 @@
-   package Gamedata;   
+package Gamedata;          
 
 public abstract class Feld {
-    protected int pos, preis, hypothekwert, gehoert;
-    protected boolean hypo;
-    
-    public abstract int getPreis();
-    public abstract int getHypothekwert();
-    public abstract int getGehoert();
-    public abstract void setGehoert(int i);
-    public abstract boolean getHypo();
-    public abstract void setHypo(boolean b);
+    public int pos, preis, hypothekwert, gehoert;
+    public boolean hypo;
+    public String name;
     
     public enum TYPE {
         BAHN,
         STRASSE,
         WERK,
-		SONDERFELD,
+        SONDERFELD,
         UNKNOWN
     }
-    TYPE my_type = Feld.TYPE.UNKNOWN;
+    public TYPE my_type = Feld.TYPE.UNKNOWN;
     
     public Bahn toBahnHof()
     {
@@ -30,7 +24,7 @@ public abstract class Feld {
     
     public Strasse toStrasse()
     {
-        if(my_type == TYPE.BAHN)
+        if(my_type == TYPE.STRASSE)
             return (Strasse)this;
         else
             return null;
@@ -38,25 +32,25 @@ public abstract class Feld {
     
     public Werk toWerk()
     {
-        if(my_type == TYPE.BAHN)
+        if(my_type == TYPE.WERK)
             return (Werk)this;
         else
             return null;
     }
-	
-	public Sonderfeld toSonderFeld()
-	{
-		if(my_type == TYPE.SONDERFELD)
+    
+    public Sonderfeld toSonderFeld()
+    {
+        if(my_type == TYPE.SONDERFELD)
             return (Sonderfeld)this;
         else
             return null;
-	}
+    }
     
-	public TYPE type() {
-		return my_type;
-	}
-	
-	
+    public TYPE type() {
+        return my_type;
+    }
+    
+    
     
     
 }

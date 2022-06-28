@@ -1,13 +1,13 @@
-   package Gamedata;   
+package Gamedata;          
 
 import java.util.ArrayList;
 
-public class Strasse extends Feld{
+public class Sonderfeld extends Feld{
 
-    public Strasse(String name, int pos) {
+    public Sonderfeld(String name, int pos) {
         this.name = name;
         this.pos = pos;        
-        this.type = Feld.TYPE.SONDERFELD;
+        this.my_type = Feld.TYPE.SONDERFELD;
 
     }
     

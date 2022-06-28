@@ -1,3 +1,5 @@
+package Gamedata;   
+
 import org.json.*;
 import java.util.ArrayList;
 
@@ -13,14 +15,14 @@ import java.nio.file.Paths;
 
 // Kartenlader: Läd aus Json-Datei die Spielkarten und speichert diese in Java Objekten
 // Zugriff durch zwei Möglichkeiten:
-// 	- Durch einzelne Listen, z.B. bahnen, mit den 4 Bahnhöfen
-// 	  Zuordnung auf Spielfeld durch "Map"-Liste: Liste, die zu jedem Feld die Arrayposition der Einzelliste speichert
-// 	- Durch abstrakte Spielfeld-Liste, die alle Karten ( außer Ereignis und Gemeinschaftskarten ) enthält
-//	  Basis Feldklasse enthält Attribut Kartentype & cast-Methoden, z.B. Karte.toBahnHof()
+//     - Durch einzelne Listen, z.B. bahnen, mit den 4 Bahnhöfen
+//       Zuordnung auf Spielfeld durch "Map"-Liste: Liste, die zu jedem Feld die Arrayposition der Einzelliste speichert
+//     - Durch abstrakte Spielfeld-Liste, die alle Karten ( außer Ereignis und Gemeinschaftskarten ) enthält
+//      Basis Feldklasse enthält Attribut Kartentype & cast-Methoden, z.B. Karte.toBahnHof()
 
 public class SettingsLoader
 {
-	//Attribute - Kartenlisten
+    //Attribute - Kartenlisten
     private Strasse [] strassen;
     private Bahn[] bahnen;
     private Werk[] werke;
@@ -28,7 +30,7 @@ public class SettingsLoader
     private Gemeinschaftskarte[] gcards;
     private int [] felderMap;
     
-	// Zeiger für Arrays
+    // Zeiger für Arrays
     private int zeiger_strassen = 0;
     private int zeiger_bahnen = 0;
     private int zeiger_werke = 0;
@@ -37,49 +39,49 @@ public class SettingsLoader
     
     // Abstrakte Liste -> ohne Zeiger -> gefüllt mit von Basis Klasse Erbenden Karten
     private Feld [] felder;
-	
-	
+    
+    
     // Für Anzahl einer Kartenfarbe
-	Map<String, Integer> colourMap;
+    Map<String, Integer> colourMap;
     
 
     public SettingsLoader(String path)
     {
-		// Für Anzahl der Karten einer Farbe
-		colourMap = new TreeMap<String, String>()
-		
-		
-		// Einzellisten für Methode_1:
+        // Für Anzahl der Karten einer Farbe
+        colourMap = new TreeMap<>();
+        
+        
+        // Einzellisten für Methode_1:
         strassen = new Strasse[22];
         bahnen = new Bahn[4]; 
         werke = new Werk[2];
-		
-		// Zeiger für Einzellisten
+        
+        // Zeiger für Einzellisten
         zeiger_strassen = 0;
         zeiger_bahnen = 0;
         zeiger_werke = 0;
-		
-		// Map für Zuordnung
-		felderMap = new int[40];
+        
+        // Map für Zuordnung
+        felderMap = new int[40];
 
-		// Listen für Gemeinschafts- und Ereigniskarten
-		ecards = new Ereigniskarte[16];
+        // Listen für Gemeinschafts- und Ereigniskarten
+        ecards = new Ereigniskarte[16];
         gcards = new Gemeinschaftskarte[16];
-		
-		// Zeiger für Gemeinschafts- und Ereigniskarten
+        
+        // Zeiger für Gemeinschafts- und Ereigniskarten
         zeiger_ecards = 0;
         zeiger_gcards = 0;
-		
-		// Methode_2:
-		// Abstrakte Liste, gefüllt mit allen Karten -> Zugriff mit integrirtem Typecast
-		felder = new Feld[40];
+        
+        // Methode_2:
+        // Abstrakte Liste, gefüllt mit allen Karten -> Zugriff mit integrirtem Typecast
+        felder = new Feld[40];
 
-		// Spiel Einstellungen
+        // Spiel Einstellungen
         int startGeld = 0;
         int ueberlosGeld = 0;
         String content = "";
 
-		// Versuche das JSon File zu öffnen und Inhalt auszulesen
+        // Versuche das JSon File zu öffnen und Inhalt auszulesen
         try {
             content = new String( Files.readAllBytes( Paths.get( path )  ) );
 
@@ -87,107 +89,107 @@ public class SettingsLoader
             e.printStackTrace();
         }
 
-		// Versuche JSON Objekt zu extrahieren und Titel auszulesen
+        // Versuche JSON Objekt zu extrahieren und Titel auszulesen
         try {
             JSONObject obj = new JSONObject(content);
             System.out.println("Titel: " + obj.getString("Titel")) ;
 
-			// Lade Spieleinstellungen
+            // Lade Spieleinstellungen
             startGeld = obj.getInt("Startgeld");
             ueberlosGeld = obj.getInt("Ueberlosgeld");
 
-			// Lade die Karten
+            // Lade die Karten
             loadStrassenkarten(obj);
             loadBahnhofkarten(obj);
             loadInfrastrukturkarten(obj);
             loadEreigniskarten(obj);
             loadGemeinschaftskarten(obj);
-			
-			for ( int i = i; i < felder.length; i++ )
-				if ( felder[i] == null ) {
-					System.out.println( "ERROR: Ungültige Liste: Feldender Eintrag für Feld " + String.valueOf(i)  );
-					return;
-					
-				} else if( felder[i].type() == TYPE.STRASSE ) {
-					String colour = felder[i].toStrasse().getFarbe();
-					if(colourMap.contains(colour))
-						colourMap.put( colour, colourMap(colour) + 1  )
-					else
-						colourMap.put( colour, 1  )
-				}
+            loadSonderfeldkarten(obj);
+            
+            for ( int i = 0; i < felder.length; i++ )
+                if ( felder[i] == null ) {
+                    System.out.println( "ERROR: Ungültige Liste: Feldender Eintrag für Feld " + String.valueOf(i)  );
+                    
+                } else if( felder[i].type() == Feld.TYPE.STRASSE && felder[i].toStrasse() != null ) {
+                    String colour = felder[i].toStrasse().getFarbe();
+                    if(colourMap.containsKey(colour))
+                        colourMap.put( colour, colourMap.get(colour) + 1  );
+                    else
+                        colourMap.put( colour, 1  );
+                }
 
 
         } catch(JSONException e) {
             System.out.println( "Error: " );
             e.printStackTrace();
-			
+            
         }
 
     }
 
     public Strasse [] getStrassenList()
     {
-		// Gib Straßenliste zurück
+        // Gib Straßenliste zurück
         return strassen;
     }
 
     public Bahn [] getBahnenList()
     {
-		// Gib Bahnhöfeliste zurück
+        // Gib Bahnhöfeliste zurück
         return bahnen;
     }
 
     public Werk [] getWerkeList()
     {
-		// Gib Infrastrukturkartenliste zurück
+        // Gib Infrastrukturkartenliste zurück
         return werke;
     }
 
     public Ereigniskarte [] getEcardsList()
     {
-		// Gib Ereigniskartenliste zurück
+        // Gib Ereigniskartenliste zurück
         return ecards;
     }
 
     public Gemeinschaftskarte [] getGcardsList()
     {
-		// Gib Gemeinschaftskarteliste zurück
+        // Gib Gemeinschaftskarteliste zurück
         return gcards;
     }
     
     public Feld [] getFelderList()
     {
-		// Gib abstrakte FelderListe zurück
+        // Gib abstrakte FelderListe zurück
         return felder;
     }
-	
-	public int [] getFelderMap()
+    
+    public int [] getFelderMap()
     {
-		// Gib abstrakte FelderListe zurück
-        return felder;
+        // Gib abstrakte FelderListe zurück
+        return felderMap;
     }
-	
+    
     private void loadStrassenkarten(JSONObject obj)
     {
-		// JSON_OBJECT Strassenkarten {
-		//		int Miete[6]
-		//		String Name
-		//		int Position
-		//		int Preis
-		//		int Hauskosten
-		//		int Hypothekenwert
-		//		String Farbe
-		//}
-		
-		// Jsava Objekt Kunstruktor:
-		// Strasse(String name, int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn, String farbe)
+        // JSON_OBJECT Strassenkarten {
+        //        int Miete[6]
+        //        String Name
+        //        int Position
+        //        int Preis
+        //        int Hauskosten
+        //        int Hypothekenwert
+        //        String Farbe
+        //}
+        
+        // Jsava Objekt Kunstruktor:
+        // Strasse(String name, int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn, String farbe)
 
-		
+        
         JSONArray strassenkarten = obj.getJSONArray("Strassenkarten");
         for (int i = 0; i < strassenkarten.length(); i++) {
             JSONObject strasse = ( JSONObject ) strassenkarten.get(i);
-			
-			// Miete:
+            
+            // Miete:
             int mietenList[] = new int[6];
 
             JSONArray mieten = strasse.getJSONArray("Mietkosten");
@@ -195,14 +197,14 @@ public class SettingsLoader
                 System.out.println( "ERROR: Ungültiger Eintrag: " +  strasse.getString("Name")  );
                 continue;
             } else
-				for( int m = 0; m < mieten.length(); m++)
-					mietenList[m] = (int) mieten.get(m);
+                for( int m = 0; m < mieten.length(); m++)
+                    mietenList[m] = (int) mieten.get(m);
             
-			//Position -> überprüfe, ob diese in Array-Range ist
+            //Position -> überprüfe, ob diese in Array-Range ist
             int pos = strasse.getInt("Position");
             if( zeiger_strassen < strassen.length && pos >= 0 && pos < felderMap.length ) {
                 felderMap[pos] = zeiger_strassen;
-				
+                
                 strassen[zeiger_strassen++] = ( new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>(), strasse.getString("Farbe")  ) );
                 felder[pos] = new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>(), strasse.getString("Farbe") );
             } else {
@@ -283,7 +285,7 @@ public class SettingsLoader
         for (int i = 0; i < gemeinschaftskarten.length(); i++) {
             JSONObject gcard = ( JSONObject ) gemeinschaftskarten.get(i);
 
-            if( zeiger_gcards < werke.length )
+            if( zeiger_gcards < gcards.length )
                 gcards[zeiger_gcards++] = ( new Gemeinschaftskarte( gcard.getInt("ID"), gcard.getString("Text") ) );
             else {
                 System.out.println( "ERROR: Ungültiger Eintrag GCARD_ID: " +  gcard.getInt("ID")  );
@@ -292,8 +294,8 @@ public class SettingsLoader
         }
 
     }
-	
-	private void loadSonderfeldkarten(JSONObject obj)
+    
+    private void loadSonderfeldkarten(JSONObject obj)
     {
         JSONArray sonderfelder = obj.getJSONArray("Sonderfeldkarten");
         for (int i = 0; i < sonderfelder.length(); i++) {
@@ -301,27 +303,37 @@ public class SettingsLoader
 
             int pos = sonder_card.getInt("Position");
             if( pos >= 0 && pos< felder.length ) {
-                felder[pos] = new Sonderfeld(  werk.getString("Name") , pos );
+                felder[pos] = new Sonderfeld(  sonder_card.getString("Name") , pos );
+
             } else {
-                System.out.println( "ERROR: Ungültiger Eintrag: " +  werk.getString("Name")  );
+                System.out.println( "ERROR: Ungültiger Eintrag: " +  sonder_card.getString("Name")  );
                 continue;
             }
         }
 
     }
-	
-	private bool hasAllCards(int[] cardsList, String colour)
-	{
-		if( ! colourMap.contains(colour) ) {
-			System.out.println( "ERROR: Unbekannte Farbe: " +  colour  );
-			return false;
-		}
-		int count = 0;
-		for ( int i = 0; i < cardsList.legth; i++)
-			if ( cardsList[i] >= 0 &&  cardsList[i] < felder.legth &&  felder[i].type == TYPE.STRASSE && felder[i].toStrasse().getFarbe() == colour )
-				count ++;
-		return this.colourMap.get( colour ) == count;
-	}
-	
-	
+    
+    public boolean hasAllCards(Player p, String colour)
+    {
+        int count = 0;
+        ArrayList<Integer> cardsList = p.getBesitz();
+        
+        if( ! colourMap.containsKey(colour)  ) {
+            System.out.println( "ERROR: Unbekannte Farbe: " +  colour  );
+            return false;
+        }
+        for ( int i = 0; i < cardsList.size(); i++) {
+            int index = cardsList.get(i);
+            if ( index >= 0 &&  index < felder.length &&  felder[index].type() == Feld.TYPE.STRASSE ) {
+                if( felder[index].toStrasse().getFarbe().equals( colour ) ) {
+                    count = count + 1;
+                }
+            }
+              
+        }
+        
+        return this.colourMap.get( colour ) == count;
+    }
+    
+    
 }

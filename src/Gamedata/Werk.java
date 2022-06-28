@@ -1,4 +1,4 @@
-   package Gamedata;
+package Gamedata;       
 
 
 public class Werk extends Feld{
@@ -13,7 +13,7 @@ public class Werk extends Feld{
         hypo = false;
         gehoert = -1;
         
-        this.type = Feld.TYPE.WERK;
+        this.my_type = Feld.TYPE.WERK;
     }
     
     public int getPreis() {

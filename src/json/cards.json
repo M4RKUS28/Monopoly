@@ -1,8 +1,8 @@
 {
     "Titel": "Spielkarten",
-	"Startgeld": 10000,
-	"Ueberlosgeld": 2000,
-	
+    "Startgeld": 10000,
+    "Ueberlosgeld": 2000,
+
     "Strassenkarten": [{
             "Name": "Badstrasse",
             "Position": 1,
@@ -10,7 +10,7 @@
             "Mietkosten": [40, 200, 600, 1800, 3200, 5000],
             "Hauskosten": 0,
             "Hypothekenwert": 600,
-			"Farbe": "braun"
+            "Farbe": "braun"
         }, {
             "Name": "Turmstrasse",
             "Position": 3,
@@ -18,7 +18,7 @@
             "Mietkosten": [80, 400, 1200, 3600, 6400, 9000],
             "Hauskosten": 0,
             "Hypothekenwert": 600,
-			"Farbe": "braun"
+            "Farbe": "braun"
         }, {
             "Name": "Chauseestrasse",
             "Position": 6,
@@ -26,7 +26,7 @@
             "Mietkosten": [120, 600, 1800, 5400, 8000, 11000],
             "Hauskosten": 0,
             "Hypothekenwert": 1000,
-			"Farbe": "blau_hell"
+            "Farbe": "blau_hell"
         }, {
             "Name": "Elisenstrasse",
             "Position": 8,
@@ -34,7 +34,7 @@
             "Mietkosten": [120, 600, 1800, 5400, 8000, 11000],
             "Hauskosten": 0,
             "Hypothekenwert": 1000,
-			"Farbe": "blau_hell"
+            "Farbe": "blau_hell"
         }, {
             "Name": "Poststrasse",
             "Position": 9,
@@ -42,7 +42,7 @@
             "Mietkosten": [160, 800, 2000, 6000, 9000, 12000],
             "Hauskosten": 0,
             "Hypothekenwert": 1200,
-			"Farbe": "blau_hell"
+            "Farbe": "blau_hell"
         }, {
             "Name": "Seestrasse",
             "Position": 11,
@@ -50,7 +50,7 @@
             "Mietkosten": [200, 1000, 3000, 9000, 12500, 15000],
             "Hauskosten": 1,
             "Hypothekenwert": 1400,
-			"Farbe": "pink"
+            "Farbe": "pink"
         }, {
             "Name": "Hafenstrasse",
             "Position": 13,
@@ -58,7 +58,7 @@
             "Mietkosten": [200, 1000, 3000, 9000, 12500, 15000],
             "Hauskosten": 1,
             "Hypothekenwert": 1400,
-			"Farbe": "pink"
+            "Farbe": "pink"
         }, {
             "Name": "Neue Strasse",
             "Position": 14,
@@ -66,7 +66,7 @@
             "Mietkosten": [240, 1200, 3600, 10000, 14000, 18000],
             "Hauskosten": 1,
             "Hypothekenwert": 1600,
-			"Farbe": "pink"
+            "Farbe": "pink"
         }, {
             "Name": "Muenchner Strasse",
             "Position": 16,
@@ -74,7 +74,7 @@
             "Mietkosten": [280, 1400, 4000, 11000, 15000, 19000],
             "Hauskosten": 1,
             "Hypothekenwert": 1800,
-			"Farbe": "orange"
+            "Farbe": "orange"
         }, {
             "Name": "Wiener Strasse",
             "Position": 18,
@@ -82,7 +82,7 @@
             "Mietkosten": [280, 1400, 4000, 11000, 15000, 19000],
             "Hauskosten": 1,
             "Hypothekenwert": 1800,
-			"Farbe": "orange"
+            "Farbe": "orange"
         }, {
             "Name": "Berliner Strasse",
             "Position": 19,
@@ -90,7 +90,7 @@
             "Mietkosten": [320, 1600, 4400, 12000, 16000, 20000],
             "Hauskosten": 1,
             "Hypothekenwert": 2000,
-			"Farbe": "orange"
+            "Farbe": "orange"
         }, {
             "Name": "Theaterstrasse",
             "Position": 21,
@@ -98,7 +98,7 @@
             "Mietkosten": [360, 1800, 5000, 14000, 17500, 21000],
             "Hauskosten": 2,
             "Hypothekenwert": 2200,
-			"Farbe": "rot"
+            "Farbe": "rot"
         }, {
             "Name": "Museumstrasse",
             "Position": 23,
@@ -106,7 +106,7 @@
             "Mietkosten": [360, 1800, 5000, 14000, 17500, 21000],
             "Hauskosten": 2,
             "Hypothekenwert": 2200,
-			"Farbe": "rot"
+            "Farbe": "rot"
         }, {
             "Name": "Opernplatz",
             "Position": 24,
@@ -114,7 +114,7 @@
             "Mietkosten": [400, 2000, 6000, 15000, 18500, 22000],
             "Hauskosten": 2,
             "Hypothekenwert": 2400,
-			"Farbe": "rot"
+            "Farbe": "rot"
         }, {
             "Name": "Lessingstrasse",
             "Position": 26,
@@ -122,7 +122,7 @@
             "Mietkosten": [440, 2200, 6600, 16000, 19500, 23000],
             "Hauskosten": 2,
             "Hypothekenwert": 2600,
-			"Farbe": "gelb"
+            "Farbe": "gelb"
         }, {
             "Name": "Schillerstrasse",
             "Position": 27,
@@ -130,7 +130,7 @@
             "Mietkosten": [440, 2200, 6600, 16000, 19500, 23000],
             "Hauskosten": 2,
             "Hypothekenwert": 2600,
-			"Farbe": "gelb"
+            "Farbe": "gelb"
         }, {
             "Name": "Goethestrasse",
             "Position": 29,
@@ -138,7 +138,7 @@
             "Mietkosten": [580, 2400, 7200, 17000, 20500, 24000],
             "Hauskosten": 2,
             "Hypothekenwert": 2800,
-			"Farbe": "gelb"
+            "Farbe": "gelb"
         }, {
             "Name": "Rathausplatz",
             "Position": 31,
@@ -146,7 +146,7 @@
             "Mietkosten": [520, 2600, 7800, 18000, 22000, 25500],
             "Hauskosten": 3,
             "Hypothekenwert": 3000,
-			"Farbe": "gruen"
+            "Farbe": "gruen"
         }, {
             "Name": "Hauptstrasse",
             "Position": 32,
@@ -154,7 +154,7 @@
             "Mietkosten": [520, 2600, 7800, 18000, 22000, 25500],
             "Hauskosten": 3,
             "Hypothekenwert": 3000,
-			"Farbe": "gruen"
+            "Farbe": "gruen"
         }, {
             "Name": "Bahnhofsstrasse",
             "Position": 34,
@@ -162,7 +162,7 @@
             "Mietkosten": [560, 3000, 9000, 20000, 24000, 28000],
             "Hauskosten": 3,
             "Hypothekenwert": 3200,
-			"Farbe": "gruen"
+            "Farbe": "gruen"
         }, {
             "Name": "Parkstrasse",
             "Position": 37,
@@ -170,7 +170,7 @@
             "Mietkosten": [700, 3500, 10000, 22000, 26000, 30000],
             "Hauskosten": 3,
             "Hypothekenwert": 3500,
-			"Farbe": "blau"
+            "Farbe": "blau"
         }, {
             "Name": "Schlossallee",
             "Position": 39,
@@ -178,7 +178,7 @@
             "Mietkosten": [1000, 4000, 12000, 28000, 34000, 40000],
             "Hauskosten": 3,
             "Hypothekenwert": 4000,
-			"Farbe": "blau"
+            "Farbe": "blau"
         }
     ],
 
@@ -224,44 +224,45 @@
             "Hypothekenwert": 1500
         }
     ],
-	
-	"Sonderfeldkarten":[{
-			"Name": "Los",
-			"Position": 0
-		}, {
-			"Name": "Geimeinschaftsfeld",
-			"Position": 2
-		}, {
-			"Name": "Geimeinschaftsfeld",
-			"Position": 17
-		}, {
-			"Name": "Geimeinschaftsfeld",
-			"Position": 33
-		}, {
-			"Name": "Ereignisfeld",
-			"Position": 7
-		}, {
-			"Name": "Ereignisfeld",
-			"Position": 22
-		}, {
-			"Name": "Ereignisfeld",
-			"Position": 36
-		}, {
-			"Name": "Einkommensteuer",
-			"Position": 4
-		}, {
-			"Name": "Zusatzsteuer",
-			"Position": 38
-		}, {
-			"Name": "Im Gefängnis/Nur zu Besuch",
-			"Position": 10
-		}, {
-			"Name": "Frei Parken",
-			"Position": 20
-		}, {
-			"Name": "Gehen Sie in das Gefängnis",
-			"Position": 30
-		},
+
+    "Sonderfeldkarten": [{
+            "Name": "Los",
+            "Position": 0
+        }, {
+            "Name": "Geimeinschaftsfeld",
+            "Position": 2
+        }, {
+            "Name": "Geimeinschaftsfeld",
+            "Position": 17
+        }, {
+            "Name": "Geimeinschaftsfeld",
+            "Position": 33
+        }, {
+            "Name": "Ereignisfeld",
+            "Position": 7
+        }, {
+            "Name": "Ereignisfeld",
+            "Position": 22
+        }, {
+            "Name": "Ereignisfeld",
+            "Position": 36
+        }, {
+            "Name": "Einkommensteuer",
+            "Position": 4
+        }, {
+            "Name": "Zusatzsteuer",
+            "Position": 38
+        }, {
+            "Name": "Im Gefängnis/Nur zu Besuch",
+            "Position": 10
+        }, {
+            "Name": "Frei Parken",
+            "Position": 20
+        }, {
+            "Name": "Gehen Sie in das Gefängnis",
+            "Position": 30
+        }
+    ],
 
     "Ereigniskarten": [{
             "ID": 1,

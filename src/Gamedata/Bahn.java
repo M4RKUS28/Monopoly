@@ -1,4 +1,4 @@
-   package Gamedata;   
+       
   
 
 
@@ -16,7 +16,7 @@ public class Bahn extends Feld{
         gehoert = -1;
         hypo = false;
         
-        this.type = Feld.TYPE.BAHN;
+        this.my_type = Feld.TYPE.BAHN;
 
     }
     
