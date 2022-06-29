@@ -2,7 +2,12 @@
     "Titel": "Spielkarten",
     "Startgeld": 10000,
     "Ueberlosgeld": 2000,
-
+	"Zusaetzliches_auf_los_geld" : 2000,
+	
+	"Einkommensteuer": 2000,
+	"Zusatzsteuer": 4000,
+	"Gefaengniskosten": 1000,
+	
     "Strassenkarten": [{
             "Name": "Badstrasse",
             "Position": 1,
@@ -227,7 +232,7 @@
 
     "Sonderfeldkarten": [{
             "Name": "Los",
-            "Position": 0
+            "Position": 0,
         }, {
             "Name": "Geimeinschaftsfeld",
             "Position": 2
