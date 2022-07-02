@@ -62,28 +62,30 @@ public class Strasse extends Feld{
     public void setHypo(boolean b) {
         hypo = b;
     }
-    public boolean hausbauCheck(Strasse[] strassen, int[] felderMap) {
-        int x = nachbarn.size();
-        int zaehler = 0;
-        for (int i = 0; i < x; i++) {
-            if (strassen[felderMap[nachbarn.get(i)]].hauszahl == this.hauszahl || strassen[felderMap[nachbarn.get(i)]].hauszahl == this.hauszahl - 1) {
-                zaehler++;
-            }
+    public boolean hausbauCheck(Feld[] felder) {
+        int haeuser = 0, nachbarn = 0;
+        for (int i = 0; i < 40; i++) {
+        	if (felder[i].type() == Feld.TYPE.STRASSE && felder[i].toStrasse().getFarbe() == this.farbe && felder[i].pos != this.pos) {
+        		nachbarn++;
+        		haeuser += felder[i].toStrasse().getHauszahl();
+        	}
         }
-        if (zaehler == x && hauszahl < 6) {
+        
+        if ((nachbarn == 0 || hauszahl <= haeuser/nachbarn) && hauszahl < 5) {
             return true;
         }
         return false;
     }
-    public boolean hausVerkaufCheck(Strasse[] strassen, int[] felderMap) {
-        int x = nachbarn.size();
-        int zaehler = 0;
-        for (int i = 0; i < x; i++) {
-            if (strassen[felderMap[nachbarn.get(i)]].hauszahl == this.hauszahl || strassen[felderMap[nachbarn.get(i)]].hauszahl == this.hauszahl + 1) {
-                zaehler++;
-            }
+    public boolean hausVerkaufCheck(Feld[] felder) {
+    	int haeuser = 0, nachbarn = 0;
+        for (int i = 0; i < 40; i++) {
+        	if (felder[i].type() == Feld.TYPE.STRASSE && felder[i].toStrasse().getFarbe() == this.farbe && felder[i].pos != this.pos) {
+        		nachbarn++;
+        		haeuser += felder[i].toStrasse().getHauszahl();
+        	}
         }
-        if (zaehler == x && hauszahl < 6) {
+        
+        if ((nachbarn == 0 || hauszahl >= haeuser/nachbarn) && hauszahl > 0) {
             return true;
         }
         return false;
