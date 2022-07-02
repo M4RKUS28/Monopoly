@@ -3,7 +3,7 @@ package Gamelogic;
 import java.util.ArrayList;
 
 public class Player {
-	private int pos, geld, bahnZahl, index, gefZahl;
+	private int pos, geld, bahnZahl, index, gefZahl, gesammtscore;
 	private ArrayList<Integer> besitz = new ArrayList<>();
 	private Game game;
 	private boolean imGef;
@@ -31,7 +31,8 @@ public class Player {
 	public void zahlen(int x, int p) {
 		geld += x;
 		if (geld < 0) {
-			game.bankrott(p, index);
+			
+			//game.bankrott(p, index);
 		}
 	}
 	public void setGeld(int x) {
@@ -67,4 +68,13 @@ public class Player {
 		return gefZahl;
 	}
 	
+	public int getGesammtscore() {
+		return gesammtscore;
+	}
+	public void setzeGesammtscore(int x) {
+		gesammtscore = x;
+	}
+	public void aendereGesammtscore(int x) {
+		gesammtscore += x;
+	}
 }

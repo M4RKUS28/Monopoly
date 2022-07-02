@@ -50,7 +50,12 @@ public abstract class Feld {
         return my_type;
     }
     
+    public abstract int getHypothekwert();
+    public abstract boolean getHypo();
+    public abstract int getPreis();
     
+    public abstract void setHypo(boolean b);
+    public abstract void setGehoert(int x);
     
     
 }

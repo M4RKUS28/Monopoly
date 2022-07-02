@@ -11,32 +11,27 @@ public class Game {
 	private Player geradeAmZug;
 	private int geradeAmZugIndex;
 	private boolean[] imSpiel;
-	private String[] felder = new String[38];
+	private Feld[] felder;
 	
-	private int[] felderMap = new int[40];
-	
-	private Zeugfeld zeugfeld;
-	
-	private JSON_READER jsonReader;
+	private SettingsLoader loader;
 	
 	private boolean pasch;
 	private int paschZahl;
 	
 	private ArrayList<Feld> alleFelder;
 
-	private JSON_READER data;
-
-	public Game() {
-		data = new JSON_READER(null);
+	public Game(String path) {
+		loader = new SettingsLoader();
+		int ret = 0;
+		if ( (ret = loader.loadData(path)) > 0) { //"../json/cards.json"
+			 System.exit(ret); 
+		}
+		felder = loader.getFelderList();
 		
 		for (int i = 0; i < 4; i++) {
 			pla[i] = new Player(this, i);
 			imSpiel[i] = true;
 		}
-		
-		zeugfeld = new Zeugfeld(pla);
-		
-		//hier die arrays befüllen
 	}
 	
 	public void start() { //Ui callt das hier mit Startbutton
@@ -58,15 +53,13 @@ public class Game {
 			}
 			geradeAmZug = geradeAmZug = pla[geradeAmZugIndex];
 			//Notify UI (auch über Gefängniss)
+			
 		}
 
 	}
 	
 	private void wuerfeln() //Ui callt das hier mit Würfelbutton
 	{
-		if (geradeAmZug.getGef()) {
-			//was im gefägniss passiert
-		}
 		int wurf1 = rand.nextInt(6) + 1;
 		int wurf2 = rand.nextInt(6) + 1;
 		int wurf = wurf1 + wurf2;
@@ -94,47 +87,62 @@ public class Game {
 			return;
 		}
 		geradeAmZug.bewegen(wurf);
-		if (geradeAmZug.getPos() - wurf > 39) {
-			geradeAmZug.zahlen(4000, -1); 
+		if (geradeAmZug.getPos() > 39) {
+			geradeAmZug.zahlen(loader.getUeberlosGeld(), -1); 
 			geradeAmZug.bewegen(-40);
 		}
 		//notify UI über Wurf und neue Pos sowie über Los
 
-		switch (felder[geradeAmZug.getPos()]) {
-		case "Strasse" :
+		switch (felder[geradeAmZug.getPos()].type()) {
+		case STRASSE :
 			strasse();
 			break;
-		case "Bahn" :
+		case BAHN :
 			bahn();
 			break;	
-		case "Werk" :
+		case WERK :
 			werk();
 			break;
-		case "Steuer":
-			if (geradeAmZug.getPos() == 4) {
-				geradeAmZug.zahlen(-4000, -1);
+		case SONDERFELD:
+			Sonderfeld f = felder[geradeAmZug.getPos()].toSonderFeld();
+			if (f == null) {
+				
 			}
-			else if (geradeAmZug.getPos() == 38) {
-				geradeAmZug.zahlen(-2000, -1);
+			switch (f.getPosition()) {
+			case 2: //Gemeinschafts
+			case 17:
+			case 33:
+				break;
+			case 7: //Ereigniss
+			case 22:
+			case 36:
+				break;
+			case 4: //Einkommens
+				geradeAmZug.zahlen(-1 * loader.getEinkommensteuer(), -1);
+				break;
+			case 38: //Zusatz
+				geradeAmZug.zahlen(-1 * loader.getZusatzsteuer(), -1);
+				break;
+			case 0: //Los
+				geradeAmZug.zahlen(loader.getZusaetzlichesAufLosGeld(), -1); 
+				break;
+			case 10: //Besuch/Freiparken
+			case 20:
+				//nix
+				break; 
+			case 30:
+				insGef();
+				break;	
 			}
-			break;
-		case "Ereigniss" :
-			zeugfeld.ereigniss(geradeAmZug);
-			break;
-		case "Gemeinschaft":
-			zeugfeld.ereigniss(geradeAmZug);
-			break;
-		case "Sonder" :
-			//notify UI über keine extra möglichkeiten
-			break;		
-		case "InsGefaengniss":
-			//sonder für ins Gefaengniss
 			break;
 		}
 	}
 	
 	public void strasse() {
-		Strasse s = strassen[felderMap[geradeAmZug.getPos()]];
+		Strasse s = felder[geradeAmZug.getPos()].toStrasse();
+		if (s == null) {
+			//error
+		}
 		if (s.getGehoert() > -1 && s.getHypo() == false) {
 			pla[s.getGehoert()].zahlen(s.getMiete(s.getHauszahl()), geradeAmZugIndex);
 			geradeAmZug.zahlen(-1 * s.getMiete(s.getHauszahl()), s.getGehoert());
@@ -144,7 +152,10 @@ public class Game {
 	}
 	
 	public void bahn() {
-		Bahn b = bahnen[felderMap[geradeAmZug.getPos()]];
+		Bahn b = felder[geradeAmZug.getPos()].toBahnHof();
+		if (b == null) {
+			//error
+		}
 		if (b.getGehoert() > -1 && b.getHypo() == false) {
 			pla[b.getGehoert()].zahlen(b.getMiete(pla[b.getGehoert()].getBahnZahl()), geradeAmZugIndex);
 			geradeAmZug.zahlen(-1 * b.getMiete(pla[b.getGehoert()].getBahnZahl()), b.getGehoert());
@@ -154,7 +165,10 @@ public class Game {
 	}
 	
 	public void werk() {
-		Werk w = werke[felderMap[geradeAmZug.getPos()]];
+		Werk w = felder[geradeAmZug.getPos()].toWerk();
+		if (w == null) {
+			//error
+		}
 		if (w.getGehoert() > -1 && w.getHypo() == false) {			
 			int wurf = rand.nextInt(6) + rand.nextInt(6) + 2;
 			//call UI für Würfelevent
@@ -164,22 +178,28 @@ public class Game {
 		//gibt Möglichkeitsinfo zu Ui
 	}
 	
-	public void bankrott(int von, int zu) {
-		//irgendwie alles eingetum rüber schieben
-		imSpiel[zu] = false;
+	public void bankrott(int gewinnenderSpieler, int bankrotterSpieler) {
+		pla[gewinnenderSpieler].zahlen(pla[bankrotterSpieler].getGeld(), bankrotterSpieler);
+		pla[gewinnenderSpieler].getBesitz().addAll(pla[bankrotterSpieler].getBesitz()); 
+		imSpiel[bankrotterSpieler] = false;
+		pla[bankrotterSpieler] = new Player(this, bankrotterSpieler);
+		//notify Ui
+		naechster();
 	}
 	
 	public void kaufen() {
-			Feld f = alleFelder[geradeAmZug.getPos()];
+			Feld f = felder[geradeAmZug.getPos()];
 			if (geradeAmZug.getGeld() - f.getPreis() > -1) {
 				geradeAmZug.erhalten(geradeAmZug.getPos());
 				geradeAmZug.zahlen(-1 * f.getPreis(), -1);
 				f.setGehoert(geradeAmZugIndex);
+				geradeAmZug.aendereGesammtscore(f.getPreis());
 			}
 	}
 	
 	public void hypothekAufnehmen() {
-		Feld f = alleFelder[geradeAmZug.getPos()];
+		Feld f = felder[geradeAmZug.getPos()];
+		
 		if (f.getHypo() == false) {
 			f.setHypo(true);
 			geradeAmZug.zahlen(f.getHypothekwert(), -1);
@@ -190,7 +210,7 @@ public class Game {
 	}
 	
 	public void hypothekBezahlen() {
-		Feld f = alleFelder[geradeAmZug.getPos()];
+		Feld f = felder[geradeAmZug.getPos()];
 		if (f.getHypo() == true && geradeAmZug.getGeld() - f.getHypothekwert() > -1) {
 			f.setHypo(false);
 			geradeAmZug.zahlen(-1 * f.getHypothekwert(), -1);
@@ -200,15 +220,25 @@ public class Game {
 		}
 	}
 	
-	public void tauschen() {
-		//ok jetzt müssen wir über die logik reden
-	}
+	/*public boolean tauscheKarten(Player tauschpatner, int[] geben, int[] nehmen) {
+		int feld =  -1;
+		for (int i = 0; i < geben.length; i++) {
+			if ( (feld = geradeAmZug.getBesitz().indexOf(geben[i])) > 0) {
+				
+			} else {
+				return false;
+			}
+			
+		}
+		
+	}*/
 	
 	public void hausBauen(int pos) {
-		Strasse s = strassen[felderMap[pos]];
-		if (s.hausbauCheck(strassen, felderMap) && geradeAmZug.getGeld() - s.getHauskosten() * 1000 < -1) {
+		Strasse s = felder[pos].toStrasse();
+		if (s.hausbauCheck(felder) && geradeAmZug.getGeld() - s.getHauskosten() * 1000 < -1) {
 			s.hausBauen();
 			geradeAmZug.zahlen(-1 * s.getHauskosten() * 1000, -1);
+			geradeAmZug.aendereGesammtscore(s.getHauskosten());
 			//Notify UI
 		}
 		else {
@@ -217,10 +247,11 @@ public class Game {
 	}
 	
 	public void hausVerkaufen(int pos) {
-		Strasse s = strassen[felderMap[pos]];
-		if (s.hausbauCheck(strassen, felderMap) && s.getHauszahl() > 0) {
+		Strasse s = felder[pos].toStrasse();
+		if (s.hausbauCheck(felder) && s.getHauszahl() > 0) {
 			s.hausVerkaufen();
 			geradeAmZug.zahlen(s.getHauskosten() * 1000, -1);
+			geradeAmZug.aendereGesammtscore(-1 * s.getHauskosten());
 			//Notify UI
 		}
 		else {
@@ -235,7 +266,7 @@ public class Game {
 	
 	public void freikaufen() {
 		if (geradeAmZug.getGef()) {
-			geradeAmZug.zahlen(-1 * 1000, -1);
+			geradeAmZug.zahlen(-1 * loader.getGefaengniskosten(), -1);
 			geradeAmZug.setGef(false);
 			//notify UI
 		}
@@ -244,10 +275,66 @@ public class Game {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
+    public boolean hasAllCards(Player p, String colour)
+    {
+        int count = 0;
+        ArrayList<Integer> cardsList = p.getBesitz();
+        
+        if( ! loader.getColourMap().containsKey(colour)  ) {
+            System.out.println( "ERROR: Unbekannte Farbe: " +  colour  );
+            return false;
+        }
+        for ( int i = 0; i < cardsList.size(); i++) {
+            int index = cardsList.get(i);
+            if ( index >= 0 &&  index < felder.length &&  felder[index].type() == Feld.TYPE.STRASSE ) {
+                if( felder[index].toStrasse().getFarbe().equals( colour ) ) {
+                    count = count + 1;
+                }
+            }
+              
+        }
+        
+        return loader.getColourMap().get( colour ) == count;
+    }
+    
+    //
+    //UI notify
+    //
+    
+    private void spielerwechselNotify() {
+    	
+    }
+    private void geldNotify() {
+    	int max = 0, p1 = -1, p2 = -1, p3 = -1, p4 = -1;
+    	for (int i = 0; i < pla.length; i ++) {
+    		if (max < pla[i].getGeld()) {
+    			max = pla[i].getGeld();
+    			p1 = i;    			
+    		}
+    	}
+    	max = 0;
+    	for (int i = 0; i < pla.length; i ++) {
+    		if (max < pla[i].getGeld() && (i != p1)) {
+    			max = pla[i].getGeld();
+    			p2 = i;    			
+    		}
+    	}
+    	max = 0;
+    	for (int i = 0; i < pla.length; i ++) {
+    		if (max < pla[i].getGeld()&& (i != p1 && i != p2)) {
+    			max = pla[i].getGeld();
+    			p3 = i;    			
+    		}
+    	}
+    	max = 0;
+    	for (int i = 0; i < pla.length; i ++) {
+    		if (max < pla[i].getGeld()&& (i != p1 && i != p2 && i != p3)) {
+    			max = pla[i].getGeld();
+    			p4 = i;    			
+    		}
+    	}
+    	
+    	
+    	
+    }
 }
