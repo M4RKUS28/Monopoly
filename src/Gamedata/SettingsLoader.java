@@ -58,23 +58,10 @@ public class SettingsLoader
         // Methode_2:
         // Abstrakte Liste, gefüllt mit allen Karten -> Zugriff mit integrirtem Typecast
         felder = new Feld[40];
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/origin/main
-        
-
     }
     
     public int loadData(String path) {
     	String content = "";
-<<<<<<< HEAD
-=======
-=======
-        String content = "";
->>>>>>> 38a668c7162c084cfe1f036326b70ae8bcf2993c
->>>>>>> refs/remotes/origin/main
 
         // Versuche das JSon File zu öffnen und Inhalt auszulesen
         try {
@@ -141,15 +128,7 @@ public class SettingsLoader
             return 1;
             
         }
-<<<<<<< HEAD
         return 0;
-=======
-<<<<<<< HEAD
-        return 0;
-=======
-
->>>>>>> 38a668c7162c084cfe1f036326b70ae8bcf2993c
->>>>>>> refs/remotes/origin/main
     }
 
     public Ereigniskarte [] getEcardsList()
@@ -169,16 +148,8 @@ public class SettingsLoader
         // Gib abstrakte FelderListe zurück
         return felder;
     }
-    
-<<<<<<< HEAD
+
     private int loadStrassenkarten(JSONObject obj)
-=======
-<<<<<<< HEAD
-    private int loadStrassenkarten(JSONObject obj)
-=======
-    private void loadStrassenkarten(JSONObject obj)
->>>>>>> 38a668c7162c084cfe1f036326b70ae8bcf2993c
->>>>>>> refs/remotes/origin/main
     {
         // JSON_OBJECT Strassenkarten {
         //        int Miete[6]
