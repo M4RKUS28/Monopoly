@@ -19,6 +19,9 @@ public class Game {
 	private int paschZahl;
 	
 	private ArrayList<Feld> alleFelder;
+	
+	private ArrayList<Integer> benutzteEreigniskarten;
+	private ArrayList<Integer> benutzteGemeinschaftskarten;
 
 	public Game(String path) {
 		loader = new SettingsLoader();
@@ -94,12 +97,16 @@ public class Game {
 		}
 		//notify UI über Wurf und neue Pos sowie über Los
 
+		neuesFeld();
+	}
+	
+	public void neuesFeld() {
 		switch (felder[geradeAmZug.getPos()].type()) {
 		case STRASSE :
 			strasse();
 			break;
 		case BAHN :
-			bahn();
+			bahn(1);
 			break;	
 		case WERK :
 			werk();
@@ -152,14 +159,14 @@ public class Game {
 		//gibt Möglichkeitsinfo zu Ui
 	}
 	
-	public void bahn() {
+	public void bahn(int multiplier) {
 		Bahn b = felder[geradeAmZug.getPos()].toBahnHof();
 		if (b == null) {
 			//error
 		}
 		if (b.getGehoert() > -1 && b.getHypo() == false) {
-			pla[b.getGehoert()].zahlen(b.getMiete(pla[b.getGehoert()].getBahnZahl()), geradeAmZugIndex);
-			geradeAmZug.zahlen(-1 * b.getMiete(pla[b.getGehoert()].getBahnZahl()), b.getGehoert());
+			pla[b.getGehoert()].zahlen(b.getMiete(pla[b.getGehoert()].getBahnZahl()) * multiplier, geradeAmZugIndex);
+			geradeAmZug.zahlen(-1 * b.getMiete(pla[b.getGehoert()].getBahnZahl()) * multiplier, b.getGehoert());
 			//update Konten in UI
 		}
 		//gibt Möglichkeitsinfo zu Ui
@@ -240,6 +247,13 @@ public class Game {
 			s.hausBauen();
 			geradeAmZug.zahlen(-1 * s.getHauskosten() * 1000, -1);
 			geradeAmZug.aendereGesammtscore(s.getHauskosten());
+			if (s.getHauszahl() == 4) {
+				geradeAmZug.addToHausCounter(-4);
+				geradeAmZug.addToHotelCounter(1);
+			} else {
+				geradeAmZug.addToHausCounter(1);
+			}
+			
 			//Notify UI
 		}
 		else {
@@ -253,6 +267,12 @@ public class Game {
 			s.hausVerkaufen();
 			geradeAmZug.zahlen(s.getHauskosten() * 1000, -1);
 			geradeAmZug.aendereGesammtscore(-1 * s.getHauskosten());
+			if (s.getHauszahl() == 5) {
+				geradeAmZug.addToHausCounter(4);
+				geradeAmZug.addToHotelCounter(-1);
+			} else {
+				geradeAmZug.addToHausCounter(-1);
+			}
 			//Notify UI
 		}
 		else {
@@ -299,6 +319,159 @@ public class Game {
     }
     
     //
+    //Ereigniskarten
+    //
+    
+    private void Ereigniskarte() {
+    	int kartenID = rand.nextInt(16);
+    	if (benutzteEreigniskarten.size() < 16) {
+    		while (benutzteEreigniskarten.contains(kartenID)) {
+    			kartenID = rand.nextInt(16);
+        	}
+    	} else {
+    		benutzteEreigniskarten.clear();
+    	}
+    	
+    	benutzteEreigniskarten.add(kartenID);
+    	
+    	switch (kartenID) {
+    	case 0:   //"Gehe in das Gefängnis. Begib dich dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein.	"	
+    		insGef();
+    		break;
+    	case 1: //"Du kommst aus dem Gefängnis./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
+    		//noch nicht implementiert
+    		Ereigniskarte();
+    		break;
+    	case 2: //"Rücke vor bis zum Opernplatz./nWenn Du über Los kommst ziehe DM 4000 ein."
+    		if (geradeAmZug.getPos() > 23) {
+    			geradeAmZug.zahlen(loader.getUeberlosGeld(), -1);
+    		}
+    		geradeAmZug.setPos(24);
+    		neuesFeld();
+    		positionsNotify();
+    		break;
+    	case 3: //"Gehe 3 Felder zurück"
+    		geradeAmZug.bewegen(-3);
+    		neuesFeld();
+    		positionsNotify();
+    		break;
+    	case 4: //"Rücke vor bist zum nächsten Bahnhof. Der Eigentümer erhält das doppelte der normalen Miete./nHat noch kein Spieler einen Bahnhof, so kann er ihn von der Bank kaufen."
+    		if (geradeAmZug.getPos() < 35) {
+    			if (geradeAmZug.getPos() < 25) {
+        			if (geradeAmZug.getPos() < 15) {
+            			if (geradeAmZug.getPos() < 5) {
+            				geradeAmZug.setPos(5);
+                			bahn(2);
+            			} else {
+            				geradeAmZug.setPos(15);
+                			bahn(2);
+            			}
+        			} else {
+        				geradeAmZug.setPos(25);
+            			bahn(2);
+        			}
+    			} else {
+    				geradeAmZug.setPos(35);
+        			bahn(2);
+    			}
+    		} else {
+    			geradeAmZug.setPos(5);
+    			bahn(2);
+    		}
+    		break;
+    	case 5: //"Mache einen Ausflug nach dem Süd-Bahnhof,/nund wenn Du über Los kommst, ziehe DM 4000 ein."
+    		if (geradeAmZug.getPos() > 4) {
+    			geradeAmZug.zahlen(loader.getUeberlosGeld(), -1);
+    		}
+      		geradeAmZug.setPos(5);
+    		neuesFeld();
+    		positionsNotify();
+    		break;
+    	case 6: //"Rücke vor bis zur Seestrasse./nWenn Du über Los kommst, ziehe DM 4000 ein."
+    		if (geradeAmZug.getPos() > 10) {
+    			geradeAmZug.zahlen(loader.getUeberlosGeld(), -1);
+    		}
+    		geradeAmZug.setPos(11);
+    		neuesFeld();
+    		positionsNotify();
+    		break;
+    	case 7: //"Rücke bis auf Los vor."
+    		geradeAmZug.setPos(0);
+    		geradeAmZug.zahlen(loader.getUeberlosGeld(), -1);
+    		geradeAmZug.zahlen(loader.getZusaetzlichesAufLosGeld(), -1);
+    		positionsNotify();
+    		break;
+    	case 8: //"Gehe zurück nach der Badstrasse."
+    		geradeAmZug.setPos(1);
+    		neuesFeld();
+    		positionsNotify();
+    		break;
+    	case 9: //"Rücke vor bis zur Schlossallee."
+    		geradeAmZug.setPos(39);
+    		neuesFeld();
+    		positionsNotify();
+    		break;
+    	case 10: //"Lasse alle Deine Häuser renovieren./nZahle an die Bank/nfür jedes Haus DM 500/nfür jedes Hotel DM2000"
+    		geradeAmZug.zahlen((geradeAmZug.getHausCounter() * 500) + (geradeAmZug.getHotelCounter() * 2000), -1);
+    		geldNotify();
+    		break;
+    	case 11: //"Du wurdest zum Vorstand gewählt. Zahle jedem Spieler/nDM 1000"
+    		for (int i = 0; i < 4; i++) {
+    			if (i != geradeAmZugIndex) {
+    				pla[i].zahlen(1000, geradeAmZugIndex);
+    			}
+    		}
+    		geradeAmZug.zahlen(-3000, 5);
+    		geldNotify();
+    		break;
+    	case 12: //"Strafe für zu schnelles fahren./nDM 300"
+    		geradeAmZug.zahlen(-300, -1);
+    		geldNotify();
+    		break;
+    	case 13: //"Zahle eine Strafe von DM 200/noder nimm eine Gemeinschaftskarte."
+    		//notify UI
+    		break;
+    	case 14: // "Die Bank zahlt Dir eine Dividende von/nDM 1000"
+    		geradeAmZug.zahlen(1000, -1);
+    		geldNotify();
+    		break;
+    	case 15: //"Miete und Anleihzinsen werden fällig./ndie Bank zahlt Dir DM 3000"
+    		geradeAmZug.zahlen(3000, -1);
+    		geldNotify();
+    		break;
+    	}
+    	
+    	Ereignisnotify(kartenID); 
+    }
+    
+    public void Ereigniskarte13Zahlen() {
+    	geradeAmZug.zahlen(-200, -1);
+		geldNotify();
+    }
+    public void Ereigniskarte13Karte() {
+    	Gemeinschaftskarte();
+    }
+    
+    //
+    //Gemeinschaftskarten
+    //
+    
+    private void Gemeinschaftskarte() {
+    	int kartenID = rand.nextInt(16);
+    	if (benutzteGemeinschaftskarten.size() < 16) {
+    		while (benutzteGemeinschaftskarten.contains(kartenID)) {
+    			kartenID = rand.nextInt(16);
+        	}
+    	} else {
+    		benutzteGemeinschaftskarten.clear();
+    	}
+    	
+    	benutzteGemeinschaftskarten.add(kartenID);
+    	
+    	switch (kartenID) {}
+    }
+    
+    //
     //UI notify
     //
     
@@ -336,6 +509,14 @@ public class Game {
     	}
     	
     	
+    	
+    }
+    
+    private void Ereignisnotify(int ID) {
+    	
+    }
+    
+    private void positionsNotify() {
     	
     }
 }

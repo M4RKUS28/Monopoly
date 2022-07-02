@@ -270,103 +270,103 @@
     ],
 
     "Ereigniskarten": [{
-            "ID": 1,
+            "ID": 0,
             "Text": "Gehe in das Gefängnis. Begib dich dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
         }, {
-            "ID": 2,
+            "ID": 1,
             "Text": "Du kommst aus dem Gefängnis./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
         }, {
-            "ID": 3,
+            "ID": 2,
             "Text": "Rücke vor bis zum Opernplatz./nWenn Du über Los kommst ziehe DM 4000 ein."
         }, {
-            "ID": 4,
+            "ID": 3,
             "Text": "Gehe 3 Felder zurück"
         }, {
-            "ID": 5,
+            "ID": 4,
             "Text": "Rücke vor bist zum nächsten Bahnhof. Der Eigentümer erhält das doppelte der normalen Miete./nHat noch kein Spieler einen Bahnhof, so kann er ihn von der Bank kaufen."
         }, {
-            "ID": 6,
+            "ID": 5,
             "Text": "Mache einen Ausflug nach dem Süd-Bahnhof,/nund wenn Du über Los kommst, ziehe DM 4000 ein."
         }, {
-            "ID": 7,
+            "ID": 6,
             "Text": "Rücke vor bis zur Seestrasse./nWenn Du über Los kommst, ziehe DM 4000 ein."
         }, {
-            "ID": 8,
+            "ID": 7,
             "Text": "Rücke bis auf Los vor."
         }, {
-            "ID": 9,
+            "ID": 8,
             "Text": "Gehe zurück nach der Badstrasse."
         }, {
-            "ID": 10,
+            "ID": 9,
             "Text": "Rücke vor bis zur Schlossallee."
         }, {
-            "ID": 11,
+            "ID": 10,
             "Text": "Lasse alle Deine Häuser renovieren./nZahle an die Bank/nfür jedes Haus DM 500/nfür jedes Hotel DM2000"
         }, {
-            "ID": 12,
+            "ID": 11,
             "Text": "Du wurdest zum Vorstand gewählt. Zahle jedem Spieler/nDM 1000"
         }, {
-            "ID": 13,
+            "ID": 12,
             "Text": "Strafe für zu schnelles fahren./nDM 300"
         }, {
-            "ID": 14,
+            "ID": 13,
             "Text": "Zahle eine Strafe von DM 200/noder nimm eine Gemeinschaftskarte."
         }, {
-            "ID": 15,
+            "ID": 14,
             "Text": "Die Bank zahlt Dir eine Dividende von/nDM 1000"
         }, {
-            "ID": 16,
+            "ID": 15,
             "Text": "Miete und Anleihzinsen werden fällig./ndie Bank zahlt Dir DM 3000"
         }
     ],
 
     "Gemeinschaftskarten": [{
-            "ID": 1,
+            "ID": 0,
             "Text": "Zahle Schulgeld DM 3000."
         }, {
-            "ID": 2,
+            "ID": 1,
             "Text": "Zahle an das Krankenhaus DM 2000."
         }, {
-            "ID": 3,
+            "ID": 2,
             "Text": "Artzt-Kosten Zahle DM 1000."
         }, {
-            "ID": 4,
+            "ID": 3,
             "Text": "Du wirst zu Strassenausbesserungsarbeiten herangezogen. Zahle für Deine Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
         }, {
-            "ID": 5,
+            "ID": 4,
             "Text": "Gehe in das Gefängnis. Begib Dich direkt dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
         }, {
-            "ID": 6,
+            "ID": 5,
             "Text": "Du kommst aus dem Gefängnis frei./nDiese Karte muss behalten werden, bis sie gebraucht oder verkauft wird."
         }, {
-            "ID": 7,
+            "ID": 6,
             "Text": "Die Jahresrente wird fällig Ziehe DM 2000 ein."
         }, {
-            "ID": 8,
+            "ID": 7,
             "Text": "Du erhältst auf Vorzugs-Aktien 7% Dividende/nDM 900."
         }, {
-            "ID": 9,
+            "ID": 8,
             "Text": "Du hast in einem Kreuzworträtsel-Wettbewerb gewonnen/nZiehe DM 2000 ein."
         }, {
-            "ID": 10,
+            "ID": 9,
             "Text": "Rücke vor bis auf Los."
         }, {
-            "ID": 11,
+            "ID": 10,
             "Text": "Aus Lagerverkäufen erhältst Du/nDM 500."
         }, {
-            "ID": 12,
+            "ID": 11,
             "Text": "Du hast den 2. Preis in einer Schönheitskonkurrenz gewonnen./nZiehe DM 200 ein."
         }, {
-            "ID": 13,
+            "ID": 12,
             "Text": "Es ist dein Geburtstag.Ziehe von jedem Spieler DM 1000 ein."
         }, {
-            "ID": 14,
+            "ID": 13,
             "Text": "Bank-Irrtum zu Deinen Gunsten/nZiehe DM 4000 ein."
         }, {
-            "ID": 15,
+            "ID": 14,
             "Text": "Einkommensteuer-Rückzahlung/nZiehe DM 400 ein."
         }, {
-            "ID": 16,
+            "ID": 15,
             "Text": "Du erbst DM 2000."
         }
 
