@@ -20,12 +20,20 @@ public class Game {
 	
 	private ArrayList<Feld> alleFelder;
 
+<<<<<<< HEAD
 	public Game(String path) {
 		loader = new SettingsLoader();
 		int ret = 0;
 		if ( (ret = loader.loadData(path)) > 0) { //"../json/cards.json"
 			 System.exit(ret); 
 		}
+=======
+	public Game() {
+		loader = new SettingsLoader(null);
+		//if (loader.load()) {
+			//exit
+		//}
+>>>>>>> 38a668c7162c084cfe1f036326b70ae8bcf2993c
 		felder = loader.getFelderList();
 		
 		for (int i = 0; i < 4; i++) {
@@ -296,6 +304,7 @@ public class Game {
         
         return loader.getColourMap().get( colour ) == count;
     }
+<<<<<<< HEAD
     
     //
     //UI notify
@@ -337,4 +346,7 @@ public class Game {
     	
     	
     }
+=======
+		
+>>>>>>> 38a668c7162c084cfe1f036326b70ae8bcf2993c
 }
