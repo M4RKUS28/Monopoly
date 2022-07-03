@@ -30,7 +30,12 @@ public class GEKarte extends Field{
 	
 	private void createKarte() {
 		this.setBounds(x, y, width, height);
-		this.setBackground(colors.get("board"));
+		if (typ.contains("mein")) {
+			this.setBackground(Constants.colors.get("rosa"));
+		} else {
+			this.setBackground(Constants.colors.get("Erblau"));
+
+		}
 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 		this.setLayout(new BorderLayout(0, 5));
 		

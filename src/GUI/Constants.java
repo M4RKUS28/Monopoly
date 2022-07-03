@@ -67,13 +67,12 @@ public class Constants {
 		colors.put("blau", new Color(0x0076BA));
 		colors.put("board", new Color(0xB2DAAD));
 		colors.put("hintergrund", new Color(0x92B28E));
+		colors.put("rosa", new Color(0xFFCACB));
+		colors.put("Erblau", new Color(0xBAF2FF));
 		colors.put("grau", new Color(213, 213, 213, 100));
 		colors.put("Prot", new Color(0xB51700));
 		colors.put("Pblau", new Color(0x004D80));
 		colors.put("Pgrün", new Color(0x017100));
 		colors.put("Pgelb", new Color(0xF27200));
 	}
-
-	
-
 }
