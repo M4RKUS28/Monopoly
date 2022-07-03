@@ -129,10 +129,12 @@ public class Game {
 			case 2: //Gemeinschafts
 			case 17:
 			case 33:
+				Gemeinschaftskarte();
 				break;
 			case 7: //Ereigniss
 			case 22:
 			case 36:
+				Ereigniskarte();
 				break;
 			case 4: //Einkommens
 				geradeAmZug.zahlen(-1 * loader.getEinkommensteuer(), -1);
@@ -292,7 +294,6 @@ public class Game {
 		if (geradeAmZug.getGef()) {
 			geradeAmZug.zahlen(-1 * loader.getGefaengniskosten(), -1);
 			ausGef();
-			geldNotify();
 		}
 		else {
 			//error an UI
@@ -345,18 +346,40 @@ public class Game {
     //
     
 	
-	/*public boolean tauscheKarten(Player tauschpatner, int[] geben, int[] nehmen) {
-		int feld =  -1;
-		for (int i = 0; i < geben.length; i++) {
-			if ( (feld = geradeAmZug.getBesitz().indexOf(geben[i])) > 0) {
-				
-			} else {
-				return false;
-			}
+    public void tauschen(Tausch t) {
+		if (tauschCheck(t)) {
 			
+		} else {
+			//tausch Fehlerhaft
+		}
+	}
+	
+	public boolean tauschCheck(Tausch t) {
+		if (pla[t.getPlayerVon()].getGeld() < t.getGeldVon()) {
+			return false;
+		}
+		if (pla[t.getPlayerZu()].getGeld() < t.getGeldZu()) {
+			return false;
+		}
+		if (pla[t.getPlayerVon()].gefFreiKrate() < t.getGefFreiKartenVon()) {
+			return false;
+		}
+		if (pla[t.getPlayerZu()].gefFreiKrate() < t.getGefFreiKartenZu()) {
+			return false;
 		}
 		
-	}*/
+		for (int i = 0; i < t.getHaeuserVon().length; i++) {
+			if (pla[t.getPlayerVon()].getBesitz().contains(t.getHaeuserVon()[i]) == false) {
+				return false;
+			}
+		}
+		for (int i = 0; i < t.getHaeuserZu().length; i++) {
+			if (pla[t.getPlayerZu()].getBesitz().contains(t.getHaeuserZu()[i]) == false) {
+				return false;
+			}
+		}
+		return true;
+	}
     
     //
     //Ereigniskarten
@@ -453,7 +476,6 @@ public class Game {
     		break;
     	case 10: //"Lasse alle Deine Häuser renovieren./nZahle an die Bank/nfür jedes Haus DM 500/nfür jedes Hotel DM2000"
     		geradeAmZug.zahlen(-1 * ((geradeAmZug.getHausCounter() * 500) + (geradeAmZug.getHotelCounter() * 2000)), -1);
-    		geldNotify();
     		break;
     	case 11: //"Du wurdest zum Vorstand gewählt. Zahle jedem Spieler/nDM 1000"
     		for (int i = 0; i < 4; i++) {
@@ -462,11 +484,9 @@ public class Game {
     			}
     		}
     		geradeAmZug.zahlen(-3000, 5);
-    		geldNotify();
     		break;
     	case 12: //"Strafe für zu schnelles fahren./nDM 300"
     		geradeAmZug.zahlen(-300, -1);
-    		geldNotify();
     		break;
     	case 13: //"Zahle eine Strafe von DM 200/noder nimm eine Gemeinschaftskarte."
     		//noch nicht vollständig Implementiert
@@ -477,11 +497,9 @@ public class Game {
     		//break;
     	case 14: // "Die Bank zahlt Dir eine Dividende von/nDM 1000"
     		geradeAmZug.zahlen(1000, -1);
-    		geldNotify();
     		break;
     	case 15: //"Miete und Anleihzinsen werden fällig./ndie Bank zahlt Dir DM 3000"
     		geradeAmZug.zahlen(3000, -1);
-    		geldNotify();
     		break;
     	}
     	
@@ -490,7 +508,6 @@ public class Game {
     
     public void Ereigniskarte13Zahlen() {
     	geradeAmZug.zahlen(-200, -1);
-		geldNotify();
     }
     public void Ereigniskarte13Karte() {
     	Gemeinschaftskarte();
@@ -515,19 +532,15 @@ public class Game {
     	switch (kartenID) {
     	case 0: //"Zahle Schulgeld DM 3000."
     		geradeAmZug.zahlen(-3000, -1);
-    		geldNotify();
     		break;
     	case 1: //"Zahle an das Krankenhaus DM 2000."
     		geradeAmZug.zahlen(-2000, -1);
-    		geldNotify();
     		break;
     	case 2: //"Artzt-Kosten Zahle DM 1000."
     		geradeAmZug.zahlen(-1000, -1);
-    		geldNotify();
     		break;
     	case 3: //"Du wirst zu Strassenausbesserungsarbeiten herangezogen. Zahle für Deine Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
     		geradeAmZug.zahlen(-1 * ((geradeAmZug.getHausCounter() * 800) + (geradeAmZug.getHotelCounter() * 2300)), -1);
-    		geldNotify();
     		break;
     	case 4: //"Gehe in das Gefängnis. Begib Dich direkt dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein."
     		insGef();
@@ -538,15 +551,12 @@ public class Game {
     		break;
     	case 6: //"Die Jahresrente wird fällig Ziehe DM 2000 ein."
     		geradeAmZug.zahlen(2000, -1);
-    		geldNotify();
     		break;
     	case 7: //"Du erhältst auf Vorzugs-Aktien 7% Dividende/nDM 900."
     		geradeAmZug.zahlen(900, -1);
-    		geldNotify();
     		break;
     	case 8: //"Du hast in einem Kreuzworträtsel-Wettbewerb gewonnen/nZiehe DM 2000 ein."
     		geradeAmZug.zahlen(2000, -1);
-    		geldNotify();
     		break;
     	case 9: //"Rücke vor bis auf Los."
     		geradeAmZug.setPos(0);
@@ -556,11 +566,9 @@ public class Game {
     		break;
     	case 10: //"Aus Lagerverkäufen erhältst Du/nDM 500."
     		geradeAmZug.zahlen(500, -1);
-    		geldNotify();
     		break;
     	case 11: //"Du hast den 2. Preis in einer Schönheitskonkurrenz gewonnen./nZiehe DM 200 ein."
     		geradeAmZug.zahlen(200, -1);
-    		geldNotify();
     		break;
     	case 12: //"Es ist dein Geburtstag.Ziehe von jedem Spieler DM 1000 ein."
     		for (int i = 0; i < 4; i++) {
@@ -569,19 +577,15 @@ public class Game {
     			}
     		}
     		geradeAmZug.zahlen(3000, 5);
-    		geldNotify();
     		break;
     	case 13: //"Bank-Irrtum zu Deinen Gunsten/nZiehe DM 4000 ein."
     		geradeAmZug.zahlen(4000, 5);
-    		geldNotify();
     		break;
     	case 14: //"Einkommensteuer-Rückzahlung/nZiehe DM 400 ein."
     		geradeAmZug.zahlen(400, 5);
-    		geldNotify();
     		break;
     	case 15: //"Du erbst DM 2000."
     		geradeAmZug.zahlen(2000, 5);
-    		geldNotify();
     		break;
     	}
     	
@@ -595,7 +599,7 @@ public class Game {
     private void spielerwechselNotify() {
     	
     }
-    private void geldNotify() {
+    public void geldNotify() {
     	int max = 0, p1 = -1, p2 = -1, p3 = -1, p4 = -1;
     	for (int i = 0; i < pla.length; i ++) {
     		if (max < pla[i].getGeld()) {
@@ -625,7 +629,18 @@ public class Game {
     		}
     	}
     	
+    	int[] update = new int[8];
+    	update[0] = p1; 
+    	update[1] = p2; 
+    	update[2] = p3; 
+    	update[3] = p4; 
+    	
+    	update[4] = pla[p1].getGeld(); 
+    	update[5] = pla[p2].getGeld(); 
+    	update[6] = pla[p3].getGeld(); 
+    	update[7] = pla[p4].getGeld(); 
     	  	
+    	spielfeld.updateStats(update);
     }
     
     public void toggleHausBauen() {
@@ -638,14 +653,6 @@ public class Game {
     
     public boolean getHausBauen() {
     	return hausBauen;
-    }
-    
-    private void Ereignisnotify(int ID) {
-    	
-    }
-    
-    private void Gemeinschaftsnotify(int ID) {
-    	
     }
     
     private void positionsNotify() {

@@ -30,6 +30,7 @@ public class Player {
 
 	public void zahlen(int x, int p) {
 		geld += x;
+		game.geldNotify();
 		if (geld < 0) {
 			
 			//game.bankrott(p, index);
