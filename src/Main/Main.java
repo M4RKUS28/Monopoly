@@ -8,7 +8,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		Spielfeld spielfeld = new Spielfeld();
 		Constants con = new Constants();
-		System.out.println("Spielfeld gestartet");
+		System.out.println("Spielfeld gestartet Git");
 		
 	}
 }
