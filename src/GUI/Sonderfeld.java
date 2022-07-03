@@ -135,7 +135,7 @@ public class Sonderfeld extends Field{
 		gbc.insets = new Insets(-45, 10, 0, -15);
 */
 		JLabel picture = new JLabel();
-		picture.setIcon(new ImageIcon(new ImageIcon("images/Gefaengnis.png").getImage().getScaledInstance((int) (size*0.7), (int) ((size*0.98)*0.7), Image.SCALE_DEFAULT)));
+		picture.setIcon(new ImageIcon(new ImageIcon("src/images/Gefaengnis.png").getImage().getScaledInstance((int) (size*0.7), (int) ((size*0.98)*0.7), Image.SCALE_DEFAULT)));
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
 		picture.setVerticalAlignment(SwingConstants.CENTER);
 		prison.add(picture, BorderLayout.CENTER);

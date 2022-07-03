@@ -117,7 +117,7 @@ public class Spielfeld extends Constants {
 		controllpanel.setLayout(null);
 
 		JLabel dice = new JLabel();
-		dice.setIcon(new ImageIcon(new ImageIcon("images/DiceEnabled.png").getImage().getScaledInstance(
+		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceEnabled.png").getImage().getScaledInstance(
 				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 				Image.SCALE_DEFAULT)));
 		dice.setBounds((int) (0.25 * cardHeight), (int) (0.05 * 3 * cardWidth), (int) (cardHeight * 0.5),
@@ -159,7 +159,7 @@ public class Spielfeld extends Constants {
 		controllpanel.add(dice);
 
 		JLabel buildHouse = new JLabel();
-		buildHouse.setIcon(new ImageIcon(new ImageIcon("images/HausDisabled.png").getImage().getScaledInstance(
+		buildHouse.setIcon(new ImageIcon(new ImageIcon("src/images/HausDisabled.png").getImage().getScaledInstance(
 				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 				Image.SCALE_DEFAULT)));
 		buildHouse.setBounds((int) (0.25 * cardHeight), (int) (1.5 * cardWidth - cardHeight * 0.25),
@@ -201,7 +201,7 @@ public class Spielfeld extends Constants {
 		controllpanel.add(buildHouse);
 
 		JLabel nextPlayer = new JLabel();
-		nextPlayer.setIcon(new ImageIcon(new ImageIcon("images/NextEnabled.png").getImage().getScaledInstance(
+		nextPlayer.setIcon(new ImageIcon(new ImageIcon("src/images/NextEnabled.png").getImage().getScaledInstance(
 				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 				Image.SCALE_DEFAULT)));
 		nextPlayer.setBounds((int) (0.25 * cardHeight), (int) (0.95 * 3 * cardWidth - cardHeight * 0.5),
