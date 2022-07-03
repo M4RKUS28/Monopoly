@@ -9,5 +9,9 @@ public class Gemeinschaftskarte {
 		this.text = text;
 
 	}
+
+	public String getText() {
+		return text;
+	}
 	
 }

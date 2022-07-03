@@ -7,10 +7,10 @@ public class Strasse extends Feld{
     private int[] miete = new int[6];
     private String farbe;
     private ArrayList<Integer> nachbarn = new ArrayList<>();
-
     
     public Strasse(String name, int pos, int preis, int hauskosten, int hypothekwert, int miete[], ArrayList<Integer> nachbarn, String farbe) {
-        this.farbe = farbe;
+        this.name = name;
+    	this.farbe = farbe;
         this.pos = pos;
         this.preis = preis;
         this.hauskosten = hauskosten;

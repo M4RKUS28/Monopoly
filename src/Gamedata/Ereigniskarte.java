@@ -9,5 +9,9 @@ public class Ereigniskarte {
 		this.text = text;
 
 	}
+
+	public String getText() {
+		return text;
+	}
 	
 }

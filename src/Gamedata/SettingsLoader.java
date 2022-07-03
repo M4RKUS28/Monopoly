@@ -182,7 +182,8 @@ public class SettingsLoader
             
             //Position -> überprüfe, ob diese in Array-Range ist
             int pos = strasse.getInt("Position");
-            if( pos >= 0 && pos < felder.length ) {                
+            
+            if( pos >= 0 && pos < felder.length ) {           
             	felder[pos] = new Strasse(  strasse.getString("Name") , pos, strasse.getInt("Preis"), strasse.getInt("Hauskosten"), strasse.getInt("Hypothekenwert"), mietenList, new ArrayList<Integer>(), strasse.getString("Farbe") );
             } else {
                 System.out.println( "ERROR: Ungültiger Eintrag: " +  strasse.getString("Name")  );

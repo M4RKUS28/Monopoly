@@ -4,10 +4,10 @@ package Gamedata;
 
 public class Bahn extends Feld{
     private int[] miete = new int[4];
-    private String name;
 
     public Bahn(String name, int pos, int preis, int hypothekwert,int miete[]) {
-        this.pos = pos;
+        this.name = name;
+    	this.pos = pos;
         this.preis = preis;
         this.hypothekwert = hypothekwert;
         this.miete = miete;

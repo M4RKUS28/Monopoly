@@ -16,6 +16,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Gamelogic.Game;
+
 public class Straßenkarte extends Field implements MouseListener{
 	private Figure[] player;
 	private String name;
@@ -29,7 +31,8 @@ public class Straßenkarte extends Field implements MouseListener{
 	private JLabel[] houses;
 	private JPanel colorstripe;
 	private JPanel playerPos;
- 	public Straßenkarte(String name, int position, int width, int height, Color stripeColor, int price) {
+	private Game game;
+ 	public Straßenkarte(String name, int position, int width, int height, Color stripeColor, int price, Game game) {
 		super(name, position);
 		// TODO Auto-generated constructor stub
 		this.name = name;
@@ -43,6 +46,12 @@ public class Straßenkarte extends Field implements MouseListener{
 		this.houses = new JLabel[4];
 		this.setName(String.valueOf(position));
 		this.name = this.transformText(name);
+		this.game = game;
+		System.out.println("Game" + game);
+		this.placeHouses = true;
+		if (position == -2) {
+			placeHouses = false;
+		}
 		player = new Figure[4];
 		karteErstellen();
 		
@@ -57,7 +66,7 @@ public class Straßenkarte extends Field implements MouseListener{
  		JLabelR priceTag;
  		
  		//-------------------Grundstruktur-------------------
- 		if (position < 10 || (position > 20 && position < 29)) {
+ 		if (position < 10 || (position > 20 && position <= 29)) {
  	 		// Für untere und obere Reihe
  			this.setPreferredSize(new Dimension(width, height));
 		 	this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, Color.BLACK));
@@ -184,9 +193,11 @@ public class Straßenkarte extends Field implements MouseListener{
  		body.setBackground(Constants.colors.get("board"));
  		body.setLayout(null);
  		body.add(textpanel, Integer.valueOf(0));
+ 		body.addMouseListener(this);
  		
  		//-------------------playerPos-------------------
  		playerPos.setOpaque(false);
+ 		playerPos.addMouseListener(this);
  		
  		playerPos.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
  		body.add(playerPos, Integer.valueOf(1));
@@ -283,7 +294,8 @@ public class Straßenkarte extends Field implements MouseListener{
  		}
 
  		this.colorstripe.add(house);
- 		
+			System.out.println("Haus gebaut");
+
  		this.revalidate();
  		this.repaint();
  	}
@@ -325,9 +337,9 @@ public class Straßenkarte extends Field implements MouseListener{
 		if (numHouse>5) {
 			return;
 		}
-		placeHouses = true;
-		if (placeHouses) {
-			this.placeHouse();
+		System.out.println("Haus soll gebaut werden");
+		if (placeHouses && game.hausBauen(this.position)) {
+			placeHouse();
 		}
 
 		

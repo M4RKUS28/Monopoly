@@ -6,7 +6,8 @@ public class Werk extends Feld{
     private boolean hypo;
     
     public Werk(String name, int pos, int preis, int hauskosten,int hypothekwert,int miete) {
-        this.pos = pos;
+        this.name = name;
+    	this.pos = pos;
         this.preis = preis;
         this.hypothekwert = hypothekwert;
         this.miete = miete;

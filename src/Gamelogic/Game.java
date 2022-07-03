@@ -3,16 +3,24 @@ package Gamelogic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import Gamedata.*;
+import GUI.Spielfeld;
+import Gamedata.Bahn;
+import Gamedata.Feld;
 import Gamedata.Feld.TYPE;
+import Gamedata.SettingsLoader;
+import Gamedata.Sonderfeld;
+import Gamedata.Strasse;
+import Gamedata.Werk;
 
 public class Game {
+	private Spielfeld spielfeld;
 	private Random rand = new Random();
 	private Player[] pla = new Player[4];
 	private Player geradeAmZug;
 	private int geradeAmZugIndex;
 	private boolean[] imSpiel;
 	private Feld[] felder;
+	private boolean hausBauen;
 	
 	private SettingsLoader loader;
 	
@@ -22,8 +30,10 @@ public class Game {
 	private ArrayList<Integer> benutzteEreigniskarten;
 	private ArrayList<Integer> benutzteGemeinschaftskarten;
 
-	public Game(String path) {
+	public Game(String path, Spielfeld spielfeld) {
+		this.spielfeld = spielfeld;
 		loader = new SettingsLoader();
+		imSpiel = new boolean[4];
 		int ret = 0;
 		if ( (ret = loader.loadData(path)) > 0) { //"../json/cards.json"
 			 System.exit(ret); 
@@ -61,7 +71,7 @@ public class Game {
 
 	}
 	
-	private void wuerfeln() //Ui callt das hier mit Würfelbutton
+	public void wuerfeln() //Ui callt das hier mit Würfelbutton
 	{
 		int wurf1 = rand.nextInt(6) + 1;
 		int wurf2 = rand.nextInt(6) + 1;
@@ -234,9 +244,9 @@ public class Game {
 		}
 	}
 	
-	public void hausBauen(int pos) {
+	public boolean hausBauen(int pos) {
 		Strasse s = felder[pos].toStrasse();
-		if (s.hausbauCheck(felder) && geradeAmZug.getGeld() - s.getHauskosten() * 1000 < -1) {
+		if (s.hausbauCheck(felder) && geradeAmZug.getGeld() - s.getHauskosten() * 1000 < -1 && geradeAmZug.getBesitz().contains(pos) && hausBauen) {
 			s.hausBauen();
 			geradeAmZug.zahlen(-1 * s.getHauskosten() * 1000, -1);
 			geradeAmZug.aendereGesammtscore(s.getHauskosten());
@@ -247,16 +257,16 @@ public class Game {
 				geradeAmZug.addToHausCounter(1);
 			}
 			
-			//Notify UI
+			return true;
 		}
 		else {
-			//error an UI
+			return false;
 		}
 	}
 	
 	public void hausVerkaufen(int pos) {
 		Strasse s = felder[pos].toStrasse();
-		if (s.hausbauCheck(felder) && s.getHauszahl() > 0) {
+		if (s.hausbauCheck(felder) && s.getHauszahl() > 0&& geradeAmZug.getBesitz().contains(pos) && hausBauen) {
 			s.hausVerkaufen();
 			geradeAmZug.zahlen(s.getHauskosten() * 1000, -1);
 			geradeAmZug.aendereGesammtscore(-1 * s.getHauskosten());
@@ -475,7 +485,7 @@ public class Game {
     		break;
     	}
     	
-    	Ereignisnotify(kartenID); 
+    	spielfeld.showEKarte(kartenID);
     }
     
     public void Ereigniskarte13Zahlen() {
@@ -574,6 +584,8 @@ public class Game {
     		geldNotify();
     		break;
     	}
+    	
+    	spielfeld.showGKarte(kartenID);
     }
     
     //
@@ -614,6 +626,18 @@ public class Game {
     	}
     	
     	  	
+    }
+    
+    public void toggleHausBauen() {
+    	if (hausBauen) {
+    		hausBauen = false;
+    	} else {
+    		hausBauen = true;
+    	}
+    }
+    
+    public boolean getHausBauen() {
+    	return hausBauen;
     }
     
     private void Ereignisnotify(int ID) {

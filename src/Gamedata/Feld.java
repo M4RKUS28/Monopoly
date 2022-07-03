@@ -5,7 +5,20 @@ public abstract class Feld {
     public boolean hypo;
     public String name;
     
-    public enum TYPE {
+    public int getPos() {
+		return pos;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getPreis() {
+		return preis;
+	}
+
+
+	public enum TYPE {
         BAHN,
         STRASSE,
         WERK,
@@ -52,7 +65,7 @@ public abstract class Feld {
     
     public abstract int getHypothekwert();
     public abstract boolean getHypo();
-    public abstract int getPreis();
+    //public abstract int getPreis();
     
     public abstract void setHypo(boolean b);
     public abstract void setGehoert(int x);

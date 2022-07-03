@@ -199,7 +199,6 @@ public class Sonderfeld extends Field{
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
 		picture.setVerticalAlignment(SwingConstants.CENTER);
 		this.add(picture, BorderLayout.CENTER);
-
 	}
 
 	public void addPlayer(String color) {
