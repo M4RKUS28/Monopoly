@@ -48,7 +48,7 @@ public class InfrastrukturKarte extends Field {
 			this.setPreferredSize(new Dimension(height, width));
 			this.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, Color.BLACK));
 			streetname = new JLabelR(this.transformText(name), 90);
-			streetname.setIcon(new ImageIcon(new ImageIcon("src/images/Glühbirne.png").getImage()
+			streetname.setIcon(new ImageIcon(new ImageIcon("src/images/Gluehbirne.png").getImage()
 					.getScaledInstance((int) (0.6 * width), (int) (0.6 * width), Image.SCALE_DEFAULT)));
 			streetname.setVerticalTextPosition(JLabelR.TOP);
 			streetname.setIconTextGap((int) (0.05 * height));
