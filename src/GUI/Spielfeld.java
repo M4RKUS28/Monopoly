@@ -55,6 +55,8 @@ public class Spielfeld extends Constants {
 	private SettingsLoader sl = new SettingsLoader();
 	private Field[] fields;
 	private JLabel[] statsList;
+	
+	private int[] figuernPos;
 
 	public Spielfeld() {
 
@@ -68,12 +70,21 @@ public class Spielfeld extends Constants {
 		fields = new Field[40];
 		statsList = new JLabel[8];
 		
+		figuernPos = new int[4];
+		
+		for (int i = 0; i < 4; i++) {
+			figuernPos[i] = 0;
+		}
+		
+		
 		setUpConstants();
 		
 		setUpColors();
 		buildBasicFrame();
 
 		showFrame();
+		
+		game.start();
 	}
 	
 	private void setUpConstants() {
@@ -549,6 +560,20 @@ public class Spielfeld extends Constants {
 		}
 		frame.add(base);
 		frame.repaint();
+	}
+	
+	public void figurenUpdate(int[] pos) {
+		fields[figuernPos[0]].removePlayer("Prot");
+		fields[figuernPos[1]].removePlayer("Pgelb");
+		fields[figuernPos[2]].removePlayer("Pgrün");
+		fields[figuernPos[3]].removePlayer("Pblau");
+		
+		figuernPos = pos;
+		
+		fields[figuernPos[0]].addPlayer("Prot");
+		fields[figuernPos[1]].addPlayer("Pgelb");
+		fields[figuernPos[2]].addPlayer("Pgrün");
+		fields[figuernPos[3]].addPlayer("Pblau");
 	}
 
 	private void showFrame() {

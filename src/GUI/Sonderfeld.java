@@ -75,7 +75,7 @@ public class Sonderfeld extends Field{
 		JLabel arrow = new JLabel();
 		arrow.setIcon(new ImageIcon(new ImageIcon("src/images/Pfeil.png").getImage().getScaledInstance((int) (size*0.8), (int) ((size*0.22)*0.8), Image.SCALE_DEFAULT)));
 		arrow.setBounds((int) (size*0.1), 0,(int) (size*0.8), (int) ((size*0.22)*0.8));
-		pane.add(arrow, Integer.valueOf(2));
+		pane.add(arrow, Integer.valueOf(0));
 		pane.add(playerPos, Integer.valueOf(1));
 		this.add(pane, BorderLayout.SOUTH);
 	}
@@ -211,7 +211,7 @@ public class Sonderfeld extends Field{
 				return;
 			}
 		}
-		this.playerPos.add(new Figure(color));
+		this.playerPos.add(fig);
 		System.out.println(playerPos.getComponents());
 		this.revalidate();
 		this.repaint();
@@ -221,6 +221,7 @@ public class Sonderfeld extends Field{
 
 		Component[] components = playerPos.getComponents();
 		for (Component component : components) {
+			System.out.println(component.getName());
 			if (color== component.getName()) {
 				playerPos.remove(component);
 			}

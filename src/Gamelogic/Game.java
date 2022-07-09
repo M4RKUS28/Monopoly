@@ -29,8 +29,13 @@ public class Game {
 	
 	private ArrayList<Integer> benutzteEreigniskarten;
 	private ArrayList<Integer> benutzteGemeinschaftskarten;
+	
+	private boolean bankrott;
+	private int bankrottPlayer;
 
 	public Game(String path, Spielfeld spielfeld) {
+		benutzteEreigniskarten = new ArrayList<Integer>();
+		benutzteGemeinschaftskarten = new ArrayList<Integer>();
 		this.spielfeld = spielfeld;
 		loader = new SettingsLoader();
 		imSpiel = new boolean[4];
@@ -50,6 +55,7 @@ public class Game {
 	public void start() { //Ui callt das hier mit Startbutton
 		geradeAmZug = pla[0];
 		geradeAmZugIndex = 0;
+		positionsNotify();
 		//notify UI
 	}
 	
@@ -104,7 +110,9 @@ public class Game {
 			geradeAmZug.zahlen(loader.getUeberlosGeld(), -1); 
 			geradeAmZug.bewegen(-40);
 		}
-		//notify UI über Wurf und neue Pos sowie über Los
+		
+		positionsNotify();
+		//notify UI über Wurf
 
 		neuesFeld();
 	}
@@ -198,15 +206,6 @@ public class Game {
 			geradeAmZug.zahlen(-1 * w.getMiete() * wurf, w.getGehoert());
 		}
 		//gibt Möglichkeitsinfo zu Ui
-	}
-	
-	public void bankrott(int gewinnenderSpieler, int bankrotterSpieler) {
-		pla[gewinnenderSpieler].zahlen(pla[bankrotterSpieler].getGeld(), bankrotterSpieler);
-		pla[gewinnenderSpieler].getBesitz().addAll(pla[bankrotterSpieler].getBesitz()); 
-		imSpiel[bankrotterSpieler] = false;
-		pla[bankrotterSpieler] = new Player(this, bankrotterSpieler);
-		//notify Ui
-		naechster();
 	}
 	
 	public void kaufen() {
@@ -338,6 +337,7 @@ public class Game {
     private void ausGef() {
     	geradeAmZug.setGef(false);
     	geradeAmZug.setPos(10);
+    	positionsNotify();
     	//NotifyUI
     }
     
@@ -656,6 +656,34 @@ public class Game {
     }
     
     private void positionsNotify() {
-    	
+    	int[] i = { pla[0].getPos(), pla[1].getPos(), pla[2].getPos(), pla[3].getPos() };
+    	spielfeld.figurenUpdate(i);
+    }
+    
+    //
+    //Bankrottmanagement
+    //
+    
+    public void toggleBankrott(int pId) {
+    	if (bankrott) {
+    		bankrott = false;
+    		//update UI
+    	} else {
+    		bankrott = true;
+    		bankrottPlayer = pId;
+    		//update UI
+    	}
+    }
+    
+    public void bankrott() {
+    	for (int i : geradeAmZug.getBesitz()) {
+    		pla[bankrottPlayer].erhalten(i);
+    		geradeAmZug.hergeben(i);
+    	}
+    	pla[bankrottPlayer].zahlen(geradeAmZug.getGeld(), geradeAmZugIndex);
+    	geradeAmZug.setGeld(-9999);
+    	pla[bankrottPlayer].addToGefFreiKarte(geradeAmZug.gefFreiKrate());
+    	geradeAmZug.addToGefFreiKarte(-1 * geradeAmZug.gefFreiKrate());
+    	imSpiel[geradeAmZugIndex] = false;
     }
 }

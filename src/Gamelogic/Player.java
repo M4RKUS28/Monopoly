@@ -6,7 +6,7 @@ public class Player {
 	private int pos, geld, bahnZahl, index, gefZahl, gesammtscore, hausCounter, hotelCounter, gefFreiKarte;
 	private ArrayList<Integer> besitz = new ArrayList<>();
 	private Game game;
-	private boolean imGef;
+	private boolean imGef, bankrott;
 	
 	public Player(Game g, int i) {
 		bahnZahl = 0;
@@ -32,8 +32,12 @@ public class Player {
 		geld += x;
 		game.geldNotify();
 		if (geld < 0) {
-			
-			//game.bankrott(p, index);
+			bankrott = true;
+			game.toggleBankrott(p);
+		}
+		if (bankrott && geld >= 0) {
+			bankrott = false;
+			game.toggleBankrott(p);
 		}
 	}
 	public void setGeld(int x) {

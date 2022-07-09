@@ -172,7 +172,7 @@ public class GESFeld extends Field {
 				return;
 			}
 		}
-		this.playerPos.add(new Figure(color));
+		this.playerPos.add(fig);
 		System.out.println(playerPos.getComponents());
 		this.revalidate();
 		this.repaint();
