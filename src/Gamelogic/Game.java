@@ -86,6 +86,7 @@ public class Game {
 			pasch = true;
 			paschZahl++;
 		}
+		System.out.println("Wurf: " + wurf + " --- " + wurf1 + " --- " + wurf2 + " --- " + geradeAmZug.getPos());
 		if (geradeAmZug.getGef()) {
 			if (geradeAmZug.getGefZahl() == 0) {
 				//nur freikauf möglich an UI
@@ -106,6 +107,7 @@ public class Game {
 			return;
 		}
 		geradeAmZug.bewegen(wurf);
+		
 		if (geradeAmZug.getPos() > 39) {
 			geradeAmZug.zahlen(loader.getUeberlosGeld(), -1); 
 			geradeAmZug.bewegen(-40);
@@ -115,6 +117,8 @@ public class Game {
 		//notify UI über Wurf
 
 		neuesFeld();
+		
+		System.out.println("Wurf: " + wurf + " --- " + wurf1 + " --- " + wurf2 + " --- " + geradeAmZug.getPos());
 	}
 	
 	public void neuesFeld() {
@@ -287,6 +291,8 @@ public class Game {
 	public void insGef() {
 		geradeAmZug.setGef(true);
 		geradeAmZug.setGefZahl(3);
+		
+		System.out.println("Ins Gef----------------------------------------------------------------------");
 	}
 	
 	public void freikaufen() {
@@ -348,7 +354,41 @@ public class Game {
 	
     public void tauschen(Tausch t) {
 		if (tauschCheck(t)) {
+			pla[t.getPlayerVon()].zahlen(t.getGeldZu(), t.getPlayerZu());
+			pla[t.getPlayerZu()].zahlen(t.getGeldVon(), t.getPlayerVon());
 			
+			pla[t.getPlayerVon()].addToGefFreiKarte(t.getGefFreiKartenZu());
+			pla[t.getPlayerZu()].addToGefFreiKarte(t.getGefFreiKartenVon());
+			
+			for ( int x : t.getHaeuserZu()) {
+				pla[t.getPlayerVon()].erhalten(x);
+				pla[t.getPlayerZu()].hergeben(x);
+				
+				felder[x].setGehoert(t.getPlayerVon());
+				
+				pla[t.getPlayerVon()].aendereGesammtscore(felder[x].getPreis());
+				pla[t.getPlayerZu()].aendereGesammtscore(-1 * felder[x].getPreis());
+				
+				if (felder[x].type() == TYPE.BAHN) {
+					pla[t.getPlayerVon()].bahnZahlaendern(1);
+					pla[t.getPlayerZu()].bahnZahlaendern(-1);
+				}
+			}
+			
+			for ( int x : t.getHaeuserVon()) {
+				pla[t.getPlayerZu()].erhalten(x);
+				pla[t.getPlayerVon()].hergeben(x);
+				
+				felder[x].setGehoert(t.getPlayerZu());
+				
+				pla[t.getPlayerZu()].aendereGesammtscore(felder[x].getPreis());
+				pla[t.getPlayerVon()].aendereGesammtscore(-1 * felder[x].getPreis());
+				
+				if (felder[x].type() == TYPE.BAHN) {
+					pla[t.getPlayerZu()].bahnZahlaendern(1);
+					pla[t.getPlayerVon()].bahnZahlaendern(-1);
+				}
+			}			
 		} else {
 			//tausch Fehlerhaft
 		}
@@ -600,7 +640,7 @@ public class Game {
     	
     }
     public void geldNotify() {
-    	int max = 0, p1 = -1, p2 = -1, p3 = -1, p4 = -1;
+    	int max = -999999, p1 = -1, p2 = -1, p3 = -1, p4 = -1;
     	for (int i = 0; i < pla.length; i ++) {
     		if (max < pla[i].getGeld()) {
     			max = pla[i].getGeld();
@@ -623,7 +663,7 @@ public class Game {
     	}
     	max = 0;
     	for (int i = 0; i < pla.length; i ++) {
-    		if (max < pla[i].getGeld()&& (i != p1 && i != p2 && i != p3)) {
+    		if (max < pla[i].getGeld() && (i != p1 && i != p2 && i != p3)) {
     			max = pla[i].getGeld();
     			p4 = i;    			
     		}
