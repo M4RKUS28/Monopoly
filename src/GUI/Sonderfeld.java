@@ -19,7 +19,7 @@ import javax.swing.SwingConstants;
 public class Sonderfeld extends Field{
 	private JLabel label;
 	private int size;
-	JPanel playerPos;
+	JPanel playerPos, playerGefPos;
 	public Sonderfeld(String name, int position, String typ, int size) {
 		super(name, position);
 		this.size = size;
@@ -84,6 +84,10 @@ public class Sonderfeld extends Field{
 		this.setLayout(new BorderLayout());
  	 	this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, Color.BLACK));
 
+ 	 	playerGefPos = new JPanel();
+		playerGefPos.setBounds((int)(size/2-(Constants.getFigureSize()*2+4)/2), (int)(size/2-(Constants.getFigureSize()*2+4)/2), Constants.getFigureSize()*2+4,Constants.getFigureSize()*2+4);
+		playerGefPos.setOpaque(false);
+		this.add(playerGefPos, BorderLayout.CENTER);
 		
  		//-------------------unteres Panel-------------------
 		JPanel panelSouth = new JPanel();
@@ -154,6 +158,8 @@ public class Sonderfeld extends Field{
 		im.setPreferredSize(new Dimension(size, size));
 		
 		//prison.add(gefaengnis, 2, 0);
+		
+		
 
 
 	}
@@ -190,15 +196,36 @@ public class Sonderfeld extends Field{
 	}
 	
 	private void createGehInsGefaengnis() {
-		this.setLayout(new BorderLayout());
+		this.setLayout(null);
  	 	this.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, Color.BLACK));
 
+ 	 	JLayeredPane body = new JLayeredPane();
+		body.setBounds(0, 0, size-5, size-5);
+ 	 	body.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 0, Color.BLACK));
+
+		body.setOpaque(false);
+		JPanel picturePanel = new JPanel();
+ 	 	picturePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 0, Color.BLACK));
+
+		picturePanel.setBackground(Constants.colors.get("board"));
+		picturePanel.setBounds(0, 0, size-5, size-5);
+		picturePanel.setLayout(new BorderLayout());
 		
 		JLabel picture = new JLabel();
 		picture.setIcon(new ImageIcon(new ImageIcon("src/images/Polizist.png").getImage().getScaledInstance((int) (size*0.7), (int) ((size*0.98)*0.7), Image.SCALE_DEFAULT)));
 		picture.setHorizontalAlignment(SwingConstants.CENTER);
 		picture.setVerticalAlignment(SwingConstants.CENTER);
-		this.add(picture, BorderLayout.CENTER);
+		//this.add(picture, BorderLayout.CENTER);
+		picturePanel.add(picture, BorderLayout.CENTER);
+		
+		playerPos = new JPanel();
+		playerPos.setBounds((int)(size/2-(Constants.getFigureSize()*2+4)/2), (int)(size/2-(Constants.getFigureSize()*2+4)/2), Constants.getFigureSize()*2+4,Constants.getFigureSize()*2+4);
+		playerPos.setOpaque(false);
+		body.add(playerPos, Integer.valueOf(1));
+		body.add(picturePanel, Integer.valueOf(0));
+		
+		this.add(body);
+		
 	}
 
 	public void addPlayer(String color) {
@@ -230,4 +257,32 @@ public class Sonderfeld extends Field{
 		this.repaint();
 	}
 	
+	public void addPlayerToGef(String color) {
+		Figure fig = new Figure(color);
+		fig.setPreferredSize(new Dimension(Constants.getFigureSize(), Constants.getFigureSize()));
+		fig.setName(color);
+		Component[] components = playerGefPos.getComponents();
+		for (Component component : components) {
+			if (color == component.getName()) {
+				return;
+			}
+		}
+		this.playerGefPos.add(fig);
+		System.out.println(playerGefPos.getComponents());
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void removePlayerFromGef(String color) {
+		
+		Component[] components = playerGefPos.getComponents();
+		for (Component component : components) {
+			System.out.println(component.getName());
+			if (color== component.getName()) {
+				playerGefPos.remove(component);
+			}
+		}
+		this.revalidate();
+		this.repaint();
+	}
 }

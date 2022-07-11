@@ -79,6 +79,11 @@ public class Game {
 	
 	public void wuerfeln() //Ui callt das hier mit Würfelbutton
 	{
+		geradeAmZug.setPos(7);
+		neuesFeld();
+		positionsNotify();
+		return;
+		/*
 		System.out.println("+++++++++++++++++++++startwuerfeln++++++++++++++++++++++++++");
 		
 		int wurf1 = rand.nextInt(6) + 1;
@@ -123,7 +128,8 @@ public class Game {
 		System.out.println("Wurf: " + wurf + " --- " + wurf1 + " --- " + wurf2 + " --- " + geradeAmZug.getPos());
 		
 		System.out.println("+++++++++++++++++++++endwuerfeln++++++++++++++++++++++++++");
-
+*/
+		
 	}
 	
 	public void neuesFeld() {
@@ -304,7 +310,9 @@ public class Game {
 	public void insGef() {
 		geradeAmZug.setGef(true);
 		geradeAmZug.setGefZahl(3);
-		
+		spielfeld.insGef(geradeAmZugIndex);
+		geradeAmZug.setPos(-1);
+		positionsNotify();
 		System.out.println("Ins Gef----------------------------------------------------------------------");
 	}
 	
@@ -494,6 +502,7 @@ public class Game {
     			geradeAmZug.setPos(5);
     			bahn(2);
     		}
+    		positionsNotify();
     		break;
     	case 5: //"Mache einen Ausflug nach dem Süd-Bahnhof,/nund wenn Du über Los kommst, ziehe DM 4000 ein."
     		if (geradeAmZug.getPos() > 4) {

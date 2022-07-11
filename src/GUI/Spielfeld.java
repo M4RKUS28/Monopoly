@@ -302,17 +302,22 @@ public class Spielfeld extends Constants {
 	}
 	
 	public void showGKarte(int id) {
+		System.out.println("showGKarte");
+		center.removeAll();
 		center.add(new GEKarte(sl.getGcardsList()[id].getText(), "Gemeinschaftskarte",(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2), (int) (3.2 * Constants.cardWidth),
 				(int) (1.85 * Constants.cardWidth)));
+		center.repaint();
 	}
 	
 	
-	
 	public void showEKarte(int id) {
-		center.add(new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte",(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		System.out.println("showEKarte");
+		center.removeAll();
+		center.add(new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte", (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2), (int) (3.2 * Constants.cardWidth),
 				(int) (1.85 * Constants.cardWidth)));
+		center.repaint();
 	}
 	
 	private void nextPlayer() {
@@ -563,17 +568,75 @@ public class Spielfeld extends Constants {
 	}
 	
 	public void figurenUpdate(int[] pos) {
-		fields[figuernPos[0]].removePlayer("Prot");
-		fields[figuernPos[1]].removePlayer("Pgelb");
-		fields[figuernPos[2]].removePlayer("Pgrün");
-		fields[figuernPos[3]].removePlayer("Pblau");
+		if (figuernPos[0] > -1) {
+			fields[figuernPos[0]].removePlayer("Prot");
+		}
+		if (figuernPos[1] > -1) {
+			fields[figuernPos[1]].removePlayer("Pgelb");
+		}
+		if (figuernPos[2] > -1) {
+			fields[figuernPos[2]].removePlayer("Pgrün");
+		}
+		if (figuernPos[3] > -1) {
+			fields[figuernPos[3]].removePlayer("Pblau");
+		}
 		
 		figuernPos = pos;
 		
-		fields[figuernPos[0]].addPlayer("Prot");
-		fields[figuernPos[1]].addPlayer("Pgelb");
-		fields[figuernPos[2]].addPlayer("Pgrün");
-		fields[figuernPos[3]].addPlayer("Pblau");
+		if (figuernPos[0] > -1) {
+			fields[figuernPos[0]].addPlayer("Prot");
+		}
+		if (figuernPos[1] > -1) {
+			fields[figuernPos[1]].addPlayer("Pgelb");
+		}
+		if (figuernPos[2] > -1) {
+			fields[figuernPos[2]].addPlayer("Pgrün");
+		}
+		if (figuernPos[3] > -1) {
+			fields[figuernPos[3]].addPlayer("Pblau");
+		}	
+	}
+	
+	public void insGef(int x) {
+		switch (x) {
+		case 0: 
+			fields[figuernPos[0]].removePlayer("Prot");
+			((Sonderfeld) fields[10]).addPlayerToGef("Prot");
+			break;
+		case 1:
+			fields[figuernPos[1]].removePlayer("Pgelb");
+			((Sonderfeld) fields[10]).addPlayerToGef("Pgelb");
+			break;
+		case 2:
+			fields[figuernPos[2]].removePlayer("Pgrün");
+			((Sonderfeld) fields[10]).addPlayerToGef("Pgrün");
+			break;
+		case 3:
+			fields[figuernPos[3]].removePlayer("Pblau");
+			((Sonderfeld) fields[10]).addPlayerToGef("Pblau");
+			break;
+		}		
+	}
+	
+	public void ausGef(int x) {
+		switch (x) {
+		case 0: 
+			fields[10].addPlayer("Prot");
+			((Sonderfeld) fields[10]).removePlayerFromGef("Prot");
+			break;
+		case 1:
+			fields[10].addPlayer("Pgelb");
+			((Sonderfeld) fields[10]).removePlayerFromGef("Pgelb");
+			break;
+		case 2:
+			fields[10].addPlayer("Pgrün");
+			((Sonderfeld) fields[10]).removePlayerFromGef("Pgrün");
+			break;
+		case 3:
+			fields[10].addPlayer("Pblau");
+			((Sonderfeld) fields[10]).removePlayerFromGef("Pblau");
+			break;
+		}		
 	}
 
 	private void showFrame() {
