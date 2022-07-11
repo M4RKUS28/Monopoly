@@ -40,6 +40,8 @@ public class Player {
 			bankrott = false;
 			game.toggleBankrott(p);
 		}
+		
+		System.out.println("Zahlung von " + x + " durch " + p + " an " + index);
 	}
 	public void setGeld(int x) {
 		geld = x;

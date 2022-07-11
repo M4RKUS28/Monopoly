@@ -218,7 +218,7 @@ public class Sonderfeld extends Field{
 	}
 	
 	public void removePlayer(String color) {
-
+		
 		Component[] components = playerPos.getComponents();
 		for (Component component : components) {
 			System.out.println(component.getName());

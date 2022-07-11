@@ -52,7 +52,7 @@ public class Spielfeld extends Constants {
 
 	private HashMap<String, Color> colors = new HashMap<>();
 	
-	private SettingsLoader sl = new SettingsLoader();
+	private SettingsLoader sl = new SettingsLoader("");
 	private Field[] fields;
 	private JLabel[] statsList;
 	
@@ -360,7 +360,7 @@ public class Spielfeld extends Constants {
 
 			switch(feld.type()) {
 			case STRASSE:
-				System.out.println(feld.toStrasse().getName());
+				//System.out.println(feld.toStrasse().getName());
 
 				Straßenkarte k = new Straßenkarte(feld.getName(), feld.getPos(), Constants.cardWidth, Constants.cardHeight, Constants.colors.get(feld.toStrasse().getFarbe()), feld.getPreis(), game);
 				fields[feld.getPos()] = k;

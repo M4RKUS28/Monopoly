@@ -37,7 +37,7 @@ public class Game {
 		benutzteEreigniskarten = new ArrayList<Integer>();
 		benutzteGemeinschaftskarten = new ArrayList<Integer>();
 		this.spielfeld = spielfeld;
-		loader = new SettingsLoader();
+		loader = new SettingsLoader("");
 		imSpiel = new boolean[4];
 		int ret = 0;
 		if ( (ret = loader.loadData(path)) > 0) { //"../json/cards.json"
@@ -79,6 +79,8 @@ public class Game {
 	
 	public void wuerfeln() //Ui callt das hier mit Würfelbutton
 	{
+		System.out.println("+++++++++++++++++++++startwuerfeln++++++++++++++++++++++++++");
+		
 		int wurf1 = rand.nextInt(6) + 1;
 		int wurf2 = rand.nextInt(6) + 1;
 		int wurf = wurf1 + wurf2;
@@ -119,6 +121,9 @@ public class Game {
 		neuesFeld();
 		
 		System.out.println("Wurf: " + wurf + " --- " + wurf1 + " --- " + wurf2 + " --- " + geradeAmZug.getPos());
+		
+		System.out.println("+++++++++++++++++++++endwuerfeln++++++++++++++++++++++++++");
+
 	}
 	
 	public void neuesFeld() {
@@ -250,6 +255,10 @@ public class Game {
 	}
 	
 	public boolean hausBauen(int pos) {
+		if (pos < 0) {
+			System.out.println("Hier kann kein Haus gebaut werden");
+			return false;
+		}
 		Strasse s = felder[pos].toStrasse();
 		if (s.hausbauCheck(felder) && geradeAmZug.getGeld() - s.getHauskosten() * 1000 < -1 && geradeAmZug.getBesitz().contains(pos) && hausBauen) {
 			s.hausBauen();
@@ -270,6 +279,10 @@ public class Game {
 	}
 	
 	public void hausVerkaufen(int pos) {
+		if (pos < 0) {
+			System.out.println("Hier kann kein Haus verkauft werden");
+			return;
+		}
 		Strasse s = felder[pos].toStrasse();
 		if (s.hausbauCheck(felder) && s.getHauszahl() > 0&& geradeAmZug.getBesitz().contains(pos) && hausBauen) {
 			s.hausVerkaufen();
@@ -544,6 +557,7 @@ public class Game {
     	}
     	
     	spielfeld.showEKarte(kartenID);
+    	System.out.println("Ereignisskarte" + loader.getEcardsList()[kartenID].getText());
     }
     
     public void Ereigniskarte13Zahlen() {
@@ -630,6 +644,9 @@ public class Game {
     	}
     	
     	spielfeld.showGKarte(kartenID);
+    	
+    	System.out.println("Gemeinschaftskarte" + loader.getGcardsList()[kartenID].getText());
+
     }
     
     //

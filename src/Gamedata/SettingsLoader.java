@@ -2,10 +2,10 @@ package Gamedata;
 
 import org.json.*;
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.TreeMap;
 import java.util.Map;
-
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -40,9 +40,11 @@ public class SettingsLoader
 	private int gefaengniskosten = 0;
 
     private String packageName;
+	
+	private String directoryPath;
 
 
-    public SettingsLoader()
+    public SettingsLoader(String directoryPath)
     {
         // Für Anzahl der Karten einer Farbe
         colourMap = new TreeMap<>();
@@ -54,19 +56,35 @@ public class SettingsLoader
         // Zeiger für Gemeinschafts- und Ereigniskarten
         zeiger_ecards = 0;
         zeiger_gcards = 0;
+		
+		this.directoryPath = directoryPath;
         
         // Methode_2:
         // Abstrakte Liste, gefüllt mit allen Karten -> Zugriff mit integrirtem Typecast
         felder = new Feld[40];
     }
+	
+	public ArrayList<String> getAllGameModes() {
+		ArrayList<String> results = new ArrayList<String>();
+		File[] files = new File(this.directoryPath).listFiles();
+		//If this pathname does not denote a directory, then listFiles() returns null. 
+
+		for (File file : files) {
+			if (file.isFile()) {
+				results.add(file.getName());
+			}
+		}
+		return results;
+	}
     
-    public int loadData(String path) {
+    public int loadData(String gameModeFileName) {
     	String content = "";
 
         // Versuche das JSon File zu öffnen und Inhalt auszulesen
         try {
-            content = new String( Files.readAllBytes( Paths.get( path )  ) );
-
+            content = new String( Files.readAllBytes( Paths.get( /*directoryPath + */ gameModeFileName  )  ) );
+        	//content = new String( Files.readAllBytes( Paths.get("C:\\Eclipse\\workspace Schule\\Monopoly\\src\\gamemodes\\classic_de.json")  ) );
+        	
         } catch(IOException e) {
             e.printStackTrace();
             return 9;
