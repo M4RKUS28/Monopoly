@@ -302,6 +302,7 @@ public class Spielfeld extends Constants {
 		createEdges();
 		createFields();
 		createDicePanel();
+		zahleMiete(2, 280);
 		frame.add(board);
 
 	}
@@ -354,11 +355,11 @@ public class Spielfeld extends Constants {
 		center.setBackground(colors.get("board"));
 		center.setLayout(null);
 		center.add(new Figure("rot"));
-		center.add(new GEKarte(
+		/*center.add(new GEKarte(
 				"Du wirst zu Strassenausbesserungsar-/nbeiten herangezogen. Zahle für Deine/n Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank.",
 				"Ereigniskarte", (int) ((screenHeight - 2 * cardHeight) / 2 - (3.2 * cardWidth) / 2),
 				(int) ((screenHeight - 2 * cardHeight) / 2 - (1.85 * cardWidth) / 2), (int) (3.2 * cardWidth),
-				(int) (1.85 * cardWidth)));
+				(int) (1.85 * cardWidth)));*/
 		center.repaint();
 		board.add(center, BorderLayout.CENTER);
 		board.add(borderPanel[0], BorderLayout.SOUTH);
@@ -780,7 +781,15 @@ public class Spielfeld extends Constants {
 	}
 	
 	public void zahleMiete(int spieler, int miete) {
-		center.add(new Info("Du zahlst DM " + String.valueOf(miete) + " an Spieler " + String.valueOf(spieler),(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = {"OK"};
+		center.add(new Info("Du zahlst DM " + String.valueOf(miete) + " an Spieler " + String.valueOf(spieler), buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth)));
+	}
+	
+	public void zahleMiete(int spieler, int miete) {
+		String[] buttons = {"OK"};
+		center.add(new Info("Du zahlst DM " + String.valueOf(miete) + " an Spieler " + String.valueOf(spieler), buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth)));
 	}

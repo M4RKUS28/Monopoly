@@ -194,9 +194,9 @@ public class Game {
 		if (s.getGehoert() > -1 && s.getHypo() == false) {
 			pla[s.getGehoert()].zahlen(s.getMiete(s.getHauszahl()), geradeAmZugIndex);
 			geradeAmZug.zahlen(-1 * s.getMiete(s.getHauszahl()), s.getGehoert());
-			
+			spielfeld.zahleMiete(s.getGehoert(), s.getMiete(s.getHauszahl()));
 		}
-		//gibt Möglichkeitsinfo zu Ui
+		
 	}
 	
 	public void bahn(int multiplier) {
@@ -207,9 +207,9 @@ public class Game {
 		if (b.getGehoert() > -1 && b.getHypo() == false) {
 			pla[b.getGehoert()].zahlen(b.getMiete(pla[b.getGehoert()].getBahnZahl()) * multiplier, geradeAmZugIndex);
 			geradeAmZug.zahlen(-1 * b.getMiete(pla[b.getGehoert()].getBahnZahl()) * multiplier, b.getGehoert());
-			//update Konten in UI
+			spielfeld.zahleMiete(b.getGehoert(), b.getMiete(pla[b.getGehoert()].getBahnZahl()) * multiplier);
+
 		}
-		//gibt Möglichkeitsinfo zu Ui
 	}
 	
 	public void werk() {
