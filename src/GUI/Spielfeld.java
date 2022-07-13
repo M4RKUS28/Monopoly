@@ -302,7 +302,7 @@ public class Spielfeld extends Constants {
 		createEdges();
 		createFields();
 		createDicePanel();
-		zahleMiete(2, 280);
+		//zahleMieteWerk(2, 280);
 		frame.add(board);
 
 	}
@@ -787,18 +787,14 @@ public class Spielfeld extends Constants {
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth)));
 	}
 	
-	public void zahleMiete(int spieler, int miete) {
-		String[] buttons = {"OK"};
-		center.add(new Info("Du zahlst DM " + String.valueOf(miete) + " an Spieler " + String.valueOf(spieler), buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+	public void zahleMieteWerk(int spieler, int zahl) {
+		String[] buttons = {"Würfeln"};
+		center.add(new Info("Die Miete an Spieler " + String.valueOf(spieler) + " ist " + String.valueOf(zahl) + "mal so hoch, wie Augen gewürfelt werden.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth)));
 	}
 	
-	public void aufGrundstueck() {
-		// Grundstück in Besitz
-		String inBesitz = "Du zahlst " + x + " Miete an Spieler ";
-		center.add(new Info("D"))
-	}
+	
 
 	private void showFrame() {
 		frame.setVisible(true);
