@@ -56,7 +56,12 @@ public class Game {
 		geradeAmZug = pla[0];
 		geradeAmZugIndex = 0;
 		positionsNotify();
-		//notify UI
+		geradeAmZug.erhalten(1);
+		geradeAmZug.erhalten(8);
+		geradeAmZug.erhalten(9);
+		geradeAmZug.erhalten(11);
+		geradeAmZug.erhalten(13);
+		spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 	}
 	
 	public void naechster() {
@@ -79,15 +84,13 @@ public class Game {
 	
 	public void wuerfeln() //Ui callt das hier mit Würfelbutton
 	{
-		geradeAmZug.setPos(7);
-		neuesFeld();
-		positionsNotify();
-		return;
-		/*
+		
+		
 		System.out.println("+++++++++++++++++++++startwuerfeln++++++++++++++++++++++++++");
 		
 		int wurf1 = rand.nextInt(6) + 1;
 		int wurf2 = rand.nextInt(6) + 1;
+		spielfeld.updateDice(wurf1, wurf2);
 		int wurf = wurf1 + wurf2;
 		if (wurf1 == wurf2) {
 			pasch = true;
@@ -128,7 +131,7 @@ public class Game {
 		System.out.println("Wurf: " + wurf + " --- " + wurf1 + " --- " + wurf2 + " --- " + geradeAmZug.getPos());
 		
 		System.out.println("+++++++++++++++++++++endwuerfeln++++++++++++++++++++++++++");
-*/
+
 		
 	}
 	
@@ -191,7 +194,7 @@ public class Game {
 		if (s.getGehoert() > -1 && s.getHypo() == false) {
 			pla[s.getGehoert()].zahlen(s.getMiete(s.getHauszahl()), geradeAmZugIndex);
 			geradeAmZug.zahlen(-1 * s.getMiete(s.getHauszahl()), s.getGehoert());
-			//update Konten in UI
+			
 		}
 		//gibt Möglichkeitsinfo zu Ui
 	}
@@ -751,5 +754,9 @@ public class Game {
     	pla[bankrottPlayer].addToGefFreiKarte(geradeAmZug.gefFreiKrate());
     	geradeAmZug.addToGefFreiKarte(-1 * geradeAmZug.gefFreiKrate());
     	imSpiel[geradeAmZugIndex] = false;
+    }
+    
+    public ArrayList<Integer> getBesitz() {
+    	return geradeAmZug.getBesitz();
     }
 }
