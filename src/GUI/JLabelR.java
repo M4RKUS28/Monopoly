@@ -11,6 +11,7 @@ import java.awt.geom.AffineTransform;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
+
 public class JLabelR extends JLabel {
 	private double theta;
 	private String text;
@@ -82,6 +83,40 @@ public class JLabelR extends JLabel {
 		 * g2d.rotate(theta); super.paintComponent(g);
 		 */
 
-	}
 
+		
+	}
+	
+	public resizeToFitting() {
+		Font labelFont = this.getFont();
+		String labelText = this.getText();
+
+		int stringWidth = this.getFontMetrics(labelFont).stringWidth(labelText);
+		int componentWidth = this.getWidth();
+
+		// Find out how much the font can grow in width.
+		double widthRatio = (double)componentWidth / (double)stringWidth;
+
+		int newFontSize = (int)(labelFont.getSize() * widthRatio);
+		int componentHeight = this.getHeight();
+
+		// Pick a new font size so it will not be larger than the height of label.
+		int fontSizeToUse = Math.min(newFontSize, componentHeight);
+
+		// Set the label's font size to the newly determined size.
+		this.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		Constants.setSmallestStreetFontSize(fontSizeToUse);
+	}
+	
+	public resizeToSmallest() {
+		this.setFont(new Font(labelFont.getName(), Font.PLAIN, Constants.getSmallestStreetFontSize()));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
