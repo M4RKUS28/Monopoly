@@ -11,9 +11,11 @@ public class Constants {
 	public static int figureSize;
 	public static HashMap<String, Color> colors = new HashMap<>();
 	public static HashMap<String, String> fonts = new HashMap<>();
+	public static int smallestStreetFontSize;
 
 	public Constants() {
 		createColors();
+		smallestStreetFontSize = 0;
 		
 		System.out.println(figureSize);
 	}
@@ -62,6 +64,14 @@ public class Constants {
 		fonts.put("straßenname", String.valueOf((int)(Constants.cardWidth/6)));
 		fonts.put("los", String.valueOf((int)(Constants.cardHeight/3)));
 
+	}
+	
+	public static int getSmallestStreetFontSize() {
+		return Constants.smallestStreetFontSize;
+	}
+
+	public static void setSmallestStreetFontSize(int size) {
+		Constants.smallestStreetFontSize = Math.min(size, Constants.smallestStreetFontSize);
 	}
 
 	protected void createColors() {
