@@ -40,6 +40,7 @@ public class GESFeld extends Field {
 		this.width = width;
 		this.height = height;
 		this.name = this.transformText(name);
+		System.out.println(name);
 		this.price = price;
 		erstelleKarte();
 	}
@@ -98,7 +99,7 @@ public class GESFeld extends Field {
 		
 		// -------------------Text-------------------
 		text.setForeground(Color.black);
-		text.setFont(new Font("Arial", Font.BOLD, 16));
+		text.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 		if (name.contains("Gemein")) {
 			text.setIcon(new ImageIcon(new ImageIcon("src/images/Schatztruhe.png").getImage()
 					.getScaledInstance((int) (0.75 * width), (int) (0.75 * width), Image.SCALE_DEFAULT)));
@@ -134,11 +135,11 @@ public class GESFeld extends Field {
 			JLabelR priceTag;
 			if (position < 10) {
 				priceTag = new JLabelR("DM " + String.valueOf(price) + ".-", 0);
-				priceTag.setFont(new Font("Arial", Font.BOLD, 16));
+				priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 		 		textpanel.add(priceTag, BorderLayout.SOUTH);
 			} else {
 				priceTag = new JLabelR("DM " + String.valueOf(price)+ ".-", 270);
-				priceTag.setFont(new Font("Arial", Font.BOLD, 16));
+				priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 		 		textpanel.add(priceTag, BorderLayout.EAST);
 			}
 			

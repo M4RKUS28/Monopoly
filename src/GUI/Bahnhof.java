@@ -103,7 +103,7 @@ public class Bahnhof extends Field{
 
  		//-------------------Straßenname-------------------
  		streetname.setForeground(Color.black);
- 		streetname.setFont(new Font("Arial", Font.BOLD, 16));
+ 		streetname.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
  		streetname.setIcon(new ImageIcon(new ImageIcon("src/images/Zug0.png").getImage().getScaledInstance((int) (width*0.8), (int) (height*0.5*0.8), Image.SCALE_DEFAULT)));
 			streetname.setVerticalTextPosition(JLabelR.TOP);
 			streetname.setIconTextGap((int)(0.05*height));
@@ -128,7 +128,7 @@ public class Bahnhof extends Field{
  		
  		//-------------------Preis-------------------
  		priceTag.setForeground(Color.black);
- 		priceTag.setFont(new Font("Arial", Font.BOLD, 16));
+ 		priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
  		if (position < 10) {
  	 		priceTag.setHorizontalAlignment(SwingConstants.CENTER);
  	 		textpanel.add(priceTag, BorderLayout.SOUTH);

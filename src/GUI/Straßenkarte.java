@@ -148,10 +148,11 @@ public class Straßenkarte extends Field implements MouseListener{
 
  		//-------------------Straßenname-------------------
  		streetname.setForeground(Color.black);
- 		streetname.setFont(new Font("Arial", Font.BOLD, 16));
+ 		streetname.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
  		streetname.addMouseListener(this);
  		if (position < 10) {
  	 		streetname.setHorizontalAlignment(SwingConstants.CENTER);
+ 	 		System.out.println(Constants.cardWidth/6);
  	 		textpanel.add(streetname, BorderLayout.NORTH);
  		} else if (position < 20) {
  	 		streetname.setVerticalAlignment(SwingConstants.CENTER);
@@ -172,7 +173,7 @@ public class Straßenkarte extends Field implements MouseListener{
  		
  		//-------------------Preis-------------------
  		priceTag.setForeground(Color.black);
- 		priceTag.setFont(new Font("Arial", Font.BOLD, 16));
+ 		priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
  		priceTag.addMouseListener(this);
  		if (position < 10) {
  	 		priceTag.setHorizontalAlignment(SwingConstants.CENTER);

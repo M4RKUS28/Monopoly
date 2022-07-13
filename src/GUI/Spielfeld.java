@@ -97,7 +97,7 @@ public class Spielfeld extends Constants {
 		Constants.setCardWidth(cardWidth);
 		Constants.setCardHeight(cardHeight);
 		Constants.setFigureSize((int)(0.2*cardWidth));
-
+		Constants.createFonts();
 	}
 	private void setUpColors() {
 		colors.put("braun", new Color(0x894900));
@@ -515,6 +515,9 @@ public class Spielfeld extends Constants {
 			width = (int) (1.5 * cardHeight);
 			height = (int) (1.08 * cardWidth);
 		}
+		Constants.fonts.put("name", String.valueOf((int)(0.8*width)/6));
+		Constants.fonts.put("money", String.valueOf((int)(width)/6));
+
 		base.setBounds((int) (screenWidth * 0.04 + cardHeight + screenHeight + 3 * cardWidth),
 				(int) (screenHeight * 0.5 - (height * 4 + 4 / 3 * height) / 2), width,
 				(int) (height * 4 + 4 / 3 * height));
@@ -538,7 +541,7 @@ public class Spielfeld extends Constants {
 			name.setText("<html><body><center>Spieler " + String.valueOf(i + 1) + "</center></body></html>");
 			name.setHorizontalAlignment(SwingConstants.CENTER);
 			name.setVerticalAlignment(SwingConstants.CENTER);
-			name.setFont(new Font("Arial", Font.BOLD, 24));
+			name.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("name"))));
 			name.setForeground(colors.get("Prot"));
 			statsList[i] = name;
 			namePanel.add(name);
@@ -552,10 +555,10 @@ public class Spielfeld extends Constants {
 
 			JLabel money = new JLabel();
 			money.setName("money");
-			money.setText("<html><body><center>DM 15000.-</center></body></html>");
+			money.setText("<html><body><center>DM 30000.-</center></body></html>");
 			money.setHorizontalAlignment(SwingConstants.CENTER);
 			money.setVerticalAlignment(SwingConstants.BOTTOM);
-			money.setFont(new Font("Arial", Font.BOLD, 32));
+			money.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("money"))));
 			statsList[i+4] = money;
 
 			moneyPanel.add(money);

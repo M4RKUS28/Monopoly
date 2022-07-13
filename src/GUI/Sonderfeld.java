@@ -57,7 +57,7 @@ public class Sonderfeld extends Field{
 		JLabelR los = new JLabelR("LOS", 315);
 		los.setPreferredSize(new Dimension(size, (int)(size*0.75)));
 		los.setForeground(Color.black);
-		los.setFont(new Font("Arial", Font.BOLD, 38));
+		los.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("los"))));
 		los.setHorizontalAlignment(SwingConstants.CENTER);
 		this.add(los, BorderLayout.CENTER);
 		
@@ -100,7 +100,7 @@ public class Sonderfeld extends Field{
 		nzb.setForeground(Color.black);
 		nzb.setHorizontalAlignment(SwingConstants.CENTER);
 		nzb.setText("Nur zu Besuch");
-		nzb.setFont(new Font("Arial", Font.BOLD, 16));
+		nzb.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 		panelSouth.add(nzb);
 		
  		//-------------------linkes Panel-------------------
@@ -128,7 +128,7 @@ public class Sonderfeld extends Field{
 		gbc.anchor = GridBagConstraints.FIRST_LINE_END;*/
 		JLabelR im = new JLabelR("Im", 45);
 		im.setForeground(Color.black);
-		im.setFont(new Font("Arial", Font.BOLD, 16));
+		im.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 		
 	//	prison.add(im, 1, 2);
 		/*gbc.gridx = 1;
@@ -153,7 +153,7 @@ public class Sonderfeld extends Field{
 */
 		JLabelR gefaengnis = new JLabelR("src/Gefängnis", 45);
 		im.setForeground(Color.black);
-		im.setFont(new Font("Arial", Font.BOLD, 16));
+		im.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 	//
 		im.setPreferredSize(new Dimension(size, size));
 		

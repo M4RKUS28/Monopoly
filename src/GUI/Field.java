@@ -70,7 +70,7 @@ public abstract class Field extends JPanel {
 		if (text.contains("strasse")) {
 			placeholder = text.substring(text.length() - 7);
 
-			placeholder.replace("ss", "ß");
+			placeholder = placeholder.replace("ss", "ß");
 			slices[1] = text.substring(0, text.length() - 7);
 			slices[3] = placeholder;
 		} else if (text.contains("bahnhof")) {
@@ -81,7 +81,7 @@ public abstract class Field extends JPanel {
 		} else if (text.contains("Strasse")) {
 			placeholder = text.substring(text.length() - 7);
 
-			placeholder.replace("ss", "ß");
+			placeholder = placeholder.replace("ss", "ß");
 			slices[1] = text.substring(0, text.length() - 7);
 			slices[2] = "<br>";
 			slices[3] = placeholder;

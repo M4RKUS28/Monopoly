@@ -10,9 +10,11 @@ public class Constants {
 	public static int cardHeight;
 	public static int figureSize;
 	public static HashMap<String, Color> colors = new HashMap<>();
+	public static HashMap<String, String> fonts = new HashMap<>();
 
 	public Constants() {
 		createColors();
+		
 		System.out.println(figureSize);
 	}
 
@@ -54,6 +56,12 @@ public class Constants {
 
 	public static void setFigureSize(int figureSize) {
 		Constants.figureSize = figureSize;
+	}
+	
+	public static void createFonts() {
+		fonts.put("straßenname", String.valueOf((int)(Constants.cardWidth/6)));
+		fonts.put("los", String.valueOf((int)(Constants.cardHeight/3)));
+
 	}
 
 	protected void createColors() {

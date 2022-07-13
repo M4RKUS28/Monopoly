@@ -78,10 +78,10 @@ public class InfrastrukturKarte extends Field {
 		this.setLayout(new BorderLayout());
 
 		streetname.setForeground(Color.black);
-		streetname.setFont(new Font("Arial", Font.BOLD, 15));
+		streetname.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 
 		priceTag.setForeground(Color.black);
-		priceTag.setFont(new Font("Arial", Font.BOLD, 16));
+		priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
 
 		if (position < 20) {
 			streetname.setVerticalAlignment(SwingConstants.CENTER);
