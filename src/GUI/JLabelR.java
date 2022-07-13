@@ -1,14 +1,12 @@
 package GUI;
 
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 
@@ -87,9 +85,9 @@ public class JLabelR extends JLabel {
 		
 	}
 	
-	public resizeToFitting() {
+	/*public void resizeToFitting() {
 		Font labelFont = this.getFont();
-		String labelText = this.getText();
+		//String labelText = this.getText();
 
 		int stringWidth = this.getFontMetrics(labelFont).stringWidth(labelText);
 		int componentWidth = this.getWidth();
@@ -105,14 +103,14 @@ public class JLabelR extends JLabel {
 
 		// Set the label's font size to the newly determined size.
 		this.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
-		Constants.setSmallestStreetFontSize(fontSizeToUse);
+		//Constants.setSmallestStreetFontSize(fontSizeToUse);
 	}
 	
-	public resizeToSmallest() {
-		this.setFont(new Font(labelFont.getName(), Font.PLAIN, Constants.getSmallestStreetFontSize()));
+	public void resizeToSmallest() {
+		//this.setFont(new Font(this.getFont().getName(), Font.PLAIN, Constants.getSmallestStreetFontSize()));
 	}
 	
-	
+	*/
 	
 	
 	

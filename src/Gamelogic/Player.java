@@ -10,7 +10,7 @@ public class Player {
 	
 	public Player(Game g, int i) {
 		bahnZahl = 0;
-		geld = 900000;
+		geld = 30000;
 		this.game = g;
 		this.index = i;
 		

@@ -13,14 +13,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Info extends Field{
+import Gamelogic.Game;
+
+public class Info extends Field implements MouseListener{
 	private String text;
 	private String[] typ;
 	private int width;
 	private int height;
 	private int x;
 	private int y;
-	public Info(String text, String[] typ, int x, int y, int width, int height) {
+	private Game game;
+	public Info(String text, String[] typ, int x, int y, int width, int height, Game game) {
 		super(text, -2);
 		this.text = text;
 		this.typ = typ;
@@ -28,6 +31,7 @@ public class Info extends Field{
 		this.height = height;
 		this.x = x;
 		this.y = y;
+		this.game = game;
 		System.out.println(x + " " + y);
 		this.createKarte();
 	}
@@ -45,14 +49,24 @@ public class Info extends Field{
 
 		messageBoard.setLayout(new BorderLayout());
 		
+
+		JLabel headline = new JLabel();
+		headline.setPreferredSize(new Dimension(width, (int) (0.3*0.8*height)));
+		headline.setFont(new Font("Arial", Font.BOLD, 14));
+		headline.setVerticalAlignment(SwingConstants.CENTER);
+		headline.setHorizontalAlignment(SwingConstants.CENTER);
+		headline.setBackground(this.colors.get("board"));
+		headline.setText(this.transformText("INFO"));
+		messageBoard.add(headline, BorderLayout.NORTH);
+		
 		JLabel message = new JLabel();
-		message.setPreferredSize(new Dimension(width, (int) (0.8*height)));
+		message.setPreferredSize(new Dimension(width, (int) (0.7*0.8*height)));
 		message.setFont(new Font("Arial", Font.BOLD, 14));
 		message.setVerticalAlignment(SwingConstants.CENTER);
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setBackground(this.colors.get("board"));
 		message.setText(this.transformText(text));
-		messageBoard.add(message, BorderLayout.CENTER);
+		messageBoard.add(message, BorderLayout.SOUTH);
 		
 		this.add(messageBoard);
 		
@@ -66,9 +80,9 @@ public class Info extends Field{
 		JPanel buttonBoard = new JPanel();
 		buttonBoard.setBackground(Constants.colors.get("board"));
 		buttonBoard.setBounds(5, (int)(height*0.75), width-5, (int)(height*0.25)-5);
-		buttonBoard.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, Color.black));
+		buttonBoard.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 5, Color.black));
 
-		buttonBoard.setLayout(new FlowLayout(FlowLayout.CENTER, (int) (0.05*width), 0));
+		buttonBoard.setLayout(new FlowLayout(FlowLayout.CENTER, (int) (0.03*width), 0));
 		
 		for (String t : typ) {
 			buttonBoard.add(createButton(t));
@@ -82,42 +96,12 @@ public class Info extends Field{
 		ok.setBackground(Constants.colors.get("board"));
 		ok.setFont(new Font("Arial", Font.BOLD, 14));
 		ok.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-		ok.setPreferredSize(new Dimension((int)(height*0.25), (int)(width/3)));
+		ok.setPreferredSize(new Dimension((int)(width/3-0.05*width), (int)(height*0.2)));
+		ok.setVerticalAlignment(SwingConstants.CENTER);
+		ok.setHorizontalAlignment(SwingConstants.CENTER);
 		ok.setText("<html><head></head><body><center>" + text + "</center></body></html>");
-		ok.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Button " + text);
-				//setVisible false
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-		});
+		ok.addMouseListener(this);
+		ok.setName(text);
 		return ok;
 	}
 
@@ -129,6 +113,52 @@ public class Info extends Field{
 
 	@Override
 	public void removePlayer(String color) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getComponent().getName().equals("OK")) {
+			this.setVisible(false);
+		} else if (e.getComponent().getName().equals("Würfeln")) {
+			game.werkMiete();
+			this.setVisible(false);
+		} else if (e.getComponent().getName().equals("Ja")) {
+			game.kaufen();
+			this.setVisible(false);
+		} else if (e.getComponent().getName().equals("Nein")) {
+			this.setVisible(false);
+		} else if (e.getComponent().getName().equals("DM 1000")) {
+			game.freikaufen();
+			this.setVisible(false);
+		}  else if (e.getComponent().getName().equals("Pasch")) {
+			game.wuerfeln();
+			this.setVisible(false);
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

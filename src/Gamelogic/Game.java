@@ -56,10 +56,19 @@ public class Game {
 		geradeAmZug = pla[0];
 		geradeAmZugIndex = 0;
 		positionsNotify();
+		pla[3].erhalten(12);
+		felder[12].setGehoert(3);
+		pla[3].erhalten(11);
+		felder[11].setGehoert(3);
 		geradeAmZug.erhalten(1);
+		geradeAmZug.erhalten(3);
+		geradeAmZug.erhalten(5);
+		geradeAmZug.erhalten(15);
+		geradeAmZug.erhalten(35);
+		geradeAmZug.erhalten(25);
 		geradeAmZug.erhalten(8);
 		geradeAmZug.erhalten(9);
-		geradeAmZug.erhalten(11);
+		//geradeAmZug.erhalten(11);
 		geradeAmZug.erhalten(13);
 		spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 	}
@@ -102,6 +111,7 @@ public class Game {
 				//nur freikauf möglich an UI
 			}
 			if (pasch) {
+				ausGef();
 				pasch = false;
 				paschZahl = 0;
 			}
@@ -196,6 +206,9 @@ public class Game {
 			geradeAmZug.zahlen(-1 * s.getMiete(s.getHauszahl()), s.getGehoert());
 			spielfeld.zahleMiete(s.getGehoert(), s.getMiete(s.getHauszahl()));
 		}
+		if (s.getGehoert()==-1) {
+			spielfeld.grundstueckKaufen(geradeAmZug.getPos());
+		}
 		
 	}
 	
@@ -210,20 +223,36 @@ public class Game {
 			spielfeld.zahleMiete(b.getGehoert(), b.getMiete(pla[b.getGehoert()].getBahnZahl()) * multiplier);
 
 		}
+		if (b.getGehoert()==-1) {
+			spielfeld.grundstueckKaufen(geradeAmZug.getPos());
+		}
 	}
 	
 	public void werk() {
 		Werk w = felder[geradeAmZug.getPos()].toWerk();
+
 		if (w == null) {
 			//error
 		}
 		if (w.getGehoert() > -1 && w.getHypo() == false) {			
-			int wurf = rand.nextInt(6) + rand.nextInt(6) + 2;
-			//call UI für Würfelevent
-			pla[w.getGehoert()].zahlen(w.getMiete() * wurf, geradeAmZugIndex);
-			geradeAmZug.zahlen(-1 * w.getMiete() * wurf, w.getGehoert());
+			spielfeld.zahleMieteWerk(w.getGehoert(), 80);
 		}
-		//gibt Möglichkeitsinfo zu Ui
+		if (w.getGehoert()==-1) {
+			spielfeld.grundstueckKaufen(geradeAmZug.getPos());
+		}
+	}
+	
+	public void werkMiete() {
+		int w1 = rand.nextInt(6) + 1;
+		int w2 = rand.nextInt(6) + 1;
+		spielfeld.updateDice(w1, w2);
+		int wurf = w1 + w2;
+		Werk w = felder[geradeAmZug.getPos()].toWerk();
+		spielfeld.zahleMiete(w.getGehoert(), w.getMiete() * wurf);
+		
+ 		pla[w.getGehoert()].zahlen(w.getMiete() * wurf, geradeAmZugIndex);
+		geradeAmZug.zahlen(-1 * w.getMiete() * wurf, w.getGehoert());
+		
 	}
 	
 	public void kaufen() {
@@ -237,6 +266,7 @@ public class Game {
 				if (f.type() == TYPE.BAHN) {
 					geradeAmZug.bahnZahlaendern(1);
 				}
+				spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 			}
 	}
 	

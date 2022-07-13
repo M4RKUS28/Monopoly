@@ -56,6 +56,8 @@ public class GEKarte extends Field{
 		message.setBackground(this.colors.get("board"));
 		message.setText(this.transformText(text));
 		this.add(message, BorderLayout.CENTER);
+		this.setName("GEKarte");
+
 	}
 
 	@Override
