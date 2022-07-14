@@ -56,16 +56,17 @@ public class Spielfeld extends Constants {
 	private SettingsLoader sl = new SettingsLoader("");
 	private Field[] fields;
 	private JLabel[] statsList;
-	private JLabel[] dice;
+	private JLabel[] dices;
 	private JPanel dicePanel;
 	private JLabel pasch;
 	private boolean paschPrev;
 	private GEKarte karte;
 	private boolean kartePrev;
 	private boolean rollDice = true;
-
+	JLabel dice;
+	private JLabel curPlayer;
 	private int[] figuernPos;
-
+	
 	public Spielfeld() {
 
 	}
@@ -77,7 +78,7 @@ public class Spielfeld extends Constants {
 		borderPanel = new JPanel[4];
 		fields = new Field[40];
 		statsList = new JLabel[8];
-		dice = new JLabel[2];
+		dices = new JLabel[2];
 
 		figuernPos = new int[4];
 
@@ -155,7 +156,7 @@ public class Spielfeld extends Constants {
 		controllpanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 		controllpanel.setLayout(null);
 
-		JLabel dice = new JLabel();
+		dice = new JLabel();
 		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceEnabled.png").getImage().getScaledInstance(
 				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 				Image.SCALE_DEFAULT)));
@@ -168,11 +169,9 @@ public class Spielfeld extends Constants {
 				// TODO Auto-generated method stub
 				System.out.println("Roll dice");
 				if (rollDice) {
-					dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceDisabled.png").getImage().getScaledInstance(
-							(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
-							Image.SCALE_DEFAULT)));
+					disableDice();
 					game.wuerfeln();
-					rollDice = false;
+					
 				}
 			}
 
@@ -268,8 +267,9 @@ public class Spielfeld extends Constants {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				System.out.println("Next Player");
-				game.naechster();
 				nextPlayer();
+				game.naechster();
+				
 			}
 
 			@Override
@@ -323,7 +323,7 @@ public class Spielfeld extends Constants {
 		karte = new GEKarte(sl.getGcardsList()[id].getText(), "Gemeinschaftskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
-				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth));
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
 		center.add(karte);
 		center.revalidate();
 		center.repaint();
@@ -335,8 +335,8 @@ public class Spielfeld extends Constants {
 		// center.removeAll();
 		karte = new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
-				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
-				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth));
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.25*(1.85 * Constants.cardWidth)) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
 		center.add(karte);
 		center.repaint();
 		kartePrev = true;
@@ -344,14 +344,13 @@ public class Spielfeld extends Constants {
 	}
 
 	private void nextPlayer() {
-		updateKartenbehaelter(game.getBesitz());
-		rollDice = true;
 		if (kartePrev) {
 			center.remove(karte);
 			center.repaint();
 			kartePrev = false;
 		}
 		
+		enableDice();
 	}
 
 	private void createEdges() {
@@ -493,7 +492,7 @@ public class Spielfeld extends Constants {
 				Image.SCALE_DEFAULT)));
 		d1.setBounds((int) (0.125 * Constants.cardHeight), (int) (0.125 * Constants.cardHeight),
 				(int) (0.5 * Constants.cardHeight), (int) (0.5 * Constants.cardHeight));
-		dice[0] = d1;
+		dices[0] = d1;
 		dicePanel.add(d1);
 		JLabel d2 = new JLabel();
 		d2.setIcon(new ImageIcon(new ImageIcon("src/images/One.png").getImage().getScaledInstance(
@@ -501,7 +500,7 @@ public class Spielfeld extends Constants {
 				Image.SCALE_DEFAULT)));
 		d2.setBounds((int) (0.75 * Constants.cardHeight), (int) (0.125 * Constants.cardHeight),
 				(int) (0.5 * Constants.cardHeight), (int) (0.5 * Constants.cardHeight));
-		dice[1] = d2;
+		dices[1] = d2;
 		dicePanel.add(d2);
 		center.add(dicePanel);
 		center.repaint();
@@ -536,32 +535,32 @@ public class Spielfeld extends Constants {
 		for (int i = 0; i < 2; i++) {
 			switch (w[i]) {
 			case 1:
-				dice[i].setIcon(new ImageIcon(new ImageIcon("src/images/One.png").getImage().getScaledInstance(
+				dices[i].setIcon(new ImageIcon(new ImageIcon("src/images/One.png").getImage().getScaledInstance(
 						(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 						Image.SCALE_DEFAULT)));
 				break;
 			case 2:
-				dice[i].setIcon(new ImageIcon(new ImageIcon("src/images/Two.png").getImage().getScaledInstance(
+				dices[i].setIcon(new ImageIcon(new ImageIcon("src/images/Two.png").getImage().getScaledInstance(
 						(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 						Image.SCALE_DEFAULT)));
 				break;
 			case 3:
-				dice[i].setIcon(new ImageIcon(new ImageIcon("src/images/Three.png").getImage().getScaledInstance(
+				dices[i].setIcon(new ImageIcon(new ImageIcon("src/images/Three.png").getImage().getScaledInstance(
 						(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 						Image.SCALE_DEFAULT)));
 				break;
 			case 4:
-				dice[i].setIcon(new ImageIcon(new ImageIcon("src/images/Four.png").getImage().getScaledInstance(
+				dices[i].setIcon(new ImageIcon(new ImageIcon("src/images/Four.png").getImage().getScaledInstance(
 						(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 						Image.SCALE_DEFAULT)));
 				break;
 			case 5:
-				dice[i].setIcon(new ImageIcon(new ImageIcon("src/images/Five.png").getImage().getScaledInstance(
+				dices[i].setIcon(new ImageIcon(new ImageIcon("src/images/Five.png").getImage().getScaledInstance(
 						(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 						Image.SCALE_DEFAULT)));
 				break;
 			case 6:
-				dice[i].setIcon(new ImageIcon(new ImageIcon("src/images/Six.png").getImage().getScaledInstance(
+				dices[i].setIcon(new ImageIcon(new ImageIcon("src/images/Six.png").getImage().getScaledInstance(
 						(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 						Image.SCALE_DEFAULT)));
 				break;
@@ -572,20 +571,41 @@ public class Spielfeld extends Constants {
 
 	}
 
+	public void updateCurPlayer(int player) {
+		curPlayer.setText("<html><head></head><body><center>Spieler " + String.valueOf(player+1) + "</center></body></html>");
+		curPlayer.repaint();
+	}
+	
 	private void createKartenbehaelter() {
 		cardBox = new JPanel();
+		cardBox.setBounds((int) (screenWidth * 0.03 + cardHeight + screenHeight),
+				(int) ((screenHeight - 12 * cardWidth) / 2), 3 * cardWidth, 12 * cardWidth);
+		cardBox.setBackground(Constants.colors.get("board"));
+		cardBox.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+		cardBox.setLayout(null);
 
 		createCards();
+		
+		curPlayer = new JLabel();
+		curPlayer.setBackground(Constants.colors.get("board"));
+		curPlayer.setFont(new Font("Arial", Font.BOLD, 36));
+		curPlayer.setText("<html><head></head><body><center>Spieler 1</center></body></html>");
+		curPlayer.setForeground(Color.black);
+		curPlayer.setBounds(0, 0, 3*cardWidth, (int)(0.5*cardHeight));
+		curPlayer.setHorizontalAlignment(SwingConstants.CENTER);
+		curPlayer.setVerticalAlignment(SwingConstants.CENTER);
+		curPlayer.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+		cardBox.add(curPlayer);
 		JScrollPane scrollPane = new JScrollPane(cards);
-		scrollPane.setBounds((int) (screenWidth * 0.03 + cardHeight + screenHeight),
-				(int) ((screenHeight - 12 * cardWidth) / 2), 3 * cardWidth, 12 * cardWidth);
+		scrollPane.setBounds(0, (int)(0.5*cardHeight-5), 3 * cardWidth, (int)(12 * cardWidth-0.5*cardHeight+5));
 		scrollPane.setBackground(new Color(178, 218, 173));
 		scrollPane.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		// scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-
-		frame.add(scrollPane);
+		
+		cardBox.add(scrollPane);
+		frame.add(cardBox);
 		frame.repaint();
 	}
 
@@ -864,14 +884,38 @@ public class Spielfeld extends Constants {
 	}
 	
 	public void imGefaegnis() {
+
 		String[] buttons = {"DM 1000", "Pasch"};
-		center.add(new Info("Um aus dem Gefängnis freizukommen, hast du zwei Möglichkeiten:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		Info info = new Info("Um aus dem Gefängnis freizukommen, hast du zwei Möglichkeiten:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
-				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
+		center.add(info);
+		System.out.println("Im Gefängis" + Constants.getCardWidth() + " " + Constants.getCardHeight());
+		Component[] comp = center.getComponents();
+		for (Component c:comp) {
+			System.out.println(c.getBounds());
+		}
 		center.repaint();
 
 	}
 	
+	public void enableDice() {
+		rollDice = true;
+		System.out.println("Enable Dice");
+		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceEnabled.png").getImage().getScaledInstance(
+				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
+				Image.SCALE_DEFAULT)));
+		dice.repaint();
+
+	}
+
+	public void disableDice() {
+		rollDice = false;
+		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceDisabled.png").getImage().getScaledInstance(
+				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
+				Image.SCALE_DEFAULT)));
+		dice.repaint();
+	}
 
 	private void showFrame() {
 		frame.setVisible(true);

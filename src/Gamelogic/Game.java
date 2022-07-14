@@ -32,6 +32,8 @@ public class Game {
 	
 	private boolean bankrott;
 	private int bankrottPlayer;
+	
+	private int cardId;
 
 	public Game(String path, Spielfeld spielfeld) {
 		benutzteEreigniskarten = new ArrayList<Integer>();
@@ -85,14 +87,18 @@ public class Game {
 				geradeAmZugIndex = (geradeAmZugIndex + 1) % 4;
 			}
 			geradeAmZug = pla[geradeAmZugIndex];
-			//Notify UI (auch über Gefängniss)
-			
+			if(geradeAmZug.getGef()) {
+				spielfeld.imGefaegnis();
+			}
+			spielfeld.updateKartenbehaelter(getBesitz());
+			spielfeld.updateCurPlayer(geradeAmZugIndex);
 		}
-
+		
 	}
 	
 	public void wuerfeln() //Ui callt das hier mit Würfelbutton
 	{
+		//insGef();
 		
 		
 		System.out.println("+++++++++++++++++++++startwuerfeln++++++++++++++++++++++++++");
@@ -350,9 +356,12 @@ public class Game {
 	}
 	
 	public void freikaufen() {
+
 		if (geradeAmZug.getGef()) {
 			geradeAmZug.zahlen(-1 * loader.getGefaengniskosten(), -1);
 			ausGef();
+			spielfeld.enableDice();
+
 		}
 		else {
 			//error an UI
@@ -491,7 +500,14 @@ public class Game {
     	
     	benutzteEreigniskarten.add(kartenID);
     	
-    	switch (kartenID) {
+    	cardId = kartenID;
+    	
+    	spielfeld.showEKarte(kartenID);
+    	System.out.println("Ereignisskarte" + loader.getEcardsList()[kartenID].getText());
+    }
+    
+    public void resumeECard() {
+     	switch (cardId) {
     	case 0:   //"Gehe in das Gefängnis. Begib dich dorthin. Gehe nicht über Los./nZiehe nicht DM 4000 ein.	"	
     		insGef();
     		break;
@@ -597,9 +613,6 @@ public class Game {
     		geradeAmZug.zahlen(3000, -1);
     		break;
     	}
-    	
-    	spielfeld.showEKarte(kartenID);
-    	System.out.println("Ereignisskarte" + loader.getEcardsList()[kartenID].getText());
     }
     
     public void Ereigniskarte13Zahlen() {
@@ -625,7 +638,16 @@ public class Game {
     	
     	benutzteGemeinschaftskarten.add(kartenID);
     	
-    	switch (kartenID) {
+    	cardId = kartenID;
+    	
+    	spielfeld.showGKarte(kartenID);
+    	
+    	System.out.println("Gemeinschaftskarte" + loader.getGcardsList()[kartenID].getText());
+
+    }
+    
+    public void resumeGCard() {
+    	switch (cardId) {
     	case 0: //"Zahle Schulgeld DM 3000."
     		geradeAmZug.zahlen(-3000, -1);
     		break;
@@ -684,13 +706,7 @@ public class Game {
     		geradeAmZug.zahlen(2000, 5);
     		break;
     	}
-    	
-    	spielfeld.showGKarte(kartenID);
-    	
-    	System.out.println("Gemeinschaftskarte" + loader.getGcardsList()[kartenID].getText());
-
     }
-    
     //
     //UI notify
     //

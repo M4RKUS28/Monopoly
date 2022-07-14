@@ -86,7 +86,9 @@ public class Constants {
 		colors.put("board", new Color(0xB2DAAD));
 		colors.put("hintergrund", new Color(0x92B28E));
 		colors.put("rosa", new Color(0xFFCACB));
+		colors.put("rosaHighlight", new Color(0xEF9597));
 		colors.put("Erblau", new Color(0xBAF2FF));
+		colors.put("ErblauHighlight", new Color(0x77C6F5));
 		colors.put("grau", new Color(213, 213, 213, 100));
 		colors.put("Prot", new Color(0xB51700));
 		colors.put("Pblau", new Color(0x004D80));

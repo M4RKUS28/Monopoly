@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -32,7 +33,7 @@ public class Info extends Field implements MouseListener{
 		this.x = x;
 		this.y = y;
 		this.game = game;
-		System.out.println(x + " " + y);
+		System.out.println(x +text + y);
 		this.createKarte();
 	}
 	
@@ -46,30 +47,39 @@ public class Info extends Field implements MouseListener{
 		messageBoard.setBackground(Constants.colors.get("board"));
 		messageBoard.setBounds(0, 5, width, (int)(height*0.75)-5);
 		messageBoard.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 5, Color.black));
+		System.out.println("messageBoard 0: " + messageBoard.getBounds());
 
 		messageBoard.setLayout(new BorderLayout());
-		
-
 		JLabel headline = new JLabel();
-		headline.setPreferredSize(new Dimension(width, (int) (0.3*0.8*height)));
+		headline.setBounds(0, 0, width, (int) (0.3*0.8*height));
 		headline.setFont(new Font("Arial", Font.BOLD, 14));
 		headline.setVerticalAlignment(SwingConstants.CENTER);
 		headline.setHorizontalAlignment(SwingConstants.CENTER);
 		headline.setBackground(this.colors.get("board"));
 		headline.setText(this.transformText("INFO"));
+		System.out.println("headline 0: " + headline.getSize());
+
 		messageBoard.add(headline, BorderLayout.NORTH);
 		
+		System.out.println("headline 1: " + headline.getBounds());
+		
 		JLabel message = new JLabel();
-		message.setPreferredSize(new Dimension(width, (int) (0.7*0.8*height)));
+		message.setBounds(0, (int) (0.3*0.8*height), width, (int) (0.7*0.8*height));
 		message.setFont(new Font("Arial", Font.BOLD, 14));
 		message.setVerticalAlignment(SwingConstants.CENTER);
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setBackground(this.colors.get("board"));
 		message.setText(this.transformText(text));
+		System.out.println("message 0: " + message.getBounds());
+
 		messageBoard.add(message, BorderLayout.SOUTH);
-		
+		System.out.println("message 0: " + message.getBounds());
+
 		this.add(messageBoard);
-		
+		Component[] comp = messageBoard.getComponents();
+		for (Component c:comp) {
+			System.out.println(c.getBounds());
+		}
 		this.add(createButtons());
 		
 		
@@ -79,6 +89,7 @@ public class Info extends Field implements MouseListener{
 	private JPanel createButtons() {
 		JPanel buttonBoard = new JPanel();
 		buttonBoard.setBackground(Constants.colors.get("board"));
+
 		buttonBoard.setBounds(5, (int)(height*0.75), width-5, (int)(height*0.25)-5);
 		buttonBoard.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 5, Color.black));
 
@@ -122,6 +133,7 @@ public class Info extends Field implements MouseListener{
 		// TODO Auto-generated method stub
 		if (e.getComponent().getName().equals("OK")) {
 			this.setVisible(false);
+
 		} else if (e.getComponent().getName().equals("Würfeln")) {
 			game.werkMiete();
 			this.setVisible(false);
