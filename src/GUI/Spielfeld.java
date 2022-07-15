@@ -132,6 +132,7 @@ public class Spielfeld extends Constants {
 	private void buildBasicFrame() {
 		frame = new JFrame();
 		frame.setTitle("Monopoly");
+		frame.setIconImage((new ImageIcon("src/images/Dude.jpg")).getImage());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
 		frame.setSize(new Dimension(screenWidth, screenHeight));
