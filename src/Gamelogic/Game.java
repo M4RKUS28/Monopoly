@@ -248,6 +248,7 @@ public class Game {
 			//error
 		}
 		if (w.getGehoert() > -1 && w.getHypo() == false) {			
+			
 			spielfeld.zahleMieteWerk(w.getGehoert(), 80);
 		}
 		if (w.getGehoert()==-1) {
@@ -261,11 +262,10 @@ public class Game {
 		spielfeld.updateDice(w1, w2);
 		int wurf = w1 + w2;
 		Werk w = felder[geradeAmZug.getPos()].toWerk();
-		spielfeld.zahleMiete(w.getGehoert(), w.getMiete() * wurf);
+		spielfeld.zahleMiete(w.getGehoert(), (int) (w.getMiete() * (0.5 + (pla[w.getGehoert()].getWerkZahl()/2))) * wurf);
 		
- 		pla[w.getGehoert()].zahlen(w.getMiete() * wurf, geradeAmZugIndex);
-		geradeAmZug.zahlen(-1 * w.getMiete() * wurf, w.getGehoert());
-		
+ 		pla[w.getGehoert()].zahlen((int) (w.getMiete() * (0.5 + (pla[w.getGehoert()].getWerkZahl()/2))) * wurf, geradeAmZugIndex);
+		geradeAmZug.zahlen(-1 * (int) (w.getMiete() * (0.5 + (pla[w.getGehoert()].getWerkZahl()/2))) * wurf, w.getGehoert());
 	}
 	
 	public void kaufen() {
@@ -278,7 +278,10 @@ public class Game {
 				
 				if (f.type() == TYPE.BAHN) {
 					geradeAmZug.bahnZahlaendern(1);
+				} else if (f.type() == TYPE.WERK) {
+					geradeAmZug.werkZahlaendern(1);
 				}
+				
 				spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 			}
 	}
@@ -442,6 +445,9 @@ public class Game {
 				if (felder[x].type() == TYPE.BAHN) {
 					pla[t.getPlayerVon()].bahnZahlaendern(1);
 					pla[t.getPlayerZu()].bahnZahlaendern(-1);
+				} else if (felder[x].type() == TYPE.WERK) {
+					pla[t.getPlayerVon()].werkZahlaendern(1);
+					pla[t.getPlayerZu()].werkZahlaendern(-1);
 				}
 			}
 			
@@ -457,6 +463,9 @@ public class Game {
 				if (felder[x].type() == TYPE.BAHN) {
 					pla[t.getPlayerZu()].bahnZahlaendern(1);
 					pla[t.getPlayerVon()].bahnZahlaendern(-1);
+				} else if (felder[x].type() == TYPE.WERK) {
+					pla[t.getPlayerZu()].werkZahlaendern(1);
+					pla[t.getPlayerVon()].werkZahlaendern(-1);
 				}
 			}			
 		} else {
