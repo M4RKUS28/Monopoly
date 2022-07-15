@@ -31,7 +31,11 @@ public class InfrastrukturKarte extends Field {
 		this.width = width;
 		this.height = height;
 		this.price = price;
-		createKarte();
+		if (position == -1) {
+			createKarteBehaelter();
+		} else {
+			createKarte();
+		}
 	}
 
 	private void createKarte() {
@@ -44,7 +48,7 @@ public class InfrastrukturKarte extends Field {
 			textpanel.setBounds(0, 0, height, width);
  			body.setBounds(0, 0, height, width);
 	 		playerPos.setBounds((int)(0.25*height-5), 0, (int)(0.25*height), width);
-
+	 		
 			this.setPreferredSize(new Dimension(height, width));
 			this.setBorder(BorderFactory.createMatteBorder(5, 5, 0, 5, Color.BLACK));
 			streetname = new JLabelR(this.transformText(name), 90);
@@ -54,6 +58,7 @@ public class InfrastrukturKarte extends Field {
 			streetname.setIconTextGap((int) (0.05 * height));
 			streetname.setHorizontalTextPosition(JLabelR.CENTER);
 			priceTag = new JLabelR("DM " + String.valueOf(price) + ".-", 90);
+			
 		} else {
 			textpanel.setBounds(0, 0, width, height);
  			body.setBounds(0, 0, width, height);
@@ -69,7 +74,8 @@ public class InfrastrukturKarte extends Field {
 			streetname.setIconTextGap((int) (0.05 * height));
 			streetname.setHorizontalTextPosition(JLabelR.CENTER);
 		}
-
+		
+		
 		//-------------------textpanel-------------------
  		textpanel.setLayout(new BorderLayout());
  		textpanel.setBackground(Constants.colors.get("board"));
@@ -109,6 +115,70 @@ public class InfrastrukturKarte extends Field {
  		this.repaint();
  		
  		this.add(textpanel);
+	}
+	
+	private void createKarteBehaelter() {
+		JLabelR streetname;
+		JLabelR priceTag;
+		JLayeredPane body = new JLayeredPane();
+		JPanel textpanel = new JPanel();
+		playerPos = new JPanel();
+
+		textpanel.setBounds(0, 0, width, height);
+		body.setBounds(0, 0, width, height);
+		playerPos.setBounds(0, (int) (0.25 * height - 5), width, (int) (0.25 * height));
+
+		this.setPreferredSize(new Dimension(width, height));
+		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 0, Color.BLACK));
+		streetname = new JLabelR(this.transformText(name), 0);
+		priceTag = new JLabelR("DM " + String.valueOf(price) + ".-", 0);
+		if (name.contains("asser")) {
+			streetname.setIcon(new ImageIcon(new ImageIcon("src/images/Wasserhahn.png").getImage()
+					.getScaledInstance((int) (0.6 * width), (int) (0.6 * width), Image.SCALE_DEFAULT)));
+		} else {
+			streetname.setIcon(new ImageIcon(new ImageIcon("src/images/Gluehbirne.png").getImage()
+					.getScaledInstance((int) (0.6 * width), (int) (0.6 * width), Image.SCALE_DEFAULT)));
+		}
+	
+		streetname.setVerticalTextPosition(JLabelR.TOP);
+		streetname.setIconTextGap((int) (0.05 * height));
+		streetname.setHorizontalTextPosition(JLabelR.CENTER);
+
+		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
+
+		// -------------------textpanel-------------------
+		textpanel.setLayout(new BorderLayout());
+		textpanel.setBackground(Constants.colors.get("board"));
+
+		this.setBackground(Constants.colors.get("board"));
+		this.setLayout(new BorderLayout());
+
+		streetname.setForeground(Color.black);
+		streetname.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
+
+		priceTag.setForeground(Color.black);
+		priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
+
+
+		streetname.setHorizontalAlignment(SwingConstants.CENTER);
+		textpanel.add(streetname, BorderLayout.NORTH);
+		priceTag.setHorizontalAlignment(SwingConstants.CENTER);
+		textpanel.add(priceTag, BorderLayout.SOUTH);
+
+		// -------------------Body-------------------
+		body.setBackground(Constants.colors.get("board"));
+		body.setLayout(null);
+		body.add(textpanel, Integer.valueOf(0));
+
+		// -------------------playerPos-------------------
+		playerPos.setOpaque(false);
+		playerPos.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
+		body.add(playerPos, Integer.valueOf(1));
+		this.add(body);
+
+		this.repaint();
+
+		this.add(textpanel);
 	}
 	
 

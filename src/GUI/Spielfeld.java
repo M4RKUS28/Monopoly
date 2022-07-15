@@ -573,6 +573,15 @@ public class Spielfeld extends Constants {
 
 	public void updateCurPlayer(int player) {
 		curPlayer.setText("<html><head></head><body><center>Spieler " + String.valueOf(player+1) + "</center></body></html>");
+		if (player == 0) {
+			curPlayer.setForeground(Constants.colors.get("Prot"));
+		} else if (player == 1) {
+			curPlayer.setForeground(Constants.colors.get("Pgelb"));
+		} else if (player == 2) {
+			curPlayer.setForeground(Constants.colors.get("Pgrün"));
+		} else if (player == 3) {
+			curPlayer.setForeground(Constants.colors.get("Pblau"));
+		}
 		curPlayer.repaint();
 	}
 	
@@ -611,7 +620,6 @@ public class Spielfeld extends Constants {
 
 	public void updateKartenbehaelter(ArrayList<Integer> b) {
 		Collections.sort(b);
-		System.out.println("Besitz " + b.size());
 		Feld[] felder = sl.getFelderList();
 		ArrayList<Feld> besitz = new ArrayList<Feld>();
 		
@@ -627,10 +635,15 @@ public class Spielfeld extends Constants {
 
 		JLayeredPane bahn = new JLayeredPane();
 		bahn.setLayout(null);
-		bahn.setBounds((int) (0), (int) (0), cardWidth, (int) (3 * cardHeight));
+		bahn.setBounds((int) (0), (int) (0), cardWidth, (int) (3.5 * cardHeight));
+
+		JLayeredPane werk = new JLayeredPane();
+		werk.setLayout(null);
+		werk.setBounds((int) (0), (int) (0), cardWidth, (int) (2.2 * cardHeight));
 
 		int layer = 0;
 		int layerb = 0;
+		int layerw = 0;
 		String prevFarbe = "null";
 
 		for (Feld feld : besitz) {
@@ -638,11 +651,16 @@ public class Spielfeld extends Constants {
 			case STRASSE:
 				System.out.println( feld.toStrasse().getFarbe());
 				if (!feld.toStrasse().getFarbe().equals(prevFarbe)) {
-					if (!prevFarbe.equals("null")) {		
+					if (!prevFarbe.equals("null")) {	
+						Component[] co = c.getComponents();
+						for (Component com: co) {
+							System.out.println(com.getBounds());
+						}
 						collectors.add(c);
-						System.out.println("ADD" + feld.toStrasse().getFarbe() + " " + c.getComponentCount());
 					}
-					c.removeAll();
+					c = new JLayeredPane();
+					c.setLayout(null);
+					c.setBounds((int) (0), (int) (0), cardWidth, (int) (2.2 * cardHeight));
 					layer = 0;
 				}
 				Straßenkarte s = new Straßenkarte(feld.getName(), -1, Constants.cardWidth, Constants.cardHeight,
@@ -650,52 +668,76 @@ public class Spielfeld extends Constants {
 				s.setBounds(0, (int) (layer * (0.6 * cardHeight)), cardWidth, cardHeight);
 				c.add(s, Integer.valueOf(layer));
 				
-				
 				prevFarbe = feld.toStrasse().getFarbe();
 				layer++;
 				break;
 			case BAHN:
 				Bahnhof bahnhof = new Bahnhof(feld.getName(), -1, Constants.cardWidth, Constants.cardHeight,
 						feld.getPreis());
+				bahnhof.setBounds(0, (int)(layerb*(0.6*Constants.cardHeight)), Constants.cardWidth, Constants.cardHeight);
 				bahn.add(bahnhof, Integer.valueOf(layerb));
+				bahnhof.repaint();
+				System.out.println("Bahnhof Add" + layerb*(0.6*Constants.cardHeight) + " " + layerb);
 				layerb++;
 				break;
 		
 			case WERK:
+				InfrastrukturKarte i = new InfrastrukturKarte(feld.getName(), -1, Constants.cardWidth,
+						Constants.cardHeight, feld.getPreis());
+				i.setBounds(0, (int)(layerw*(0.6*Constants.cardHeight)), Constants.cardWidth, Constants.cardHeight);
+				werk.add(i, Integer.valueOf(layerw));
+				
+				i.repaint();
+				layerw++;
 				break;
 			default:
 				break;
 			}
 
 		}
-		collectors.add(c);
+		if (layer > 0) {
+			collectors.add(c);
+		}
+		if (layerw > 0) {
+			collectors.add(werk);
+		}
 		if (layerb > 0) {
 			collectors.add(bahn);
 		}
+		
+		System.out.println("size" + collectors.size());
 		cards.removeAll();
-		System.out.println((int) (Math.round(collectors.size())));
 		int index = 0;
-		for (int i = 0; i < Math.round(collectors.size() / 2); i++) {
-			for (int j = 0; j < 2; j++) {
-
-				if (j == 0) {
+		
+		for (int i = 0; i < collectors.size(); i++) {
+			if (i%2 == 0) {
+				if (i == collectors.size()-1) {
 					collectors.get(index).setBounds((int) (0.3 * cardWidth),
-							(int) (i * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (2.2 * cardHeight));
+							(int) ((int)(i/2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (3.5 * cardHeight));
 				} else {
-					collectors.get(index).setBounds((int) (1.6 * cardWidth),
-							(int) (i * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (2.2 * cardHeight));
+					collectors.get(index).setBounds((int) (0.3 * cardWidth),
+							(int) ((int)(i/2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (2.2 * cardHeight));
 				}
 				
-				cards.add(collectors.get(index));
-				collectors.get(index).repaint();
-				index++;
-				System.out.println(index);
-				if (index >= collectors.size()) {
-					break;
+			} else {
+				if (i == collectors.size()-1) {
+				collectors.get(index).setBounds((int) (1.6 * cardWidth),
+						(int) ((int)(i/2)  * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (3.5 * cardHeight));
+				} else {
+					collectors.get(index).setBounds((int) (1.6 * cardWidth),
+							(int) ((int)(i/2)  * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (2.2 * cardHeight));
 				}
-
+			}
+			
+			cards.add(collectors.get(index));
+			collectors.get(index).repaint();
+			index++;
+			if (index >= collectors.size()) {
+				break;
 			}
 		}
+		
+	
 		System.out.println(cards.getComponentCount());
 		cards.revalidate();
 		cards.repaint();
@@ -713,6 +755,15 @@ public class Spielfeld extends Constants {
 	public void updateStats(int[] values) {
 		for (int i = 0; i < 4; i++) {
 			statsList[i].setText("Spieler " + String.valueOf(values[i] + 1));
+			if (values[i] == 0) {
+				statsList[i].setForeground(Constants.colors.get("Prot"));
+			} else if (values[i] == 1) {
+				statsList[i].setForeground(Constants.colors.get("Pgelb"));
+			} else if (values[i] == 2) {
+				statsList[i].setForeground(Constants.colors.get("Pgrün"));
+			} else if (values[i] == 3) {
+				statsList[i].setForeground(Constants.colors.get("Pblau"));
+			}
 			statsList[i + 4].setText("DM " + String.valueOf(values[i + 4]) + ".-");
 		}
 		base.revalidate();

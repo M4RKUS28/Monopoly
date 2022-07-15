@@ -49,6 +49,10 @@ public class Bahnhof extends Field{
  		if (position < 10 || (position > 20 && position < 29)) {
  	 		// Für untere und obere Reihe
  			this.setPreferredSize(new Dimension(width, height));
+ 			if (position == -1) {
+ 				System.out.println("Bahnhof " + width + " " + height);
+
+ 			}
  			textpanel.setBounds(0, 0, width, height);
  			body.setBounds(0, 0, width, height);
 
@@ -88,6 +92,10 @@ public class Bahnhof extends Field{
  	 			priceTag = new JLabelR("DM " + String.valueOf(price) + ".-", 270);
 
  			}
+ 		}
+ 		if (position == -1) {
+ 	 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
+
  		}
  		
  		textpanel.setBackground(new Color(178,218,173));
@@ -175,8 +183,8 @@ public class Bahnhof extends Field{
  		this.add(body);
 
  		this.repaint();
- 		
  		this.add(textpanel);
+
  	}
 
 	

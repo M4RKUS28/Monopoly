@@ -63,6 +63,10 @@ public class Game {
 		pla[3].erhalten(11);
 		felder[11].setGehoert(3);
 		geradeAmZug.erhalten(1);
+		geradeAmZug.erhalten(13);
+		geradeAmZug.erhalten(14);
+		geradeAmZug.erhalten(6);
+
 		geradeAmZug.erhalten(3);
 		geradeAmZug.erhalten(5);
 		geradeAmZug.erhalten(15);
@@ -72,6 +76,9 @@ public class Game {
 		geradeAmZug.erhalten(9);
 		//geradeAmZug.erhalten(11);
 		geradeAmZug.erhalten(13);
+		geradeAmZug.erhalten(12);
+		geradeAmZug.erhalten(28);
+
 		spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 	}
 	
