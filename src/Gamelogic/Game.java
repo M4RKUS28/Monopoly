@@ -35,14 +35,14 @@ public class Game {
 	
 	private int cardId;
 
-	public Game(String path, Spielfeld spielfeld) {
+	public Game(String path, Spielfeld spielfeld, SettingsLoader loader) {
 		benutzteEreigniskarten = new ArrayList<Integer>();
 		benutzteGemeinschaftskarten = new ArrayList<Integer>();
 		this.spielfeld = spielfeld;
-		loader = new SettingsLoader("");
+		this.loader = loader;
 		imSpiel = new boolean[4];
 		int ret = 0;
-		if ( (ret = loader.loadData(path)) > 0) { //"../json/cards.json"
+		if ( (ret = loader.loadData(path)) > 0) {
 			 System.exit(ret); 
 		}
 
@@ -63,21 +63,13 @@ public class Game {
 		pla[3].erhalten(11);
 		felder[11].setGehoert(3);
 		geradeAmZug.erhalten(1);
+		felder[1].setGehoert(0);
 		geradeAmZug.erhalten(13);
+		felder[13].setGehoert(0);
 		geradeAmZug.erhalten(14);
+		felder[14].setGehoert(0);
 		geradeAmZug.erhalten(6);
-
-		geradeAmZug.erhalten(3);
-		geradeAmZug.erhalten(5);
-		geradeAmZug.erhalten(15);
-		geradeAmZug.erhalten(35);
-		geradeAmZug.erhalten(25);
-		geradeAmZug.erhalten(8);
-		geradeAmZug.erhalten(9);
-		//geradeAmZug.erhalten(11);
-		geradeAmZug.erhalten(13);
-		geradeAmZug.erhalten(12);
-		geradeAmZug.erhalten(28);
+		felder[6].setGehoert(0);
 
 		spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 	}
@@ -85,7 +77,6 @@ public class Game {
 	public void naechster() {
 		if (pasch) {
 			pasch = false;
-			//Info Ui
 		}
 		else {
 			paschZahl = 0;
@@ -104,12 +95,7 @@ public class Game {
 	}
 	
 	public void wuerfeln() //Ui callt das hier mit Würfelbutton
-	{
-		//insGef();
-		
-		
-		System.out.println("+++++++++++++++++++++startwuerfeln++++++++++++++++++++++++++");
-		
+	{		
 		int wurf1 = rand.nextInt(6) + 1;
 		int wurf2 = rand.nextInt(6) + 1;
 		spielfeld.updateDice(wurf1, wurf2);
@@ -118,7 +104,6 @@ public class Game {
 			pasch = true;
 			paschZahl++;
 		}
-		System.out.println("Wurf: " + wurf + " --- " + wurf1 + " --- " + wurf2 + " --- " + geradeAmZug.getPos());
 		if (geradeAmZug.getGef()) {
 			if (geradeAmZug.getGefZahl() == 0) {
 				//nur freikauf möglich an UI
@@ -149,13 +134,7 @@ public class Game {
 		positionsNotify();
 		//notify UI über Wurf
 
-		neuesFeld();
-		
-		System.out.println("Wurf: " + wurf + " --- " + wurf1 + " --- " + wurf2 + " --- " + geradeAmZug.getPos());
-		
-		System.out.println("+++++++++++++++++++++endwuerfeln++++++++++++++++++++++++++");
-
-		
+		neuesFeld();		
 	}
 	
 	public void neuesFeld() {
@@ -362,7 +341,6 @@ public class Game {
 		spielfeld.insGef(geradeAmZugIndex);
 		geradeAmZug.setPos(-1);
 		positionsNotify();
-		System.out.println("Ins Gef----------------------------------------------------------------------");
 	}
 	
 	public void freikaufen() {
@@ -416,8 +394,8 @@ public class Game {
     private void ausGef() {
     	geradeAmZug.setGef(false);
     	geradeAmZug.setPos(10);
+    	spielfeld.ausGef(geradeAmZugIndex);
     	positionsNotify();
-    	//NotifyUI
     }
     
     //
@@ -519,7 +497,6 @@ public class Game {
     	cardId = kartenID;
     	
     	spielfeld.showEKarte(kartenID);
-    	System.out.println("Ereignisskarte" + loader.getEcardsList()[kartenID].getText());
     }
     
     public void resumeECard() {
@@ -657,9 +634,6 @@ public class Game {
     	cardId = kartenID;
     	
     	spielfeld.showGKarte(kartenID);
-    	
-    	System.out.println("Gemeinschaftskarte" + loader.getGcardsList()[kartenID].getText());
-
     }
     
     public void resumeGCard() {
@@ -820,5 +794,9 @@ public class Game {
     
     public ArrayList<Integer> getBesitz() {
     	return geradeAmZug.getBesitz();
+    }
+    
+    public int getGefZahl() {
+    	return geradeAmZug.getGefZahl();
     }
 }

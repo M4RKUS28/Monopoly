@@ -53,7 +53,7 @@ public class Spielfeld extends Constants {
 
 	private HashMap<String, Color> colors = new HashMap<>();
 
-	private SettingsLoader sl = new SettingsLoader("");
+	private SettingsLoader sl;
 	private Field[] fields;
 	private JLabel[] statsList;
 	private JLabel[] dices;
@@ -67,13 +67,13 @@ public class Spielfeld extends Constants {
 	private JLabel curPlayer;
 	private int[] figuernPos;
 	
-	public Spielfeld() {
-
+	public Spielfeld(SettingsLoader sl) {
+		this.sl = sl;
 	}
 
-	public void initGame(Game game) {
+	public void initGame(Game game, String path) {
 		this.game = game;
-		sl.loadData("src/json/cards.json");
+		sl.loadData(path);
 
 		borderPanel = new JPanel[4];
 		fields = new Field[40];
@@ -319,7 +319,6 @@ public class Spielfeld extends Constants {
 	}
 
 	public void showGKarte(int id) {
-		System.out.println("showGKarte");
 		// center.removeAll();
 		karte = new GEKarte(sl.getGcardsList()[id].getText(), "Gemeinschaftskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
@@ -332,7 +331,6 @@ public class Spielfeld extends Constants {
 	}
 
 	public void showEKarte(int id) {
-		System.out.println("showEKarte");
 		// center.removeAll();
 		karte = new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
@@ -706,7 +704,7 @@ public class Spielfeld extends Constants {
 			collectors.add(bahn);
 		}
 		
-		System.out.println("size" + collectors.size());
+		//System.out.println("size" + collectors.size());
 		cards.removeAll();
 		int index = 0;
 		
@@ -739,7 +737,7 @@ public class Spielfeld extends Constants {
 		}
 		
 	
-		System.out.println(cards.getComponentCount());
+		//System.out.println(cards.getComponentCount());
 		cards.revalidate();
 		cards.repaint();
 	}
@@ -936,24 +934,27 @@ public class Spielfeld extends Constants {
 	}
 	
 	public void imGefaegnis() {
-
-		String[] buttons = {"DM 1000", "Pasch"};
-		Info info = new Info("Um aus dem Gefängnis freizukommen, hast du zwei Möglichkeiten:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
-				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
-				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
-		center.add(info);
-		System.out.println("Im Gefängis" + Constants.getCardWidth() + " " + Constants.getCardHeight());
-		Component[] comp = center.getComponents();
-		for (Component c:comp) {
-			System.out.println(c.getBounds());
+		if (game.getGefZahl() > 0) {
+			String[] buttons = {"DM 1000", "Pasch"};
+			Info info = new Info("Um aus dem Gefängnis freizukommen, hast du zwei Möglichkeiten:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+					(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+					(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
+			center.add(info);
+			
+		} else if (game.getGefZahl() == 0){
+			String[] buttons = {"DM 1000"};
+			Info info = new Info("Du musst dich aus dem Gefängnis freikaufen:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+					(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+					(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
+			center.add(info);
+		} else {
+			System.out.println("Fehler bei der Anzahl der NochImGefRunden");
 		}
 		center.repaint();
-
 	}
 	
 	public void enableDice() {
 		rollDice = true;
-		System.out.println("Enable Dice");
 		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceEnabled.png").getImage().getScaledInstance(
 				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 				Image.SCALE_DEFAULT)));

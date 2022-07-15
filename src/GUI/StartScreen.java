@@ -130,7 +130,7 @@ public class StartScreen extends JFrame implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		if (e.getComponent().equals(start)) {
 			this.setVisible(false);
-			Main.start();
+			Main.start(versionsAuswahl);
 		} else if (e.getComponent().equals(modusausswahlDM)) {
 			versionsAuswahl = 0;
 			modusausswahlDM.setIcon(new ImageIcon((new ImageIcon("src/images/knopf1.png")).getImage().getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH)));

@@ -239,16 +239,13 @@ public class Sonderfeld extends Field{
 			}
 		}
 		this.playerPos.add(fig);
-		System.out.println(playerPos.getComponents());
 		this.revalidate();
 		this.repaint();
 	}
 	
-	public void removePlayer(String color) {
-		
+	public void removePlayer(String color) {		
 		Component[] components = playerPos.getComponents();
 		for (Component component : components) {
-			System.out.println(component.getName());
 			if (color== component.getName()) {
 				playerPos.remove(component);
 			}
@@ -268,16 +265,13 @@ public class Sonderfeld extends Field{
 			}
 		}
 		this.playerGefPos.add(fig);
-		System.out.println(playerGefPos.getComponents());
 		this.revalidate();
 		this.repaint();
 	}
 	
-	public void removePlayerFromGef(String color) {
-		
+	public void removePlayerFromGef(String color) {	
 		Component[] components = playerGefPos.getComponents();
 		for (Component component : components) {
-			System.out.println(component.getName());
 			if (color== component.getName()) {
 				playerGefPos.remove(component);
 			}
