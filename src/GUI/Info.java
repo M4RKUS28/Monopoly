@@ -24,6 +24,8 @@ public class Info extends Field implements MouseListener{
 	private int x;
 	private int y;
 	private Game game;
+	private Spielfeld spielfeld;
+	
 	public Info(String text, String[] typ, int x, int y, int width, int height, Game game) {
 		super(text, -2);
 		this.text = text;
@@ -33,7 +35,19 @@ public class Info extends Field implements MouseListener{
 		this.x = x;
 		this.y = y;
 		this.game = game;
-		System.out.println(x +text + y);
+		this.createKarte();
+	}
+	
+	public Info(String text, String[] typ, int x, int y, int width, int height, Game game, Spielfeld spielfeld) {
+		super(text, -2);
+		this.text = text;
+		this.typ = typ;
+		this.width = width;
+		this.height = height;
+		this.x = x;
+		this.y = y;
+		this.game = game;
+		this.spielfeld = spielfeld;
 		this.createKarte();
 	}
 	
@@ -150,6 +164,9 @@ public class Info extends Field implements MouseListener{
 			this.setVisible(false);
 		} else if (e.getComponent().getName().equals("Beenden")) {
 			game.bankrott();
+			this.setVisible(false);
+		}  else if (e.getComponent().getName().equals("Hypothek")) {
+			spielfeld.hypothekAufnehmen();
 			this.setVisible(false);
 		}
 	}

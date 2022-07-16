@@ -78,6 +78,10 @@ public class Game {
 		spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 	}
 	
+	public void ende() { //Ui callt das hier mit Endbutton
+		
+	}
+	
 	public void naechster() {
 		if (pasch) {
 			pasch = false;
@@ -304,7 +308,7 @@ public class Game {
 			return false;
 		}
 		Strasse s = felder[pos].toStrasse();
-		if (s.hausbauCheck(felder) && /*geradeAmZug.getGeld() - s.getHauskosten() * 1000 > -1 &&*/ geradeAmZug.getBesitz().contains(pos) && hausBauen) {
+		if (s.hausbauCheck(felder) && geradeAmZug.getGeld() - s.getHauskosten() * 1000 > -1 && geradeAmZug.getBesitz().contains(pos) && hausBauen) {
 			s.hausBauen();
 			System.out.println("Hauskosten" + s.getHauskosten());
 			geradeAmZug.zahlen(-1 * (s.getHauskosten()+1) * 1000, -1);

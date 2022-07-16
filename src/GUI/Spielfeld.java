@@ -221,13 +221,9 @@ public class Spielfeld extends Constants {
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				game.toggleHausBauen();
-				System.out.println("BuildHouse " +game.getHausBauen());
-
 				if (game.getHausBauen()) {
-					
 					hausBauenEin();
 				} else {
-					
 					hausBauenAus();
 				}
 			}
@@ -307,7 +303,60 @@ public class Spielfeld extends Constants {
 
 		frame.add(controllpanel);
 		frame.repaint();
+		createEnde();
 
+	}
+	
+	private void createEnde() {
+		MouseListener ml = new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		};
+		JPanel ende = new JPanel();
+		ende.setBackground(Constants.colors.get("board"));
+		ende.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+		ende.setBounds((int) (screenWidth * 0.01), (int) (screenHeight / 2 - (cardHeight)+ 3 * cardWidth + 10), cardHeight,
+				(int)(0.25*cardHeight));
+		ende.setLayout(new BorderLayout());
+		ende.addMouseListener(ml);
+		JLabel text = new JLabel();
+		text.setText("Beende Runde");
+		text.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
+		text.setHorizontalAlignment(SwingConstants.CENTER);
+		text.setVerticalAlignment(SwingConstants.CENTER);
+		text.addMouseListener(ml);
+		ende.add(text, BorderLayout.CENTER);
+		frame.add(ende);
+		frame.repaint();
 	}
 
 	private void buildBoard() {
@@ -942,7 +991,7 @@ public class Spielfeld extends Constants {
 	
 	public void hypothekAufnehmen() {
 		String[] buttons = {"OK"};
-		center.add(new Info("Wähle Besitztümer aus, die du mitt einer Hypothek belasten möchtest", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info("Wähle Besitztümer aus, die du mit einer Hypothek belasten möchtest", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 	
@@ -983,6 +1032,21 @@ public class Spielfeld extends Constants {
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 	}
+	
+	public void einkommenssteuer() {
+		String[] buttons = {"OK"};
+		center.add(new Info("Du musst DM 4000 Einkommenssteuer zahlen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+	}
+	
+	public void zusatzsteuer() {
+		String[] buttons = {"OK"};
+		center.add(new Info("Du musst DM 2000 Einkommenssteuer zahlen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+	}
+	
 	public void enableNext() {
 		next = true;
 		nextPlayer.setIcon(new ImageIcon(new ImageIcon("src/images/NextEnabled.png").getImage().getScaledInstance(
@@ -990,6 +1054,8 @@ public class Spielfeld extends Constants {
 				Image.SCALE_DEFAULT)));
 		nextPlayer.repaint();
 	}
+	
+	
 	
 	public void disableNext() {
 		next = false;;

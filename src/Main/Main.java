@@ -1,16 +1,17 @@
 package Main;
 
 import GUI.Constants;
+import GUI.EndScreen;
 import GUI.Spielfeld;
 import GUI.StartScreen;
 import Gamedata.SettingsLoader;
 import Gamelogic.Game;
 
 public class Main {
-	static StartScreen startScreen;
+	static EndScreen startScreen;
 	
 	public static void main(String[] args) {		
-		startScreen = new StartScreen();
+		startScreen = new EndScreen();
 	}
 	
 	public static void start(int x) {

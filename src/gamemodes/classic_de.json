@@ -5,8 +5,8 @@
     "Ueberlosgeld": 2000,
 	"Zusaetzliches_auf_los_geld" : 2000,
 	
-	"Einkommensteuer": 2000,
-	"Zusatzsteuer": 4000,
+	"Einkommensteuer": 4000,
+	"Zusatzsteuer": 2000,
 	"Gefaengniskosten": 1000,
 	"Währung": "€",
 
