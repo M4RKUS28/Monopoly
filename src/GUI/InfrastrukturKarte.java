@@ -191,14 +191,10 @@ public class InfrastrukturKarte extends Field implements MouseListener {
 	
 	public void activateHypo() {
  		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.colors.get("rot")));
-
- 		game.hypothekAufnehmen(-1*position);
  	}
  	
  	public void deactivateHypo() {
  		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-
- 		game.hypothekBezahlen(-1*position);
  	}
 	
 	public void addPlayer(String color) {
@@ -231,13 +227,17 @@ public class InfrastrukturKarte extends Field implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		if (!hypo) {
-			activateHypo();
-			hypo = true; 
+			if (game.hypothekAufnehmen(-1*position)) {
+				activateHypo();
+				hypo = true;				
+			}
+			 
 		} else {
-			deactivateHypo();
-			hypo = false;
+			if (game.hypothekBezahlen(-1*position)) {
+				deactivateHypo();
+				hypo = false;
+			}				
 		}
 	}
 

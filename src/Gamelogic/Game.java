@@ -271,26 +271,30 @@ public class Game {
 			}
 	}
 	
-	public void hypothekAufnehmen(int position) {
+	public boolean hypothekAufnehmen(int position) {
 		Feld f = felder[position];
 		
 		if (f.getHypo() == false) {
 			f.setHypo(true);
 			geradeAmZug.zahlen(f.getHypothekwert(), -1);
+			return true;
 		}
 		else {
 			//error an Ui
+			return false;
 		}
 	}
 	
-	public void hypothekBezahlen(int position) {
+	public boolean hypothekBezahlen(int position) {
 		Feld f = felder[position];
-		if (f.getHypo() == true && geradeAmZug.getGeld() - f.getHypothekwert() > -1) {
+		if (f.getHypo() == true && geradeAmZug.getGeld() - f.getHypothekwert() * 1.1 > -1) {
 			f.setHypo(false);
 			geradeAmZug.zahlen((int) (-1 * f.getHypothekwert()*1.1), -1);
+			return true;
 		}
 		else {
 			//error an Ui
+			return false;
 		}
 	}
 	
@@ -720,21 +724,21 @@ public class Game {
     			p1 = i;    			
     		}
     	}
-    	max = 0;
+    	max = -999999;
     	for (int i = 0; i < pla.length; i ++) {
     		if (max < pla[i].getGeld() && (i != p1)) {
     			max = pla[i].getGeld();
     			p2 = i;    			
     		}
     	}
-    	max = 0;
+    	max = -999999;
     	for (int i = 0; i < pla.length; i ++) {
     		if (max < pla[i].getGeld()&& (i != p1 && i != p2)) {
     			max = pla[i].getGeld();
     			p3 = i;    			
     		}
     	}
-    	max = 0;
+    	max = -999999;
     	for (int i = 0; i < pla.length; i ++) {
     		if (max < pla[i].getGeld() && (i != p1 && i != p2 && i != p3)) {
     			max = pla[i].getGeld();

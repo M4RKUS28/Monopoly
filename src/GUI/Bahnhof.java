@@ -228,26 +228,28 @@ public class Bahnhof extends Field implements MouseListener{
 
  	public void activateHypo() {
  		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.colors.get("rot")));
-
- 		game.hypothekAufnehmen(-1*position);
  	}
  	
  	public void deactivateHypo() {
  		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 
- 		game.hypothekBezahlen(-1*position);
+ 		
  	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		if (position < 0) {
 			if (!hypo) {
-				activateHypo();
-				hypo = true; 
+				if (game.hypothekAufnehmen(-1*position)) {
+					activateHypo();
+					hypo = true;				
+				}
+				 
 			} else {
-				deactivateHypo();
-				hypo = false;
+				if (game.hypothekBezahlen(-1*position)) {
+					deactivateHypo();
+					hypo = false;
+				}				
 			}
 		}
 	}
