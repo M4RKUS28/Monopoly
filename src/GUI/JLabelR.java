@@ -38,36 +38,81 @@ public class JLabelR extends JLabel {
 
 		if (this.theta == 90) {
 			if (text.contains("DM")) {
-				g2.translate(0, 20);
+				g2.translate(0, Constants.cardWidth/4);
+
+
 			} else {
 				if (text.contains("West-<br>bahnhof")) {
 					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
 							oldshape.getBounds().height + 25);
-					g2.translate(0, 12);
+					g2.translate(0, Constants.cardWidth/7);
+
 
 				} else if (text.contains("lektri")) {
 					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
 							oldshape.getBounds().height + 25);
-					g2.translate(0, 7);
-				} else if (text.contains("Ereignis-<br>feld")) {
+
+					g2.translate(0, Constants.cardWidth/12);
+				} else if (text.contains("Gemein")) {
 					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
 							oldshape.getBounds().height + 25);
-					g2.translate(0, 50);
+					g2.translate(0, Constants.cardWidth/6);
 				} else {
-					g2.translate(0, -12);
+
+					g2.translate(0, Constants.cardWidth/-9);
 				}
 			}
 		}
 		if (this.theta == 270) {
 			if (text.contains("DM")) {
-				g2.translate(0, 20);
+				g2.translate(0, Constants.cardWidth/4);
 			} else {
-				if (!text.contains("Haupt-<br>bahnhof")) {
-					g2.translate(0, -15);
-				} else {
+				
+				if (text.contains("Haupt-<br>bahnhof")) {
 					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
 							oldshape.getBounds().height + 25);
-					g2.translate(0, 12);
+					g2.translate(0, Constants.cardWidth/7);
+				} else if (text.contains("Gemein")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 25);
+					g2.translate(0, Constants.cardWidth/6);
+				} else if (text.contains("Ereig")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 35);
+					g2.translate(0, Constants.cardWidth/4);
+				}  else if (text.contains("steuer")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 27);
+					g2.translate(0, Constants.cardWidth/4);
+				}  else if (text.contains("athaus")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 25);
+					g2.translate(0, Constants.cardWidth/-6);
+				} else if (text.contains("Haupt-<br>stra")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 25);
+					g2.translate(0, Constants.cardWidth/-12);
+				}  else if (text.contains("Bahnhof")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 25);
+					System.out.println("Gemins " + Constants.cardWidth/-20);
+					g2.translate(0, Constants.cardWidth/-5);
+				} else if (text.contains("Park")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 25);
+					System.out.println("Gemins " + Constants.cardWidth/-20);
+					g2.translate(0, Constants.cardWidth/-14);
+				} else if (text.contains("Schloss")) {
+					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
+							oldshape.getBounds().height + 25);
+					System.out.println("Gemins " + Constants.cardWidth/-20);
+					g2.translate(0, Constants.cardWidth/-6);
+				}
+				
+				
+				else {
+					g2.translate(0,0);
+
 				}
 
 			}

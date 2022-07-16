@@ -7,31 +7,36 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class InfrastrukturKarte extends Field {
+import Gamelogic.Game;
+
+public class InfrastrukturKarte extends Field implements MouseListener {
 	private String name;
 	private int position;
 	private int width;
 	private int height;
 	private int price;
 	JPanel playerPos;
-
-
-	public InfrastrukturKarte(String name, int position, int width, int height, int price) {
+	private Game game;
+	private boolean hypo;
+	public InfrastrukturKarte(String name, int position, int width, int height, int price, Game game) {
 		super(name, position);
 		this.name = name;
 		this.position = position;
 		this.width = width;
 		this.height = height;
 		this.price = price;
-		if (position == -1) {
+		this.game = game;
+		this.hypo = false;
+		if (position < 0) {
 			createKarteBehaelter();
 		} else {
 			createKarte();
@@ -143,22 +148,23 @@ public class InfrastrukturKarte extends Field {
 		streetname.setVerticalTextPosition(JLabelR.TOP);
 		streetname.setIconTextGap((int) (0.05 * height));
 		streetname.setHorizontalTextPosition(JLabelR.CENTER);
-
+		streetname.addMouseListener(this);
 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
 
 		// -------------------textpanel-------------------
 		textpanel.setLayout(new BorderLayout());
 		textpanel.setBackground(Constants.colors.get("board"));
-
+		textpanel.addMouseListener(this);
 		this.setBackground(Constants.colors.get("board"));
 		this.setLayout(new BorderLayout());
+		this.addMouseListener(this);
 
 		streetname.setForeground(Color.black);
 		streetname.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
-
+		
 		priceTag.setForeground(Color.black);
 		priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
-
+		priceTag.addMouseListener(this);
 
 		streetname.setHorizontalAlignment(SwingConstants.CENTER);
 		textpanel.add(streetname, BorderLayout.NORTH);
@@ -169,9 +175,11 @@ public class InfrastrukturKarte extends Field {
 		body.setBackground(Constants.colors.get("board"));
 		body.setLayout(null);
 		body.add(textpanel, Integer.valueOf(0));
+		body.addMouseListener(this);
 
 		// -------------------playerPos-------------------
 		playerPos.setOpaque(false);
+		playerPos.addMouseListener(this);
 		playerPos.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
 		body.add(playerPos, Integer.valueOf(1));
 		this.add(body);
@@ -181,7 +189,18 @@ public class InfrastrukturKarte extends Field {
 		this.add(textpanel);
 	}
 	
+	public void activateHypo() {
+ 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.colors.get("rot")));
 
+ 		game.hypothekAufnehmen(-1*position);
+ 	}
+ 	
+ 	public void deactivateHypo() {
+ 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+
+ 		game.hypothekBezahlen(-1*position);
+ 	}
+	
 	public void addPlayer(String color) {
 		Figure fig = new Figure(color);
 		fig.setPreferredSize(new Dimension(Constants.getFigureSize(), Constants.getFigureSize()));
@@ -208,5 +227,41 @@ public class InfrastrukturKarte extends Field {
 		}
 		this.revalidate();
 		this.repaint();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (!hypo) {
+			activateHypo();
+			hypo = true; 
+		} else {
+			deactivateHypo();
+			hypo = false;
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

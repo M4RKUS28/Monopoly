@@ -234,7 +234,7 @@ public class SettingsLoader
                 System.out.println( "ERROR: Ungültiger Eintrag: " +  hof.getString("Name")  );
                 return 1;
             }
-                
+        
         }
         return 0;
     }

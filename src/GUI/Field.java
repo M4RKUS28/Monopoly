@@ -67,22 +67,22 @@ public abstract class Field extends JPanel {
 			placeholder = slices[0] + text + slices[4];
 			return placeholder;
 		}
-		if (text.contains("strasse")) {
-			placeholder = text.substring(text.length() - 7);
+		if (text.contains("straße")) {
+			placeholder = text.substring(text.length() - 6);
 
 			placeholder = placeholder.replace("ss", "ß");
-			slices[1] = text.substring(0, text.length() - 7);
+			slices[1] = text.substring(0, text.length() - 6);
 			slices[3] = placeholder;
 		} else if (text.contains("bahnhof")) {
 			placeholder = text.substring(text.length() - 7);
 
 			slices[1] = text.substring(0, text.length() - 7);
 			slices[3] = placeholder;
-		} else if (text.contains("Strasse")) {
-			placeholder = text.substring(text.length() - 7);
+		} else if (text.contains("Straße")) {
+			placeholder = text.substring(text.length() - 6);
 
 			placeholder = placeholder.replace("ss", "ß");
-			slices[1] = text.substring(0, text.length() - 7);
+			slices[1] = text.substring(0, text.length() - 6);
 			slices[2] = "<br>";
 			slices[3] = placeholder;
 		} else if (text.contains("platz")) {

@@ -70,6 +70,10 @@ public class Game {
 		felder[14].setGehoert(0);
 		geradeAmZug.erhalten(6);
 		felder[6].setGehoert(0);
+		geradeAmZug.erhalten(8);
+		felder[8].setGehoert(0);
+		geradeAmZug.erhalten(9);
+		felder[9].setGehoert(0);
 
 		spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 	}
@@ -262,11 +266,13 @@ public class Game {
 				}
 				
 				spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
+			} else {
+				//Info du hast zu wenig geld
 			}
 	}
 	
-	public void hypothekAufnehmen() {
-		Feld f = felder[geradeAmZug.getPos()];
+	public void hypothekAufnehmen(int position) {
+		Feld f = felder[position];
 		
 		if (f.getHypo() == false) {
 			f.setHypo(true);
@@ -277,11 +283,11 @@ public class Game {
 		}
 	}
 	
-	public void hypothekBezahlen() {
-		Feld f = felder[geradeAmZug.getPos()];
+	public void hypothekBezahlen(int position) {
+		Feld f = felder[position];
 		if (f.getHypo() == true && geradeAmZug.getGeld() - f.getHypothekwert() > -1) {
 			f.setHypo(false);
-			geradeAmZug.zahlen(-1 * f.getHypothekwert(), -1);
+			geradeAmZug.zahlen((int) (-1 * f.getHypothekwert()*1.1), -1);
 		}
 		else {
 			//error an Ui
@@ -294,9 +300,10 @@ public class Game {
 			return false;
 		}
 		Strasse s = felder[pos].toStrasse();
-		if (s.hausbauCheck(felder) && geradeAmZug.getGeld() - s.getHauskosten() * 1000 < -1 && geradeAmZug.getBesitz().contains(pos) && hausBauen) {
+		if (s.hausbauCheck(felder) && /*geradeAmZug.getGeld() - s.getHauskosten() * 1000 > -1 &&*/ geradeAmZug.getBesitz().contains(pos) && hausBauen) {
 			s.hausBauen();
-			geradeAmZug.zahlen(-1 * s.getHauskosten() * 1000, -1);
+			System.out.println("Hauskosten" + s.getHauskosten());
+			geradeAmZug.zahlen(-1 * (s.getHauskosten()+1) * 1000, -1);
 			geradeAmZug.aendereGesammtscore(s.getHauskosten());
 			if (s.getHauszahl() == 4) {
 				geradeAmZug.addToHausCounter(-4);
@@ -308,6 +315,7 @@ public class Game {
 			return true;
 		}
 		else {
+
 			return false;
 		}
 	}
@@ -786,10 +794,11 @@ public class Game {
     		geradeAmZug.hergeben(i);
     	}
     	pla[bankrottPlayer].zahlen(geradeAmZug.getGeld(), geradeAmZugIndex);
-    	geradeAmZug.setGeld(-9999);
+    	geradeAmZug.setGeld(-999999999);
     	pla[bankrottPlayer].addToGefFreiKarte(geradeAmZug.gefFreiKrate());
     	geradeAmZug.addToGefFreiKarte(-1 * geradeAmZug.gefFreiKrate());
     	imSpiel[geradeAmZugIndex] = false;
+    	geldNotify();
     }
     
     public ArrayList<Integer> getBesitz() {

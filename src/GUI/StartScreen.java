@@ -66,10 +66,12 @@ public class StartScreen extends JFrame implements MouseListener{
 		start.setText("START");
 		start.setFont(new Font("Copperplate Gothic Light", Font.PLAIN, 20));
 		start.setFocusable(false);		
-		start.setBackground(new Color(54, 181, 63));
 		start.setForeground(Color.white);
+	
+		start.setBackground(new Color(54, 181, 63));
 		start.setBorder(BorderFactory.createEtchedBorder());
 		start.addMouseListener(this);
+		start.setOpaque(true);
 		this.add(start);
 		
 		//Modusauswahl

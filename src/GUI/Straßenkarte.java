@@ -32,6 +32,7 @@ public class Straßenkarte extends Field implements MouseListener{
 	private JPanel colorstripe;
 	private JPanel playerPos;
 	private Game game;
+	private boolean hypo;
  	public Straßenkarte(String name, int position, int width, int height, Color stripeColor, int price, Game game) {
 		super(name, position);
 		// TODO Auto-generated constructor stub
@@ -42,6 +43,7 @@ public class Straßenkarte extends Field implements MouseListener{
 		this.stripeColor = stripeColor;
 		this.price = price;
 		this.placeHouses = false;
+		this.hypo = false;
 		this.numHouse = 0;
 		this.houses = new JLabel[4];
 		this.setName(String.valueOf(position));
@@ -49,7 +51,7 @@ public class Straßenkarte extends Field implements MouseListener{
 		this.game = game;
 		System.out.println("Game" + game);
 		this.placeHouses = true;
-		if (position == -2) {
+		if (position < 0) {
 			placeHouses = false;
 		}
 		player = new Figure[4];
@@ -122,7 +124,7 @@ public class Straßenkarte extends Field implements MouseListener{
  			}
  		}
  		
- 		if (position == -1) {
+ 		if (position < 0) {
  	 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
  	 		colorstripe.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
 
@@ -203,7 +205,8 @@ public class Straßenkarte extends Field implements MouseListener{
  		playerPos.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 2));
  		body.add(playerPos, Integer.valueOf(1));
  		this.add(body);
-
+ 		
+ 		
  		this.repaint();
  		
 
@@ -213,13 +216,12 @@ public class Straßenkarte extends Field implements MouseListener{
  		JLabel house = new JLabel();
  		if (position < 10 || (position > 20 && position < 29)) {
  	 		// Für untere und obere Reihe
- 			house.setIcon(new ImageIcon(new ImageIcon("images/HausVert.png").getImage().getScaledInstance((int) ((0.25*width/568)*568), (int) ((0.25*height/834)*834), Image.SCALE_DEFAULT)));
+ 			house.setIcon(new ImageIcon(new ImageIcon("src/images/HausVert.png").getImage().getScaledInstance((int) ((0.25*width/568)*568), (int) ((0.25*height/834)*834), Image.SCALE_DEFAULT)));
 
  			if (numHouse == 0) {
  				house.setBounds((int)(0.375*width+5), 5, (int)(0.25*width), (int)(0.25*height));
  				this.houses[numHouse] = house;
- 				colorstripe.repaint();
-
+ 				System.out.println("New Haus");
  		 		this.numHouse++;
  			} else if (numHouse == 1) {
  				houses[0].setBounds((int)(0.125*width+5), 5, (int)(0.25*width), (int)(0.25*height));
@@ -246,7 +248,7 @@ public class Straßenkarte extends Field implements MouseListener{
  		 		this.numHouse++;
  			}  else if (numHouse == 4) {
  				colorstripe.removeAll();
- 				house.setIcon(new ImageIcon(new ImageIcon("images/HotelHor.png").getImage().getScaledInstance((int) ((0.5*width/1086)*1086), (int) (0.25*height), Image.SCALE_DEFAULT)));
+ 				house.setIcon(new ImageIcon(new ImageIcon("src/images/HotelHor.png").getImage().getScaledInstance((int) ((0.5*width/1086)*1086), (int) (0.25*height), Image.SCALE_DEFAULT)));
  				house.setBounds((int)(0.25*width+5), 5, (int)(0.5*width), (int)(0.25*height));
  				this.houses = null;
  		 		this.numHouse++;
@@ -254,7 +256,7 @@ public class Straßenkarte extends Field implements MouseListener{
 
 
  		} else {
- 			house.setIcon(new ImageIcon(new ImageIcon("images/HausHor.png").getImage().getScaledInstance((int) (0.25*height), (int) (0.25*width), Image.SCALE_DEFAULT)));
+ 			house.setIcon(new ImageIcon(new ImageIcon("src/images/HausHor.png").getImage().getScaledInstance((int) (0.25*height), (int) (0.25*width), Image.SCALE_DEFAULT)));
 
  			if (numHouse == 0) {
  				house.setBounds(5, (int)(0.375*width+5), (int)(0.25*width), (int)(0.25*height));
@@ -287,22 +289,35 @@ public class Straßenkarte extends Field implements MouseListener{
  		 		this.numHouse++;
  			}  else if (numHouse == 4) {
  				colorstripe.removeAll();
- 				house.setIcon(new ImageIcon(new ImageIcon("images/HotelVert.png").getImage().getScaledInstance((int) ((0.5*width/1086)*1086), (int) (0.25*height), Image.SCALE_DEFAULT)));
+ 				house.setIcon(new ImageIcon(new ImageIcon("src/images/HotelVert.png").getImage().getScaledInstance((int) ((0.5*width/1086)*1086), (int) (0.25*height), Image.SCALE_DEFAULT)));
  				house.setBounds(5, (int)(0.25*width+5), (int)(0.5*width), (int)(0.25*height));
  				this.houses = null;
  		 		this.numHouse++;
  			}
  		}
-
- 		this.colorstripe.add(house);
-			System.out.println("Haus gebaut");
-
- 		this.revalidate();
- 		this.repaint();
+ 	//	house.setBackground(Color.green);
+ 		//house.setOpaque(true);
+ 		colorstripe.add(house);
+		System.out.println("Haus gebaut");
+		System.out.println("Hauscount " + name + colorstripe.getComponentCount());
+ 		colorstripe.revalidate();
+ 		colorstripe.repaint();
  	}
  	
   
+ 	public void activateHypo() {
+ 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.colors.get("rot")));
+ 		colorstripe.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Constants.colors.get("rot")));
+
+ 		game.hypothekAufnehmen(-1*position);
+ 	}
  	
+ 	public void deactivateHypo() {
+ 		this.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+ 		colorstripe.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+
+ 		game.hypothekBezahlen(-1*position);
+ 	}
 	
 	public void addPlayer(String color) {
 		Figure fig = new Figure(color);
@@ -335,13 +350,25 @@ public class Straßenkarte extends Field implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (numHouse>5) {
-			return;
+		if (position > 0) {
+			if (numHouse>5) {
+				return;
+			}
+			if (game.getHausBauen() && game.hausBauen(this.position)) {
+				System.out.println("Haus wird gebaut werden");
+
+				placeHouse();
+			}
+		} else if (position < 0) {
+			if (!hypo) {
+				activateHypo();
+				hypo = true; 
+			} else {
+				deactivateHypo();
+				hypo = false;
+			}
 		}
-		System.out.println("Haus soll gebaut werden");
-		if (placeHouses && game.hausBauen(this.position)) {
-			placeHouse();
-		}
+		
 
 		
 	}

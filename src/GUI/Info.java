@@ -148,6 +148,9 @@ public class Info extends Field implements MouseListener{
 		}  else if (e.getComponent().getName().equals("Pasch")) {
 			game.wuerfeln();
 			this.setVisible(false);
+		} else if (e.getComponent().getName().equals("Beenden")) {
+			game.bankrott();
+			this.setVisible(false);
 		}
 	}
 

@@ -10,7 +10,7 @@ public class Player {
 	
 	public Player(Game g, int i) {
 		bahnZahl = 0;
-		geld = 30000;
+		geld = 10000;
 		this.game = g;
 		this.index = i;
 		
@@ -32,7 +32,7 @@ public class Player {
 	public void zahlen(int x, int p) {
 		geld += x;
 		game.geldNotify();
-		if (geld < 0) {
+		if (geld < 0 && !bankrott) {
 			bankrott = true;
 			game.toggleBankrott(p);
 		}
@@ -41,7 +41,7 @@ public class Player {
 			game.toggleBankrott(p);
 		}
 		
-		System.out.println("Zahlung von " + x + " durch " + p + " an " + index);
+		System.out.println("Zahlung von " + x + " durch " + p + " an " + index + "Geld: " + geld);
 	}
 	public void setGeld(int x) {
 		geld = x;
