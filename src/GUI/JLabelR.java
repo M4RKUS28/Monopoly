@@ -95,17 +95,15 @@ public class JLabelR extends JLabel {
 				}  else if (text.contains("Bahnhof")) {
 					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
 							oldshape.getBounds().height + 25);
-					System.out.println("Gemins " + Constants.cardWidth/-20);
 					g2.translate(0, Constants.cardWidth/-5);
 				} else if (text.contains("Park")) {
 					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
 							oldshape.getBounds().height + 25);
-					System.out.println("Gemins " + Constants.cardWidth/-20);
 					g2.translate(0, Constants.cardWidth/-14);
 				} else if (text.contains("Schloss")) {
 					g2.setClip(oldshape.getBounds().x, oldshape.getBounds().y, oldshape.getBounds().width,
 							oldshape.getBounds().height + 25);
-					System.out.println("Gemins " + Constants.cardWidth/-20);
+					//System.out.println("Gemins " + Constants.cardWidth/-20);
 					g2.translate(0, Constants.cardWidth/-6);
 				}
 				
@@ -120,14 +118,6 @@ public class JLabelR extends JLabel {
 
 		super.paintComponent(g);
 
-		/*
-		 * g2d.translate(getWidth() / 2, getHeight() / 2);
-		 * 
-		 * g2d.rotate(theta); super.paintComponent(g);
-		 */
-
-
-		
 	}
 	
 	/*public void resizeToFitting() {

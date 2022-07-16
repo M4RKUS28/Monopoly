@@ -32,7 +32,6 @@ public class GEKarte extends Field implements MouseListener{
 		this.x = x;
 		this.y = y;
 		this.game = game;
-		System.out.println(x + " " + y);
 		this.createKarte();
 	}
 	

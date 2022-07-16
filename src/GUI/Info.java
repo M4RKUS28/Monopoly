@@ -61,7 +61,6 @@ public class Info extends Field implements MouseListener{
 		messageBoard.setBackground(Constants.colors.get("board"));
 		messageBoard.setBounds(0, 5, width, (int)(height*0.75)-5);
 		messageBoard.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 5, Color.black));
-		System.out.println("messageBoard 0: " + messageBoard.getBounds());
 
 		messageBoard.setLayout(new BorderLayout());
 		JLabel headline = new JLabel();
@@ -71,11 +70,9 @@ public class Info extends Field implements MouseListener{
 		headline.setHorizontalAlignment(SwingConstants.CENTER);
 		headline.setBackground(this.colors.get("board"));
 		headline.setText(this.transformText("INFO"));
-		System.out.println("headline 0: " + headline.getSize());
 
 		messageBoard.add(headline, BorderLayout.NORTH);
 		
-		System.out.println("headline 1: " + headline.getBounds());
 		
 		JLabel message = new JLabel();
 		message.setBounds(0, (int) (0.3*0.8*height), width, (int) (0.7*0.8*height));
@@ -84,10 +81,8 @@ public class Info extends Field implements MouseListener{
 		message.setHorizontalAlignment(SwingConstants.CENTER);
 		message.setBackground(this.colors.get("board"));
 		message.setText(this.transformText(text));
-		System.out.println("message 0: " + message.getBounds());
 
 		messageBoard.add(message, BorderLayout.SOUTH);
-		System.out.println("message 0: " + message.getBounds());
 
 		this.add(messageBoard);
 		Component[] comp = messageBoard.getComponents();

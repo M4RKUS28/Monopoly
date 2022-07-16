@@ -209,7 +209,6 @@ public class Bahnhof extends Field implements MouseListener{
 			}
 		}
 		this.playerPos.add(fig);
-		System.out.println(playerPos.getComponents());
 		this.revalidate();
 		this.repaint();
 	}

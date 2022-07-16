@@ -69,6 +69,7 @@ public class Spielfeld extends Constants {
 	private JLabel curPlayer;
 	private int[] figuernPos;
 	
+	
 	public Spielfeld(SettingsLoader sl) {
 		this.sl = sl;
 	}
@@ -138,7 +139,7 @@ public class Spielfeld extends Constants {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
 		frame.setSize(new Dimension(screenWidth, screenHeight));
-		device.setFullScreenWindow(frame);
+		//device.setFullScreenWindow(frame);
 		frame.getContentPane().setBackground(colors.get("hintergrund"));
 		frame.setResizable(false);
 		frame.setLayout(null);
@@ -313,7 +314,8 @@ public class Spielfeld extends Constants {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				frame.setVisible(false);
+				game.ende();
 			}
 
 			@Override
@@ -373,6 +375,8 @@ public class Spielfeld extends Constants {
 
 	public void showGKarte(int id) {
 		// center.removeAll();
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		karte = new GEKarte(sl.getGcardsList()[id].getText(), "Gemeinschaftskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
@@ -384,6 +388,8 @@ public class Spielfeld extends Constants {
 	}
 
 	public void showEKarte(int id) {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		// center.removeAll();
 		karte = new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
@@ -398,6 +404,7 @@ public class Spielfeld extends Constants {
 	private void nextPlayer() {
 		if (kartePrev) {
 			center.remove(karte);
+			center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
 			center.repaint();
 			kartePrev = false;
 		}
@@ -957,6 +964,8 @@ public class Spielfeld extends Constants {
 	
 	public void zahleMiete(int spieler, int miete) {
 		String[] buttons = {"OK"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		center.add(new Info("Du zahlst DM " + String.valueOf(miete) + " an Spieler " + String.valueOf(spieler+1), buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
@@ -966,6 +975,8 @@ public class Spielfeld extends Constants {
 	
 	public void zahleMieteWerk(int spieler, int zahl) {
 		String[] buttons = {"Würfeln"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		center.add(new Info("Die Miete an Spieler " + String.valueOf(spieler+1) + " ist " + String.valueOf(zahl) + "mal so hoch, wie Augen gewürfelt werden.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
@@ -974,6 +985,8 @@ public class Spielfeld extends Constants {
 	
 	public void grundstueckKaufen(int position) {
 		String[] buttons = {"Ja", "Nein"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		Feld[] felder = sl.getFelderList();
 		center.add(new Info("Möchtest du das Grundstück " + felder[position].getName() + " für DM " + felder[position].getPreis() + " kaufen?", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
@@ -984,20 +997,30 @@ public class Spielfeld extends Constants {
 	
 	public void bankrottGehen() {
 		String[] buttons = {"Beenden", "Hypothek"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		center.add(new Info("ACHTUNG: Du hast Schulden. Klicke auf \"Hypothek\", um Hypotheken aufzunehemen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
 	}
 	
 	public void hypothekAufnehmen() {
 		String[] buttons = {"OK"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		center.add(new Info("Wähle Besitztümer aus, die du mit einer Hypothek belasten möchtest", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
 	
 	}
 	
 	public void imGefaegnis() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		if (game.getGefZahl() > 0) {
 			String[] buttons = {"DM 1000", "Pasch"};
 			Info info = new Info("Um aus dem Gefängnis freizukommen, hast du zwei Möglichkeiten:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
@@ -1018,33 +1041,69 @@ public class Spielfeld extends Constants {
 	}
 	
 	public void hausBauenEin() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		String[] buttons = {"OK"};
 		center.add(new Info("Hausbaumodus ist aktiviert.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
 	
+	}
+	
+	public void hausGehtNicht() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
+		String[] buttons = {"OK"};
+		center.add(new Info("Hier kann kein Haus gebaut werden.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
 	
 	}
 	
 	public void hausBauenAus() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		String[] buttons = {"OK"};
 		center.add(new Info("Hausbaumodus ist deaktiviert.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
 	}
 	
 	public void einkommenssteuer() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		String[] buttons = {"OK"};
 		center.add(new Info("Du musst DM 4000 Einkommenssteuer zahlen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
 	}
 	
 	public void zusatzsteuer() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
 		String[] buttons = {"OK"};
 		center.add(new Info("Du musst DM 2000 Einkommenssteuer zahlen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
+	}
+	
+	public void ueberLos() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
+		String[] buttons = {"OK"};
+		center.add(new Info("Du hast Los passiert. Ziehe DM 4000.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
 	}
 	
 	public void enableNext() {

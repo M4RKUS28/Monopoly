@@ -134,13 +134,17 @@ public class GESFeld extends Field {
 		if (name.contains("steuer")) {
 			JLabelR priceTag;
 			if (position < 10) {
-				priceTag = new JLabelR("DM " + String.valueOf(price) + ".-", 0);
+				priceTag = new JLabelR("<html><head></head><body><center>DM " + String.valueOf(price) + ".-</center></body></html>", 0);
 				priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
-		 		textpanel.add(priceTag, BorderLayout.SOUTH);
+		 		priceTag.setHorizontalAlignment(SwingConstants.CENTER);
+		 		priceTag.setVerticalAlignment(SwingConstants.CENTER);
+				textpanel.add(priceTag, BorderLayout.SOUTH);
 			} else {
 				priceTag = new JLabelR("DM " + String.valueOf(price)+ ".-", 270);
 				priceTag.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
-		 		textpanel.add(priceTag, BorderLayout.EAST);
+				priceTag.setHorizontalAlignment(SwingConstants.CENTER);
+		 		priceTag.setVerticalAlignment(SwingConstants.CENTER);
+				textpanel.add(priceTag, BorderLayout.EAST);
 			}
 			
 	 		

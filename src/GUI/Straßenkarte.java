@@ -354,6 +354,7 @@ public class Straßenkarte extends Field implements MouseListener{
 				System.out.println("Haus wird gebaut werden");
 
 				placeHouse();
+			} else {
 			}
 		} else if (position < 0) {
 			if (!hypo) {
