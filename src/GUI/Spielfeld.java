@@ -68,8 +68,7 @@ public class Spielfeld extends Constants {
 	private JLabel dice;
 	private JLabel curPlayer;
 	private int[] figuernPos;
-	
-	
+
 	public Spielfeld(SettingsLoader sl) {
 		this.sl = sl;
 	}
@@ -143,7 +142,6 @@ public class Spielfeld extends Constants {
 		frame.getContentPane().setBackground(colors.get("hintergrund"));
 		frame.setResizable(false);
 		frame.setLayout(null);
-		
 
 		createControlls();
 		buildBoard();
@@ -177,7 +175,7 @@ public class Spielfeld extends Constants {
 				if (rollDice) {
 					disableDice();
 					game.wuerfeln();
-					
+
 				}
 				enableNext();
 			}
@@ -275,7 +273,7 @@ public class Spielfeld extends Constants {
 					disableNext();
 					naechsterSpieler();
 				}
-			
+
 			}
 
 			@Override
@@ -311,7 +309,7 @@ public class Spielfeld extends Constants {
 		createEnde();
 
 	}
-	
+
 	private void createEnde() {
 		MouseListener ml = new MouseListener() {
 
@@ -350,8 +348,8 @@ public class Spielfeld extends Constants {
 		JPanel ende = new JPanel();
 		ende.setBackground(Constants.colors.get("board"));
 		ende.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-		ende.setBounds((int) (screenWidth * 0.01), (int) (screenHeight / 2 - (cardHeight)+ 3 * cardWidth + 10), cardHeight,
-				(int)(0.25*cardHeight));
+		ende.setBounds((int) (screenWidth * 0.01), (int) (screenHeight / 2 - (cardHeight) + 3 * cardWidth + 10),
+				cardHeight, (int) (0.25 * cardHeight));
 		ende.setLayout(new BorderLayout());
 		ende.addMouseListener(ml);
 		JLabel text = new JLabel();
@@ -379,7 +377,7 @@ public class Spielfeld extends Constants {
 
 	public void showGKarte(int id) {
 		// center.removeAll();
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
 		karte = new GEKarte(sl.getGcardsList()[id].getText(), "Gemeinschaftskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
@@ -392,12 +390,13 @@ public class Spielfeld extends Constants {
 	}
 
 	public void showEKarte(int id) {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
 		// center.removeAll();
 		karte = new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte",
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
-				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.25*(1.85 * Constants.cardWidth)) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2
+						- (1.25 * (1.85 * Constants.cardWidth)) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
 		center.add(karte);
 		center.repaint();
@@ -408,11 +407,13 @@ public class Spielfeld extends Constants {
 	private void nextPlayer() {
 		if (kartePrev) {
 			center.remove(karte);
-			center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+			center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 			center.repaint();
 			kartePrev = false;
 		}
-		
+		if (game.getHausBauen()) {
+			game.toggleHausBauen();
+		}
 		enableDice();
 	}
 
@@ -438,11 +439,13 @@ public class Spielfeld extends Constants {
 		center.setBackground(colors.get("board"));
 		center.setLayout(null);
 		center.add(new Figure("rot"));
-		/*center.add(new GEKarte(
-				"Du wirst zu Strassenausbesserungsar-/nbeiten herangezogen. Zahle für Deine/n Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank.",
-				"Ereigniskarte", (int) ((screenHeight - 2 * cardHeight) / 2 - (3.2 * cardWidth) / 2),
-				(int) ((screenHeight - 2 * cardHeight) / 2 - (1.85 * cardWidth) / 2), (int) (3.2 * cardWidth),
-				(int) (1.85 * cardWidth)));*/
+		/*
+		 * center.add(new GEKarte(
+		 * "Du wirst zu Strassenausbesserungsar-/nbeiten herangezogen. Zahle für Deine/n Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
+		 * , "Ereigniskarte", (int) ((screenHeight - 2 * cardHeight) / 2 - (3.2 *
+		 * cardWidth) / 2), (int) ((screenHeight - 2 * cardHeight) / 2 - (1.85 *
+		 * cardWidth) / 2), (int) (3.2 * cardWidth), (int) (1.85 * cardWidth)));
+		 */
 		center.repaint();
 		board.add(center, BorderLayout.CENTER);
 		board.add(borderPanel[0], BorderLayout.SOUTH);
@@ -539,7 +542,7 @@ public class Spielfeld extends Constants {
 	}
 
 	private void createDicePanel() {
-		
+
 		dicePanel = new JPanel();
 		dicePanel.setBackground(Constants.colors.get("board"));
 		dicePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
@@ -567,7 +570,7 @@ public class Spielfeld extends Constants {
 		center.add(dicePanel);
 		center.repaint();
 	}
-	
+
 	private void createPaschNotify() {
 		pasch = new JLabel();
 		pasch.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
@@ -575,7 +578,8 @@ public class Spielfeld extends Constants {
 		pasch.setBackground(Constants.colors.get("board"));
 		pasch.setBounds(
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.375 * Constants.cardHeight) / 2),
-				(int) (0.01*cardHeight+0.75*Constants.cardHeight), (int) (1.375 * Constants.cardHeight), (int) (0.25 * Constants.cardHeight));
+				(int) (0.01 * cardHeight + 0.75 * Constants.cardHeight), (int) (1.375 * Constants.cardHeight),
+				(int) (0.25 * Constants.cardHeight));
 		pasch.setText("<html><head></head><center>Pasch: nochmal würfeln </center></body></html>");
 		pasch.setVerticalAlignment(SwingConstants.BOTTOM);
 		center.add(pasch);
@@ -585,7 +589,7 @@ public class Spielfeld extends Constants {
 	public void updateDice(int w1, int w2) {
 		if (w1 == w2) {
 			createPaschNotify();
-			paschPrev=true;
+			paschPrev = true;
 		} else {
 			if (paschPrev) {
 				center.remove(pasch);
@@ -634,7 +638,8 @@ public class Spielfeld extends Constants {
 	}
 
 	public void updateCurPlayer(int player) {
-		curPlayer.setText("<html><head></head><body><center>Spieler " + String.valueOf(player+1) + "</center></body></html>");
+		curPlayer.setText(
+				"<html><head></head><body><center>Spieler " + String.valueOf(player + 1) + "</center></body></html>");
 		if (player == 0) {
 			curPlayer.setForeground(Constants.colors.get("Prot"));
 		} else if (player == 1) {
@@ -646,7 +651,7 @@ public class Spielfeld extends Constants {
 		}
 		curPlayer.repaint();
 	}
-	
+
 	private void createKartenbehaelter() {
 		cardBox = new JPanel();
 		cardBox.setBounds((int) (screenWidth * 0.03 + cardHeight + screenHeight),
@@ -656,25 +661,26 @@ public class Spielfeld extends Constants {
 		cardBox.setLayout(null);
 
 		createCards();
-		
+
 		curPlayer = new JLabel();
 		curPlayer.setBackground(Constants.colors.get("board"));
 		curPlayer.setFont(new Font("Arial", Font.BOLD, 36));
 		curPlayer.setText("<html><head></head><body><center>Spieler 1</center></body></html>");
 		curPlayer.setForeground(Constants.colors.get("Prot"));
-		curPlayer.setBounds(0, 0, 3*cardWidth, (int)(0.5*cardHeight));
+		curPlayer.setBounds(0, 0, 3 * cardWidth, (int) (0.5 * cardHeight));
 		curPlayer.setHorizontalAlignment(SwingConstants.CENTER);
 		curPlayer.setVerticalAlignment(SwingConstants.CENTER);
 		curPlayer.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 		cardBox.add(curPlayer);
 		JScrollPane scrollPane = new JScrollPane(cards);
-		scrollPane.setBounds(0, (int)(0.5*cardHeight-5), 3 * cardWidth, (int)(12 * cardWidth-0.5*cardHeight+5));
+		scrollPane.setBounds(0, (int) (0.5 * cardHeight - 5), 3 * cardWidth,
+				(int) (12 * cardWidth - 0.5 * cardHeight + 5));
 		scrollPane.setBackground(new Color(178, 218, 173));
 		scrollPane.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.BLACK));
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		// scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-		
+
 		cardBox.add(scrollPane);
 		frame.add(cardBox);
 		frame.repaint();
@@ -684,11 +690,11 @@ public class Spielfeld extends Constants {
 		Collections.sort(b);
 		Feld[] felder = sl.getFelderList();
 		ArrayList<Feld> besitz = new ArrayList<Feld>();
-		
-		for (Integer f: b) {
+
+		for (Integer f : b) {
 			besitz.add(felder[f]);
 		}
-		
+
 		ArrayList<JLayeredPane> collectors = new ArrayList<JLayeredPane>();
 
 		JLayeredPane c = new JLayeredPane();
@@ -712,8 +718,8 @@ public class Spielfeld extends Constants {
 			switch (feld.type()) {
 			case STRASSE:
 				if (!feld.toStrasse().getFarbe().equals(prevFarbe)) {
-					if (!prevFarbe.equals("null")) {	
-						
+					if (!prevFarbe.equals("null")) {
+
 						collectors.add(c);
 					}
 					c = new JLayeredPane();
@@ -721,29 +727,31 @@ public class Spielfeld extends Constants {
 					c.setBounds((int) (0), (int) (0), cardWidth, (int) (2.2 * cardHeight));
 					layer = 0;
 				}
-				Straßenkarte s = new Straßenkarte(feld.getName(), feld.getPos()*-1, Constants.cardWidth, Constants.cardHeight,
-						Constants.colors.get(feld.toStrasse().getFarbe()), feld.getPreis(), game);
+				Straßenkarte s = new Straßenkarte(feld.getName(), feld.getPos() * -1, Constants.cardWidth,
+						Constants.cardHeight, Constants.colors.get(feld.toStrasse().getFarbe()), feld.getPreis(), game);
 				s.setBounds(0, (int) (layer * (0.6 * cardHeight)), cardWidth, cardHeight);
 				c.add(s, Integer.valueOf(layer));
-				
+
 				prevFarbe = feld.toStrasse().getFarbe();
 				layer++;
 				break;
 			case BAHN:
-				Bahnhof bahnhof = new Bahnhof(feld.getName(), feld.getPos()*-1, Constants.cardWidth, Constants.cardHeight,
-						feld.getPreis(), game);
-				bahnhof.setBounds(0, (int)(layerb*(0.6*Constants.cardHeight)), Constants.cardWidth, Constants.cardHeight);
+				Bahnhof bahnhof = new Bahnhof(feld.getName(), feld.getPos() * -1, Constants.cardWidth,
+						Constants.cardHeight, feld.getPreis(), game);
+				bahnhof.setBounds(0, (int) (layerb * (0.6 * Constants.cardHeight)), Constants.cardWidth,
+						Constants.cardHeight);
 				bahn.add(bahnhof, Integer.valueOf(layerb));
 				bahnhof.repaint();
 				layerb++;
 				break;
-		
+
 			case WERK:
-				InfrastrukturKarte i = new InfrastrukturKarte(feld.getName(), feld.getPos()*-1, Constants.cardWidth,
+				InfrastrukturKarte i = new InfrastrukturKarte(feld.getName(), feld.getPos() * -1, Constants.cardWidth,
 						Constants.cardHeight, feld.getPreis(), game);
-				i.setBounds(0, (int)(layerw*(0.6*Constants.cardHeight)), Constants.cardWidth, Constants.cardHeight);
+				i.setBounds(0, (int) (layerw * (0.6 * Constants.cardHeight)), Constants.cardWidth,
+						Constants.cardHeight);
 				werk.add(i, Integer.valueOf(layerw));
-				
+
 				i.repaint();
 				layerw++;
 				break;
@@ -761,30 +769,34 @@ public class Spielfeld extends Constants {
 		if (layerb > 0) {
 			collectors.add(bahn);
 		}
-		
+
 		cards.removeAll();
 		int index = 0;
-		
+
 		for (int i = 0; i < collectors.size(); i++) {
-			if (i%2 == 0) {
-				if (i == collectors.size()-1) {
+			if (i % 2 == 0) {
+				if (i == collectors.size() - 1) {
 					collectors.get(index).setBounds((int) (0.3 * cardWidth),
-							(int) ((int)(i/2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (3.5 * cardHeight));
+							(int) ((int) (i / 2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth,
+							(int) (3.5 * cardHeight));
 				} else {
 					collectors.get(index).setBounds((int) (0.3 * cardWidth),
-							(int) ((int)(i/2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (2.2 * cardHeight));
+							(int) ((int) (i / 2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth,
+							(int) (2.2 * cardHeight));
 				}
-				
+
 			} else {
-				if (i == collectors.size()-1) {
-				collectors.get(index).setBounds((int) (1.6 * cardWidth),
-						(int) ((int)(i/2)  * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (3.5 * cardHeight));
+				if (i == collectors.size() - 1) {
+					collectors.get(index).setBounds((int) (1.6 * cardWidth),
+							(int) ((int) (i / 2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth,
+							(int) (3.5 * cardHeight));
 				} else {
 					collectors.get(index).setBounds((int) (1.6 * cardWidth),
-							(int) ((int)(i/2)  * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth, (int) (2.2 * cardHeight));
+							(int) ((int) (i / 2) * 2.75 * cardHeight + 0.25 * cardHeight), cardWidth,
+							(int) (2.2 * cardHeight));
 				}
 			}
-			
+
 			cards.add(collectors.get(index));
 			collectors.get(index).repaint();
 			index++;
@@ -792,8 +804,7 @@ public class Spielfeld extends Constants {
 				break;
 			}
 		}
-		
-	
+
 		cards.revalidate();
 		cards.repaint();
 	}
@@ -804,13 +815,12 @@ public class Spielfeld extends Constants {
 		cards.setLayout(null);
 		cards.setBackground(colors.get("board"));
 
-	
 	}
 
 	public void updateStats(int[] values) {
 		for (int i = 0; i < 4; i++) {
 			statsList[i].setText("Spieler " + String.valueOf(values[i] + 1));
-			if (values[i+4] == -999999999) {
+			if (values[i + 4] == -999999999) {
 				statsList[i].setText("Bankrott");
 			}
 			if (values[i] == 0) {
@@ -845,9 +855,9 @@ public class Spielfeld extends Constants {
 		base.setBounds((int) (screenWidth * 0.04 + cardHeight + screenHeight + 3 * cardWidth),
 				(int) (screenHeight * 0.5 - (height * 4 + 4 / 3 * height) / 2), width,
 				(int) (height * 4 + 4 / 3 * height));
-		
-		String[] color = {"Prot", "Pgelb", "Pgrün", "Pblau"};
-		
+
+		String[] color = { "Prot", "Pgelb", "Pgrün", "Pblau" };
+
 		for (int i = 0; i < 4; i++) {
 			JLayeredPane stats = new JLayeredPane();
 			stats.setBackground(colors.get("board"));
@@ -965,108 +975,129 @@ public class Spielfeld extends Constants {
 			break;
 		}
 	}
-	
+
 	public void zahleMiete(int spieler, int miete) {
-		String[] buttons = {"OK"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "OK" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Du zahlst DM " + String.valueOf(miete) + " an Spieler " + String.valueOf(spieler+1), buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info("Du zahlst DM " + String.valueOf(miete) + " an Spieler " + String.valueOf(spieler + 1),
+				buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
-	
+
 	public void zahleMieteWerk(int spieler, int zahl) {
-		String[] buttons = {"Würfeln"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "Würfeln" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Die Miete an Spieler " + String.valueOf(spieler+1) + " ist " + String.valueOf(zahl) + "mal so hoch, wie Augen gewürfelt werden.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info(
+				"Die Miete an Spieler " + String.valueOf(spieler + 1) + " ist " + String.valueOf(zahl)
+						+ "mal so hoch, wie Augen gewürfelt werden.",
+				buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 	}
-	
+
 	public void grundstueckKaufen(int position) {
-		String[] buttons = {"Ja", "Nein"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "Ja", "Nein" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
 		Feld[] felder = sl.getFelderList();
-		center.add(new Info("Möchtest du das Grundstück " + felder[position].getName() + " für DM " + felder[position].getPreis() + " kaufen?", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info(
+				"Möchtest du das Grundstück " + felder[position].getName() + " für DM " + felder[position].getPreis()
+						+ " kaufen?",
+				buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
-	
+
 	public void bankrottGehen() {
-		String[] buttons = {"Beenden", "Hypothek"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "Beenden", "Hypothek" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("ACHTUNG: Du hast Schulden. Klicke auf \"Hypothek\", um Hypotheken aufzunehemen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info("ACHTUNG: Du hast Schulden. Klicke auf \"Hypothek\", um Hypotheken aufzunehemen.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
-	
+
 	public void hypothekAufnehmen() {
-		String[] buttons = {"OK"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "OK" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Wähle Besitztümer aus, die du mit einer Hypothek belasten möchtest", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info("Wähle Besitztümer aus, die du mit einer Hypothek belasten möchtest", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 	}
-	
+
 	public void hypothekAufgenommen(String feld, int preis) {
-		String[] buttons = {"OK"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "OK" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Du hast das Grundstück " + feld + " mit einer Hypothek in Höhe von DM " + String.valueOf(preis) + " belastet.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info(
+				"Du hast das Grundstück " + feld + " mit einer Hypothek in Höhe von DM " + String.valueOf(preis)
+						+ " belastet.",
+				buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 	}
-	
+
 	public void hypothekBezahlen(String feld, int preis) {
-		String[] buttons = {"OK"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "OK" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Du musst DM " + String.valueOf(preis) + " bezahlen, um die Hypothek des Grundstücks " + feld + " aufzuheben.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info(
+				"Du musst DM " + String.valueOf(preis) + " bezahlen, um die Hypothek des Grundstücks " + feld
+						+ " aufzuheben.",
+				buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
-	
 	}
-	
+
 	public void zuWenigGeld() {
-		String[] buttons = {"OK"};
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		String[] buttons = { "OK" };
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Du hast zu wenig Geld für diese Transaktion.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		center.add(new Info("Du hast zu wenig Geld für diese Transaktion.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
-	
 	}
-	
+
 	public void imGefaegnis() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
 		if (game.getGefZahl() > 0) {
-			String[] buttons = {"DM 1000", "Pasch"};
-			Info info = new Info("Um aus dem Gefängnis freizukommen, hast du zwei Möglichkeiten:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+			String[] buttons = { "DM 1000", "Pasch" };
+			Info info = new Info("Um aus dem Gefängnis freizukommen, hast du zwei Möglichkeiten:", buttons,
+					(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 					(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 					(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
 			center.add(info);
-			
-		} else if (game.getGefZahl() == 0){
-			String[] buttons = {"DM 1000"};
-			Info info = new Info("Du musst dich aus dem Gefängnis freikaufen:", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+
+		} else if (game.getGefZahl() == 0) {
+			String[] buttons = { "DM 1000" };
+			Info info = new Info("Du musst dich aus dem Gefängnis freikaufen:", buttons,
+					(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 					(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 					(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
 			center.add(info);
@@ -1075,84 +1106,100 @@ public class Spielfeld extends Constants {
 		}
 		center.repaint();
 	}
-	
+
 	public void hausBauenEin() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		String[] buttons = {"OK"};
-		center.add(new Info("Hausbaumodus ist aktiviert.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = { "OK" };
+		center.add(new Info("Hausbaumodus ist aktiviert.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
-	
+
 	}
-	
+
+	//Info: an gewünschter Position kann kein Haus gebaut werden
 	public void hausGehtNicht() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		String[] buttons = {"OK"};
-		center.add(new Info("Hier kann kein Haus gebaut werden.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = { "OK" };
+		center.add(new Info("Hier kann kein Haus gebaut werden.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
-	
+
 	}
-	
+
+	//Info: Hausbaumodus deaktiviert
 	public void hausBauenAus() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		String[] buttons = {"OK"};
-		center.add(new Info("Hausbaumodus ist deaktiviert.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = { "OK" };
+		center.add(new Info("Hausbaumodus ist deaktiviert.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
-	
+
+	//Info: Zahlung Einkommenssteuer
 	public void einkommenssteuer() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		String[] buttons = {"OK"};
-		center.add(new Info("Du musst DM 4000 Einkommenssteuer zahlen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = { "OK" };
+		center.add(new Info("Du musst DM 4000 Einkommenssteuer zahlen.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
-	
+
+	//Info: Zahlung Zusatzsteuer
 	public void zusatzsteuer() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		String[] buttons = {"OK"};
-		center.add(new Info("Du musst DM 2000 Einkommenssteuer zahlen.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = { "OK" };
+		center.add(new Info("Du musst DM 2000 Einkommenssteuer zahlen.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
-	
+
+	//Info: Spieler ist über Los
 	public void ueberLos() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		String[] buttons = {"OK"};
-		center.add(new Info("Du hast Los passiert. Ziehe DM 4000.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = { "OK" };
+		center.add(new Info("Du hast Los passiert. Ziehe DM 4000.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
-	
+
+	//Info: nächster Spieler ist dran
 	public void naechsterSpieler() {
-		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		String[] buttons = {"OK"};
-		center.add(new Info("Der nächste Spieler ist dran.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+		String[] buttons = { "OK" };
+		center.add(new Info("Der nächste Spieler ist dran.", buttons,
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 
 	}
 	
+	//---------------------Funktionen, die Buttons steuern
+
+	//aktiviert den Button zum Weiterschalten zum nächsten Spieler
 	public void enableNext() {
 		next = true;
 		nextPlayer.setIcon(new ImageIcon(new ImageIcon("src/images/NextEnabled.png").getImage().getScaledInstance(
@@ -1160,17 +1207,18 @@ public class Spielfeld extends Constants {
 				Image.SCALE_DEFAULT)));
 		nextPlayer.repaint();
 	}
-	
-	
-	
+
+	//deaktiviert den Button zum Weiterschalten zum nächsten Spieler
 	public void disableNext() {
-		next = false;;
+		next = false;
+		;
 		nextPlayer.setIcon(new ImageIcon(new ImageIcon("src/images/NextDisabled.png").getImage().getScaledInstance(
 				(int) ((cardHeight * 0.5 / 1210) * 1210), (int) ((cardHeight * 0.5 / 1210) * 1210),
 				Image.SCALE_DEFAULT)));
 		nextPlayer.repaint();
 	}
-	
+
+	//aktiviert den Button zum Würfeln
 	public void enableDice() {
 		rollDice = true;
 		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceEnabled.png").getImage().getScaledInstance(
@@ -1180,6 +1228,7 @@ public class Spielfeld extends Constants {
 
 	}
 
+	//deaktiviert den Button zum Würfeln
 	public void disableDice() {
 		rollDice = false;
 		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceDisabled.png").getImage().getScaledInstance(
@@ -1188,6 +1237,7 @@ public class Spielfeld extends Constants {
 		dice.repaint();
 	}
 
+	//Macht fertig erstellten Frame sichtbar
 	private void showFrame() {
 		frame.setVisible(true);
 	}

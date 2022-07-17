@@ -361,7 +361,7 @@ public class Game {
 
 			return true;
 		} else {
-
+			spielfeld.hausGehtNicht();
 			return false;
 		}
 	}

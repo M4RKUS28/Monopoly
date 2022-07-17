@@ -355,6 +355,7 @@ public class Straßenkarte extends Field implements MouseListener{
 
 				placeHouse();
 			} else {
+				
 			}
 		} else if (position < 0) {
 			if (!hypo) {

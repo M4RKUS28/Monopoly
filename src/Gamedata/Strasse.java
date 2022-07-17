@@ -65,13 +65,20 @@ public class Strasse extends Feld{
     public boolean hausbauCheck(Feld[] felder) {
     	
     	ArrayList<Feld> gleichfarbig = new ArrayList<Feld>();
+    	int farbCounter = 0;
     	int kleinsteHauszahl = 100;
     	for (int i = 0; i < felder.length; i++) {
+    		if ((felder[i].type()==Feld.TYPE.STRASSE)&&(felder[i].toStrasse().getFarbe().equals(this.farbe))) {
+    			farbCounter++;
+    		}
     		if ((felder[i].type()==Feld.TYPE.STRASSE)&&(felder[i].toStrasse().getFarbe().equals(this.farbe) && felder[i].getPos() != this.pos && felder[i].gehoert == this.gehoert)) {
     			gleichfarbig.add(felder[i]);
     		}
     	}
     	System.out.println("Haus " + gleichfarbig.size());
+    	if (farbCounter != gleichfarbig.size()-1) {
+    		return false;
+    	}
     	for (int i = 0; i < gleichfarbig.size(); i++) {
     		if (gleichfarbig.get(i).toStrasse().getHauszahl() < kleinsteHauszahl) {
     			kleinsteHauszahl = gleichfarbig.get(i).toStrasse().getHauszahl();
