@@ -76,7 +76,7 @@ public class Spielfeld extends Constants {
 		this.sl = sl;
 	}
 
-	//Initialisierung wichtiger Variablen und erzeugen der gesamten Anzeige
+	// Initialisierung wichtiger Variablen und erzeugen der gesamten Anzeige
 	public void initGame(Game game, String path) {
 		this.game = game;
 		sl.loadData(path);
@@ -94,15 +94,15 @@ public class Spielfeld extends Constants {
 
 		setUpConstants();
 
-		//setUpColors();
+		// setUpColors();
 		buildBasicFrame();
 
 		showFrame();
 
 		game.start();
 	}
-	
-	//Eine Anpassungen an der UI, wenn nächster Spieler dran ist
+
+	// Eine Anpassungen an der UI, wenn nächster Spieler dran ist
 	private void nextPlayer() {
 		if (kartePrev) {
 			center.remove(karte);
@@ -116,7 +116,8 @@ public class Spielfeld extends Constants {
 		enableDice();
 	}
 
-	//Errechnung wichtiger Größen, aus denen sich die Größen und Positionen der einzelnen UI-Elemente berechnet
+	// Errechnung wichtiger Größen, aus denen sich die Größen und Positionen der
+	// einzelnen UI-Elemente berechnet
 	private void setUpConstants() {
 		screenWidth = tk.getScreenSize().width;
 		screenHeight = tk.getScreenSize().height;
@@ -130,24 +131,21 @@ public class Spielfeld extends Constants {
 		Constants.createFonts();
 	}
 
-	/*private void setUpColors() {
-		colors.put("braun", new Color(0x894900));
-		colors.put("blau_hell", new Color(0x56C1FF));
-		colors.put("pink", new Color(0xD41876));
-		colors.put("orange", new Color(0xFEAE00));
-		colors.put("rot", new Color(0xEE220C));
-		colors.put("gelb", new Color(0xFFF056));
-		colors.put("gruen", new Color(0x61D836));
-		colors.put("blau", new Color(0x0076BA));
-		colors.put("board", new Color(0xB2DAAD));
-		colors.put("hintergrund", new Color(0x92B28E));
-		colors.put("grau", new Color(213, 213, 213, 100));
-		colors.put("Prot", new Color(0xB51700));
-		colors.put("Pblau", new Color(0x004D80));
-		colors.put("Pgrün", new Color(0x017100));
-		colors.put("Pgelb", new Color(0xF27200));
-
-	}*/
+	/*
+	 * private void setUpColors() { colors.put("braun", new Color(0x894900));
+	 * colors.put("blau_hell", new Color(0x56C1FF)); colors.put("pink", new
+	 * Color(0xD41876)); colors.put("orange", new Color(0xFEAE00));
+	 * colors.put("rot", new Color(0xEE220C)); colors.put("gelb", new
+	 * Color(0xFFF056)); colors.put("gruen", new Color(0x61D836));
+	 * colors.put("blau", new Color(0x0076BA)); colors.put("board", new
+	 * Color(0xB2DAAD)); colors.put("hintergrund", new Color(0x92B28E));
+	 * colors.put("grau", new Color(213, 213, 213, 100)); colors.put("Prot", new
+	 * Color(0xB51700)); colors.put("Pblau", new Color(0x004D80));
+	 * colors.put("Pgrün", new Color(0x017100)); colors.put("Pgelb", new
+	 * Color(0xF27200));
+	 * 
+	 * }
+	 */
 
 	// Diese Methode erstellt die Grundstruktur des JFrames
 	private void buildBasicFrame() {
@@ -170,8 +168,11 @@ public class Spielfeld extends Constants {
 		// createFelder();
 
 	}
-	//---------------------Anzeige des Bedienelements------------------------------------
-	//Erstellen der drei Controllbuttons "Würfeln", "Hausbauen" und "Nächster Spieler"
+
+	// ---------------------Anzeige des
+	// Bedienelements------------------------------------
+	// Erstellen der drei Controllbuttons "Würfeln", "Hausbauen" und "Nächster
+	// Spieler"
 	private void createControlls() {
 		JPanel controllpanel = new JPanel();
 		controllpanel.setBounds((int) (screenWidth * 0.01), (int) (screenHeight / 2 - (cardHeight)), cardHeight,
@@ -330,7 +331,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Erstellen des Buttons, der die aktuelle Runde beendet
+	// Erstellen des Buttons, der die aktuelle Runde beendet
 	private void createEnde() {
 		MouseListener ml = new MouseListener() {
 
@@ -384,8 +385,9 @@ public class Spielfeld extends Constants {
 		frame.repaint();
 	}
 
-	//---------------------Anzeige des Spielbretts------------------------------------
-	//Erstellen des zu Grunde liegenden Panels
+	// ---------------------Anzeige des
+	// Spielbretts------------------------------------
+	// Erstellen des zu Grunde liegenden Panels
 	private void buildBoard() {
 		board = new JPanel();
 		board.setBounds((int) (screenWidth * 0.02 + cardHeight), (int) ((screenHeight - 12 * cardWidth) / 2),
@@ -397,8 +399,8 @@ public class Spielfeld extends Constants {
 		frame.add(board);
 
 	}
-	
-	//Erstellen der Randelemente 
+
+	// Erstellen der Randelemente
 	private void createEdges() {
 		for (int i = 0; i < 4; i++) {
 			JPanel panel = new JPanel();
@@ -428,7 +430,7 @@ public class Spielfeld extends Constants {
 		board.add(borderPanel[3], BorderLayout.EAST);
 	}
 
-	//Erstellen der einzelnen Felder aus JSON-Datei
+	// Erstellen der einzelnen Felder aus JSON-Datei
 	private void createFields() {
 		Feld[] felder = sl.getFelderList();
 		for (Feld feld : felder) {
@@ -515,8 +517,9 @@ public class Spielfeld extends Constants {
 		board.revalidate();
 		board.repaint();
 	}
-	//---------------------Anzeige der Würfel------------------------------------
-	//Erstellen der Würfelanzeige
+
+	// ---------------------Anzeige der Würfel------------------------------------
+	// Erstellen der Würfelanzeige
 	private void createDicePanel() {
 
 		dicePanel = new JPanel();
@@ -546,7 +549,8 @@ public class Spielfeld extends Constants {
 		center.add(dicePanel);
 		center.repaint();
 	}
-	//Erstellen der Anzeige, dass ein Pasch geworfen wurde
+
+	// Erstellen der Anzeige, dass ein Pasch geworfen wurde
 	private void createPaschNotify() {
 		pasch = new JLabel();
 		pasch.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
@@ -561,7 +565,8 @@ public class Spielfeld extends Constants {
 		center.add(pasch);
 		center.repaint();
 	}
-	//Updaten der Anzeige der Würfel
+
+	// Updaten der Anzeige der Würfel
 	public void updateDice(int w1, int w2) {
 		if (w1 == w2) {
 			createPaschNotify();
@@ -613,9 +618,9 @@ public class Spielfeld extends Constants {
 
 	}
 
-	
-	//---------------------Anzeige der Besitztümer------------------------------------
-	//Erstellen des Besitzkastens
+	// ---------------------Anzeige der
+	// Besitztümer------------------------------------
+	// Erstellen des Besitzkastens
 	private void createKartenbehaelter() {
 		cardBox = new JPanel();
 		cardBox.setBounds((int) (screenWidth * 0.03 + cardHeight + screenHeight),
@@ -652,7 +657,8 @@ public class Spielfeld extends Constants {
 		frame.add(cardBox);
 		frame.repaint();
 	}
-	//Updaten der Anzeige, welcher Spieler dran ist
+
+	// Updaten der Anzeige, welcher Spieler dran ist
 	public void updateCurPlayer(int player) {
 		curPlayer.setText(
 				"<html><head></head><body><center>Spieler " + String.valueOf(player + 1) + "</center></body></html>");
@@ -667,7 +673,8 @@ public class Spielfeld extends Constants {
 		}
 		curPlayer.repaint();
 	}
-	//Updaten des Besitzkastens
+
+	// Updaten des Besitzkastens
 	public void updateKartenbehaelter(ArrayList<Integer> b) {
 		Collections.sort(b);
 		Feld[] felder = sl.getFelderList();
@@ -791,9 +798,9 @@ public class Spielfeld extends Constants {
 		cards.repaint();
 	}
 
-	
-	//---------------------Anzeige der Kontostände------------------------------------
-	//Erstellen der Anzeige der Kontostände
+	// ---------------------Anzeige der
+	// Kontostände------------------------------------
+	// Erstellen der Anzeige der Kontostände
 	private void createStats() {
 		base = new JPanel();
 		base.setBackground(Constants.colors.get("hintergrund"));
@@ -860,7 +867,7 @@ public class Spielfeld extends Constants {
 		frame.repaint();
 	}
 
-	//Updaten der Kontostände
+	// Updaten der Kontostände
 	public void updateStats(int[] values) {
 		for (int i = 0; i < 4; i++) {
 			statsList[i].setText("Spieler " + String.valueOf(values[i] + 1));
@@ -882,9 +889,9 @@ public class Spielfeld extends Constants {
 		base.repaint();
 	}
 
-	
-	//---------------------Anzeige der Spielfiguren------------------------------------
-	//Updaten der Anzeigen, wo sich Spielfiguren befinden
+	// ---------------------Anzeige der
+	// Spielfiguren------------------------------------
+	// Updaten der Anzeigen, wo sich Spielfiguren befinden
 	public void figurenUpdate(int[] pos) {
 		if (figuernPos[0] > -1) {
 			fields[figuernPos[0]].removePlayer("Prot");
@@ -915,7 +922,7 @@ public class Spielfeld extends Constants {
 		}
 	}
 
-	//Anzeige einer Spielerfigur in Gefängis
+	// Anzeige einer Spielerfigur in Gefängis
 	public void insGef(int x) {
 		switch (x) {
 		case 0:
@@ -937,7 +944,7 @@ public class Spielfeld extends Constants {
 		}
 	}
 
-	//Entfernen einer Spielfigur aus Gefängnis
+	// Entfernen einer Spielfigur aus Gefängnis
 	public void ausGef(int x) {
 		switch (x) {
 		case 0:
@@ -959,8 +966,8 @@ public class Spielfeld extends Constants {
 		}
 	}
 
-	//---------------------Infoanzeigen------------------------------------
-	//Anzeige einer Gemeinschaftskarte
+	// ---------------------Infoanzeigen------------------------------------
+	// Anzeige einer Gemeinschaftskarte
 	public void showGKarte(int id) {
 		// center.removeAll();
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -974,7 +981,8 @@ public class Spielfeld extends Constants {
 		center.repaint();
 		kartePrev = true;
 	}
-	//Anzeige einer Ereigniskarte
+
+	// Anzeige einer Ereigniskarte
 	public void showEKarte(int id) {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -989,8 +997,8 @@ public class Spielfeld extends Constants {
 		kartePrev = true;
 
 	}
-	
-	//Info: Spieler muss Miete bezahlen
+
+	// Info: Spieler muss Miete bezahlen
 	public void zahleMiete(int spieler, int miete) {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1004,7 +1012,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Spieler muss würfeln, um Höhe der Miete auf Werk zu bestimmen
+	// Info: Spieler muss würfeln, um Höhe der Miete auf Werk zu bestimmen
 	public void zahleMieteWerk(int spieler, int zahl) {
 		String[] buttons = { "Würfeln" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1019,7 +1027,8 @@ public class Spielfeld extends Constants {
 		center.repaint();
 	}
 
-	//Info: Spieler befindet sich auf Feld, dass keinem anderen gehört und wird gefragt, ob er es kaufen möchte
+	// Info: Spieler befindet sich auf Feld, dass keinem anderen gehört und wird
+	// gefragt, ob er es kaufen möchte
 	public void grundstueckKaufen(int position) {
 		String[] buttons = { "Ja", "Nein" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1036,7 +1045,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Spieler hat Kontostand <= 0; 
+	// Info: Spieler hat Kontostand <= 0;
 	public void bankrottGehen() {
 		String[] buttons = { "Beenden", "Hypothek" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1049,19 +1058,20 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Anleitung zum Hypothekaufnehmen
+	// Info: Anleitung zum Hypothekaufnehmen
 	public void hypothekAufnehmen() {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Wähle im Besitzkasten Besitztümer aus, die du mit einer Hypothek belasten möchtest", buttons,
+		center.add(new Info("Wähle im Besitzkasten Besitztümer aus, die du mit einer Hypothek belasten möchtest",
+				buttons,
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 	}
 
-	//Info: Spieler hat Hypothek auf Grundstück aufgenommen
+	// Info: Spieler hat Hypothek auf Grundstück aufgenommen
 	public void hypothekAufgenommen(String feld, int preis) {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1076,7 +1086,7 @@ public class Spielfeld extends Constants {
 		center.repaint();
 	}
 
-	//Info: Preis für Abbezahlen der Hypothek
+	// Info: Preis für Abbezahlen der Hypothek
 	public void hypothekBezahlen(String feld, int preis) {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1105,7 +1115,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Möglichkeiten, aus Gefängnis freizukommen
+	// Info: Möglichkeiten, aus Gefängnis freizukommen
 	public void imGefaegnis() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1130,7 +1140,7 @@ public class Spielfeld extends Constants {
 		center.repaint();
 	}
 
-	//Info: Hausbaumodus wird aktiviert
+	// Info: Hausbaumodus wird aktiviert
 	public void hausBauenEin() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1143,7 +1153,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: an gewünschter Position kann kein Haus gebaut werden
+	// Info: an gewünschter Position kann kein Haus gebaut werden
 	public void hausGehtNicht() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1156,7 +1166,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Hausbaumodus deaktiviert
+	// Info: Hausbaumodus deaktiviert
 	public void hausBauenAus() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1169,7 +1179,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Zahlung Einkommenssteuer
+	// Info: Zahlung Einkommenssteuer
 	public void einkommenssteuer() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1182,7 +1192,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Zahlung Zusatzsteuer
+	// Info: Zahlung Zusatzsteuer
 	public void zusatzsteuer() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1195,7 +1205,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: Spieler ist über Los
+	// Info: Spieler ist über Los
 	public void ueberLos() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1208,7 +1218,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//Info: nächster Spieler ist dran
+	// Info: nächster Spieler ist dran
 	public void naechsterSpieler() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1220,10 +1230,11 @@ public class Spielfeld extends Constants {
 		center.repaint();
 
 	}
-	
-	//---------------------Funktionen, die Buttons steuern------------------------------------
 
-	//aktiviert den Button zum Weiterschalten zum nächsten Spieler
+	// ---------------------Funktionen, die Buttons
+	// steuern------------------------------------
+
+	// aktiviert den Button zum Weiterschalten zum nächsten Spieler
 	public void enableNext() {
 		next = true;
 		nextPlayer.setIcon(new ImageIcon(new ImageIcon("src/images/NextEnabled.png").getImage().getScaledInstance(
@@ -1232,7 +1243,7 @@ public class Spielfeld extends Constants {
 		nextPlayer.repaint();
 	}
 
-	//deaktiviert den Button zum Weiterschalten zum nächsten Spieler
+	// deaktiviert den Button zum Weiterschalten zum nächsten Spieler
 	public void disableNext() {
 		next = false;
 		;
@@ -1242,7 +1253,7 @@ public class Spielfeld extends Constants {
 		nextPlayer.repaint();
 	}
 
-	//aktiviert den Button zum Würfeln
+	// aktiviert den Button zum Würfeln
 	public void enableDice() {
 		rollDice = true;
 		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceEnabled.png").getImage().getScaledInstance(
@@ -1252,7 +1263,7 @@ public class Spielfeld extends Constants {
 
 	}
 
-	//deaktiviert den Button zum Würfeln
+	// deaktiviert den Button zum Würfeln
 	public void disableDice() {
 		rollDice = false;
 		dice.setIcon(new ImageIcon(new ImageIcon("src/images/DiceDisabled.png").getImage().getScaledInstance(
@@ -1261,7 +1272,7 @@ public class Spielfeld extends Constants {
 		dice.repaint();
 	}
 
-	//Macht fertig erstellten Frame sichtbar
+	// Macht fertig erstellten Frame sichtbar
 	private void showFrame() {
 		frame.setVisible(true);
 	}
