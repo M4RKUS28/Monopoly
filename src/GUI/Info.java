@@ -85,10 +85,7 @@ public class Info extends Field implements MouseListener{
 		messageBoard.add(message, BorderLayout.SOUTH);
 
 		this.add(messageBoard);
-		Component[] comp = messageBoard.getComponents();
-		for (Component c:comp) {
-			System.out.println(c.getBounds());
-		}
+		
 		this.add(createButtons());
 		
 		

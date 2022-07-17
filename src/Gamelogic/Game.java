@@ -56,9 +56,8 @@ public class Game {
 	}
 
 	public void start() { // Ui callt das hier mit Startbutton
-		geradeAmZug = pla[0];
+		/*
 		geradeAmZugIndex = 0;
-		positionsNotify();
 		pla[3].erhalten(12);
 		felder[12].setGehoert(3);
 		pla[3].erhalten(11);
@@ -74,7 +73,11 @@ public class Game {
 		geradeAmZug.erhalten(8);
 		felder[8].setGehoert(0);
 		geradeAmZug.erhalten(9);
-		felder[9].setGehoert(0);
+		felder[9].setGehoert(0);*/
+		geradeAmZug = pla[0];
+		geradeAmZugIndex = 0;
+
+		positionsNotify();
 
 		spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 	}
@@ -306,7 +309,8 @@ public class Game {
 
 			spielfeld.updateKartenbehaelter(geradeAmZug.getBesitz());
 		} else {
-			// Info du hast zu wenig geld
+			spielfeld.zuWenigGeld();
+
 		}
 	}
 
@@ -316,6 +320,7 @@ public class Game {
 		if (f.getHypo() == false) {
 			f.setHypo(true);
 			geradeAmZug.zahlen(f.getHypothekwert(), -1);
+			spielfeld.hypothekAufgenommen(f.getName(), f.getHypothekwert());
 			return true;
 		} else {
 			// error an Ui
@@ -328,9 +333,10 @@ public class Game {
 		if (f.getHypo() == true && geradeAmZug.getGeld() - f.getHypothekwert() * 1.1 > -1) {
 			f.setHypo(false);
 			geradeAmZug.zahlen((int) (-1 * f.getHypothekwert() * 1.1), -1);
+			spielfeld.hypothekBezahlen(f.getName(), (int) (f.getHypothekwert()*1.1));
 			return true;
 		} else {
-			// error an Ui
+			spielfeld.zuWenigGeld();
 			return false;
 		}
 	}

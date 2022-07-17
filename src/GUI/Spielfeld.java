@@ -139,7 +139,7 @@ public class Spielfeld extends Constants {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
 		frame.setSize(new Dimension(screenWidth, screenHeight));
-		//device.setFullScreenWindow(frame);
+		device.setFullScreenWindow(frame);
 		frame.getContentPane().setBackground(colors.get("hintergrund"));
 		frame.setResizable(false);
 		frame.setLayout(null);
@@ -268,10 +268,14 @@ public class Spielfeld extends Constants {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Next Player");
-				nextPlayer();
-				game.naechster();
-				disableNext();
+				if (next) {
+					System.out.println("Next Player");
+					nextPlayer();
+					game.naechster();
+					disableNext();
+					naechsterSpieler();
+				}
+			
 			}
 
 			@Override
@@ -1014,6 +1018,38 @@ public class Spielfeld extends Constants {
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
+	}
+	
+	public void hypothekAufgenommen(String feld, int preis) {
+		String[] buttons = {"OK"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
+		center.add(new Info("Du hast das Grundstück " + feld + " mit einer Hypothek in Höhe von DM " + String.valueOf(preis) + " belastet.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+	}
+	
+	public void hypothekBezahlen(String feld, int preis) {
+		String[] buttons = {"OK"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
+		center.add(new Info("Du musst DM " + String.valueOf(preis) + " bezahlen, um die Hypothek des Grundstücks " + feld + " aufzuheben.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
+	
+	}
+	
+	public void zuWenigGeld() {
+		String[] buttons = {"OK"};
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
+		center.add(new Info("Du hast zu wenig Geld für diese Transaktion.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
 
 	
 	}
@@ -1100,6 +1136,17 @@ public class Spielfeld extends Constants {
 
 		String[] buttons = {"OK"};
 		center.add(new Info("Du hast Los passiert. Ziehe DM 4000.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
+		center.repaint();
+
+	}
+	
+	public void naechsterSpieler() {
+		center.remove(center.getComponentAt(center.getWidth()/2, center.getHeight()/2));
+
+		String[] buttons = {"OK"};
+		center.add(new Info("Der nächste Spieler ist dran.", buttons, (int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();

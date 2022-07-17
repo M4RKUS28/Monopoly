@@ -63,18 +63,28 @@ public class Strasse extends Feld{
         hypo = b;
     }
     public boolean hausbauCheck(Feld[] felder) {
-        int haeuser = 0, nachbarn = 0;
-        for (int i = 0; i < 40; i++) {
-        	if (felder[i].type() == Feld.TYPE.STRASSE && felder[i].toStrasse().getFarbe() == this.farbe && felder[i].pos != this.pos) {
-        		nachbarn++;
-        		haeuser += felder[i].toStrasse().getHauszahl();
-        	}
-        }
+    	
+    	ArrayList<Feld> gleichfarbig = new ArrayList<Feld>();
+    	int kleinsteHauszahl = 100;
+    	for (int i = 0; i < felder.length; i++) {
+    		if ((felder[i].type()==Feld.TYPE.STRASSE)&&(felder[i].toStrasse().getFarbe().equals(this.farbe) && felder[i].getPos() != this.pos && felder[i].gehoert == this.gehoert)) {
+    			gleichfarbig.add(felder[i]);
+    		}
+    	}
+    	System.out.println("Haus " + gleichfarbig.size());
+    	for (int i = 0; i < gleichfarbig.size(); i++) {
+    		if (gleichfarbig.get(i).toStrasse().getHauszahl() < kleinsteHauszahl) {
+    			kleinsteHauszahl = gleichfarbig.get(i).toStrasse().getHauszahl();
+    		}
+    	}
+    	
+    	if (this.getHauszahl() <= kleinsteHauszahl) {
+    		return true;
+    	}
+    	
+    	return false;
+    	
         
-        if ((nachbarn == 0 || hauszahl <= haeuser/nachbarn) && hauszahl < 5) {
-            return true;
-        }
-        return false;
     }
     public boolean hausVerkaufCheck(Feld[] felder) {
     	int haeuser = 0, nachbarn = 0;
