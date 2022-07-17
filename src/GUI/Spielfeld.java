@@ -1,3 +1,8 @@
+/**
+ * Diese Klasse erstellt die gesamte UI für das Spiel
+ * author: Matthias Meierlohr
+ */
+
 package GUI;
 
 import java.awt.BorderLayout;
@@ -51,8 +56,6 @@ public class Spielfeld extends Constants {
 	private int cardWidth;
 	private int cardHeight;
 
-	private HashMap<String, Color> colors = new HashMap<>();
-
 	private SettingsLoader sl;
 	private Field[] fields;
 	private JLabel[] statsList;
@@ -73,6 +76,7 @@ public class Spielfeld extends Constants {
 		this.sl = sl;
 	}
 
+	//Initialisierung wichtiger Variablen und erzeugen der gesamten Anzeige
 	public void initGame(Game game, String path) {
 		this.game = game;
 		sl.loadData(path);
@@ -90,14 +94,29 @@ public class Spielfeld extends Constants {
 
 		setUpConstants();
 
-		setUpColors();
+		//setUpColors();
 		buildBasicFrame();
 
 		showFrame();
 
 		game.start();
 	}
+	
+	//Eine Anpassungen an der UI, wenn nächster Spieler dran ist
+	private void nextPlayer() {
+		if (kartePrev) {
+			center.remove(karte);
+			center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
+			center.repaint();
+			kartePrev = false;
+		}
+		if (game.getHausBauen()) {
+			game.toggleHausBauen();
+		}
+		enableDice();
+	}
 
+	//Errechnung wichtiger Größen, aus denen sich die Größen und Positionen der einzelnen UI-Elemente berechnet
 	private void setUpConstants() {
 		screenWidth = tk.getScreenSize().width;
 		screenHeight = tk.getScreenSize().height;
@@ -111,7 +130,7 @@ public class Spielfeld extends Constants {
 		Constants.createFonts();
 	}
 
-	private void setUpColors() {
+	/*private void setUpColors() {
 		colors.put("braun", new Color(0x894900));
 		colors.put("blau_hell", new Color(0x56C1FF));
 		colors.put("pink", new Color(0xD41876));
@@ -128,7 +147,7 @@ public class Spielfeld extends Constants {
 		colors.put("Pgrün", new Color(0x017100));
 		colors.put("Pgelb", new Color(0xF27200));
 
-	}
+	}*/
 
 	// Diese Methode erstellt die Grundstruktur des JFrames
 	private void buildBasicFrame() {
@@ -139,7 +158,7 @@ public class Spielfeld extends Constants {
 		frame.setUndecorated(true);
 		frame.setSize(new Dimension(screenWidth, screenHeight));
 		device.setFullScreenWindow(frame);
-		frame.getContentPane().setBackground(colors.get("hintergrund"));
+		frame.getContentPane().setBackground(Constants.colors.get("hintergrund"));
 		frame.setResizable(false);
 		frame.setLayout(null);
 
@@ -151,12 +170,13 @@ public class Spielfeld extends Constants {
 		// createFelder();
 
 	}
-
+	//---------------------Anzeige des Bedienelements------------------------------------
+	//Erstellen der drei Controllbuttons "Würfeln", "Hausbauen" und "Nächster Spieler"
 	private void createControlls() {
 		JPanel controllpanel = new JPanel();
 		controllpanel.setBounds((int) (screenWidth * 0.01), (int) (screenHeight / 2 - (cardHeight)), cardHeight,
 				3 * cardWidth + 5);
-		controllpanel.setBackground(colors.get("board"));
+		controllpanel.setBackground(Constants.colors.get("board"));
 		controllpanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 		controllpanel.setLayout(null);
 
@@ -310,6 +330,7 @@ public class Spielfeld extends Constants {
 
 	}
 
+	//Erstellen des Buttons, der die aktuelle Runde beendet
 	private void createEnde() {
 		MouseListener ml = new MouseListener() {
 
@@ -363,6 +384,8 @@ public class Spielfeld extends Constants {
 		frame.repaint();
 	}
 
+	//---------------------Anzeige des Spielbretts------------------------------------
+	//Erstellen des zu Grunde liegenden Panels
 	private void buildBoard() {
 		board = new JPanel();
 		board.setBounds((int) (screenWidth * 0.02 + cardHeight), (int) ((screenHeight - 12 * cardWidth) / 2),
@@ -374,49 +397,8 @@ public class Spielfeld extends Constants {
 		frame.add(board);
 
 	}
-
-	public void showGKarte(int id) {
-		// center.removeAll();
-		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
-
-		karte = new GEKarte(sl.getGcardsList()[id].getText(), "Gemeinschaftskarte",
-				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
-				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
-				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
-		center.add(karte);
-		center.revalidate();
-		center.repaint();
-		kartePrev = true;
-	}
-
-	public void showEKarte(int id) {
-		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
-
-		// center.removeAll();
-		karte = new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte",
-				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
-				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2
-						- (1.25 * (1.85 * Constants.cardWidth)) / 2),
-				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
-		center.add(karte);
-		center.repaint();
-		kartePrev = true;
-
-	}
-
-	private void nextPlayer() {
-		if (kartePrev) {
-			center.remove(karte);
-			center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
-			center.repaint();
-			kartePrev = false;
-		}
-		if (game.getHausBauen()) {
-			game.toggleHausBauen();
-		}
-		enableDice();
-	}
-
+	
+	//Erstellen der Randelemente 
 	private void createEdges() {
 		for (int i = 0; i < 4; i++) {
 			JPanel panel = new JPanel();
@@ -428,7 +410,6 @@ public class Spielfeld extends Constants {
 				panel.setPreferredSize(new Dimension(cardHeight, screenHeight - 2 * cardHeight));
 				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 			}
-			// panel.setLayout(new FlowLayout(FlowLayout.CENTER, -5, 0));
 			panel.setLayout(new FlowLayout(FlowLayout.TRAILING, 0, 0));
 
 			borderPanel[i] = panel;
@@ -436,16 +417,9 @@ public class Spielfeld extends Constants {
 		}
 		center = new JPanel();
 		center.setPreferredSize(new Dimension(screenHeight - 2 * cardHeight, screenHeight - 2 * cardHeight));
-		center.setBackground(colors.get("board"));
+		center.setBackground(Constants.colors.get("board"));
 		center.setLayout(null);
 		center.add(new Figure("rot"));
-		/*
-		 * center.add(new GEKarte(
-		 * "Du wirst zu Strassenausbesserungsar-/nbeiten herangezogen. Zahle für Deine/n Häuser und Hotels/nDM 800 je Haus/nDM 2300 je Hotel/nan die Bank."
-		 * , "Ereigniskarte", (int) ((screenHeight - 2 * cardHeight) / 2 - (3.2 *
-		 * cardWidth) / 2), (int) ((screenHeight - 2 * cardHeight) / 2 - (1.85 *
-		 * cardWidth) / 2), (int) (3.2 * cardWidth), (int) (1.85 * cardWidth)));
-		 */
 		center.repaint();
 		board.add(center, BorderLayout.CENTER);
 		board.add(borderPanel[0], BorderLayout.SOUTH);
@@ -454,6 +428,7 @@ public class Spielfeld extends Constants {
 		board.add(borderPanel[3], BorderLayout.EAST);
 	}
 
+	//Erstellen der einzelnen Felder aus JSON-Datei
 	private void createFields() {
 		Feld[] felder = sl.getFelderList();
 		for (Feld feld : felder) {
@@ -540,7 +515,8 @@ public class Spielfeld extends Constants {
 		board.revalidate();
 		board.repaint();
 	}
-
+	//---------------------Anzeige der Würfel------------------------------------
+	//Erstellen der Würfelanzeige
 	private void createDicePanel() {
 
 		dicePanel = new JPanel();
@@ -570,7 +546,7 @@ public class Spielfeld extends Constants {
 		center.add(dicePanel);
 		center.repaint();
 	}
-
+	//Erstellen der Anzeige, dass ein Pasch geworfen wurde
 	private void createPaschNotify() {
 		pasch = new JLabel();
 		pasch.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("straßenname"))));
@@ -585,7 +561,7 @@ public class Spielfeld extends Constants {
 		center.add(pasch);
 		center.repaint();
 	}
-
+	//Updaten der Anzeige der Würfel
 	public void updateDice(int w1, int w2) {
 		if (w1 == w2) {
 			createPaschNotify();
@@ -637,21 +613,9 @@ public class Spielfeld extends Constants {
 
 	}
 
-	public void updateCurPlayer(int player) {
-		curPlayer.setText(
-				"<html><head></head><body><center>Spieler " + String.valueOf(player + 1) + "</center></body></html>");
-		if (player == 0) {
-			curPlayer.setForeground(Constants.colors.get("Prot"));
-		} else if (player == 1) {
-			curPlayer.setForeground(Constants.colors.get("Pgelb"));
-		} else if (player == 2) {
-			curPlayer.setForeground(Constants.colors.get("Pgrün"));
-		} else if (player == 3) {
-			curPlayer.setForeground(Constants.colors.get("Pblau"));
-		}
-		curPlayer.repaint();
-	}
-
+	
+	//---------------------Anzeige der Besitztümer------------------------------------
+	//Erstellen des Besitzkastens
 	private void createKartenbehaelter() {
 		cardBox = new JPanel();
 		cardBox.setBounds((int) (screenWidth * 0.03 + cardHeight + screenHeight),
@@ -660,7 +624,10 @@ public class Spielfeld extends Constants {
 		cardBox.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
 		cardBox.setLayout(null);
 
-		createCards();
+		cards = new JPanel();
+		cards.setPreferredSize(new Dimension(3 * cardWidth, (int) (13.75 * cardHeight)));
+		cards.setLayout(null);
+		cards.setBackground(colors.get("board"));
 
 		curPlayer = new JLabel();
 		curPlayer.setBackground(Constants.colors.get("board"));
@@ -685,7 +652,22 @@ public class Spielfeld extends Constants {
 		frame.add(cardBox);
 		frame.repaint();
 	}
-
+	//Updaten der Anzeige, welcher Spieler dran ist
+	public void updateCurPlayer(int player) {
+		curPlayer.setText(
+				"<html><head></head><body><center>Spieler " + String.valueOf(player + 1) + "</center></body></html>");
+		if (player == 0) {
+			curPlayer.setForeground(Constants.colors.get("Prot"));
+		} else if (player == 1) {
+			curPlayer.setForeground(Constants.colors.get("Pgelb"));
+		} else if (player == 2) {
+			curPlayer.setForeground(Constants.colors.get("Pgrün"));
+		} else if (player == 3) {
+			curPlayer.setForeground(Constants.colors.get("Pblau"));
+		}
+		curPlayer.repaint();
+	}
+	//Updaten des Besitzkastens
 	public void updateKartenbehaelter(ArrayList<Integer> b) {
 		Collections.sort(b);
 		Feld[] felder = sl.getFelderList();
@@ -809,14 +791,76 @@ public class Spielfeld extends Constants {
 		cards.repaint();
 	}
 
-	private void createCards() {
-		cards = new JPanel();
-		cards.setPreferredSize(new Dimension(3 * cardWidth, (int) (13.75 * cardHeight)));
-		cards.setLayout(null);
-		cards.setBackground(colors.get("board"));
+	
+	//---------------------Anzeige der Kontostände------------------------------------
+	//Erstellen der Anzeige der Kontostände
+	private void createStats() {
+		base = new JPanel();
+		base.setBackground(Constants.colors.get("hintergrund"));
+		// base.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+		base.setLayout(new GridLayout(4, 1, 0, 30));
+		int width = (int) (0.99 * screenWidth - (screenWidth * 0.04 + cardHeight + screenHeight + 3 * cardWidth));
+		int height = (int) ((1.08 * cardWidth) / (1.5 * cardHeight) * width);
+		if (width > 1.5 * cardHeight) {
+			width = (int) (1.5 * cardHeight);
+			height = (int) (1.08 * cardWidth);
+		}
+		Constants.fonts.put("name", String.valueOf((int) (0.8 * width) / 6));
+		Constants.fonts.put("money", String.valueOf((int) (width) / 6));
 
+		base.setBounds((int) (screenWidth * 0.04 + cardHeight + screenHeight + 3 * cardWidth),
+				(int) (screenHeight * 0.5 - (height * 4 + 4 / 3 * height) / 2), width,
+				(int) (height * 4 + 4 / 3 * height));
+
+		String[] color = { "Prot", "Pgelb", "Pgrün", "Pblau" };
+
+		for (int i = 0; i < 4; i++) {
+			JLayeredPane stats = new JLayeredPane();
+			stats.setBackground(Constants.colors.get("board"));
+			stats.setLayout(null);
+			stats.setPreferredSize(new Dimension(width, height));
+
+			JPanel namePanel = new JPanel();
+			namePanel.setName("namePanel");
+			namePanel.setBounds((int) (0.1 * width), 0, (int) (0.8 * width), (int) (0.5 * height));
+			namePanel.setBackground(Constants.colors.get("board"));
+			namePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+
+			JLabel name = new JLabel();
+			name.setName("name");
+			name.setText("<html><body><center>Spieler " + String.valueOf(i + 1) + "</center></body></html>");
+			name.setHorizontalAlignment(SwingConstants.CENTER);
+			name.setVerticalAlignment(SwingConstants.CENTER);
+			name.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("name"))));
+			name.setForeground(Constants.colors.get(color[i]));
+			statsList[i] = name;
+			namePanel.add(name);
+			stats.add(namePanel, Integer.valueOf(1));
+
+			JPanel moneyPanel = new JPanel();
+			moneyPanel.setName("moneyPanel");
+			moneyPanel.setBounds(0, (int) (0.4 * height), (int) (width), (int) (0.68 * height - 5));
+			moneyPanel.setBackground(Constants.colors.get("board"));
+			moneyPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
+
+			JLabel money = new JLabel();
+			money.setName("money");
+			money.setText("<html><body><center>DM 30000.-</center></body></html>");
+			money.setHorizontalAlignment(SwingConstants.CENTER);
+			money.setVerticalAlignment(SwingConstants.BOTTOM);
+			money.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("money"))));
+			statsList[i + 4] = money;
+
+			moneyPanel.add(money);
+			stats.add(moneyPanel, Integer.valueOf(0));
+			base.add(stats);
+
+		}
+		frame.add(base);
+		frame.repaint();
 	}
 
+	//Updaten der Kontostände
 	public void updateStats(int[] values) {
 		for (int i = 0; i < 4; i++) {
 			statsList[i].setText("Spieler " + String.valueOf(values[i] + 1));
@@ -838,72 +882,9 @@ public class Spielfeld extends Constants {
 		base.repaint();
 	}
 
-	private void createStats() {
-		base = new JPanel();
-		base.setBackground(colors.get("hintergrund"));
-		// base.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-		base.setLayout(new GridLayout(4, 1, 0, 30));
-		int width = (int) (0.99 * screenWidth - (screenWidth * 0.04 + cardHeight + screenHeight + 3 * cardWidth));
-		int height = (int) ((1.08 * cardWidth) / (1.5 * cardHeight) * width);
-		if (width > 1.5 * cardHeight) {
-			width = (int) (1.5 * cardHeight);
-			height = (int) (1.08 * cardWidth);
-		}
-		Constants.fonts.put("name", String.valueOf((int) (0.8 * width) / 6));
-		Constants.fonts.put("money", String.valueOf((int) (width) / 6));
-
-		base.setBounds((int) (screenWidth * 0.04 + cardHeight + screenHeight + 3 * cardWidth),
-				(int) (screenHeight * 0.5 - (height * 4 + 4 / 3 * height) / 2), width,
-				(int) (height * 4 + 4 / 3 * height));
-
-		String[] color = { "Prot", "Pgelb", "Pgrün", "Pblau" };
-
-		for (int i = 0; i < 4; i++) {
-			JLayeredPane stats = new JLayeredPane();
-			stats.setBackground(colors.get("board"));
-			stats.setLayout(null);
-			stats.setPreferredSize(new Dimension(width, height));
-
-			JPanel namePanel = new JPanel();
-			namePanel.setName("namePanel");
-			namePanel.setBounds((int) (0.1 * width), 0, (int) (0.8 * width), (int) (0.5 * height));
-			namePanel.setBackground(colors.get("board"));
-			namePanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-
-			JLabel name = new JLabel();
-			name.setName("name");
-			name.setText("<html><body><center>Spieler " + String.valueOf(i + 1) + "</center></body></html>");
-			name.setHorizontalAlignment(SwingConstants.CENTER);
-			name.setVerticalAlignment(SwingConstants.CENTER);
-			name.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("name"))));
-			name.setForeground(colors.get(color[i]));
-			statsList[i] = name;
-			namePanel.add(name);
-			stats.add(namePanel, Integer.valueOf(1));
-
-			JPanel moneyPanel = new JPanel();
-			moneyPanel.setName("moneyPanel");
-			moneyPanel.setBounds(0, (int) (0.4 * height), (int) (width), (int) (0.68 * height - 5));
-			moneyPanel.setBackground(colors.get("board"));
-			moneyPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.black));
-
-			JLabel money = new JLabel();
-			money.setName("money");
-			money.setText("<html><body><center>DM 30000.-</center></body></html>");
-			money.setHorizontalAlignment(SwingConstants.CENTER);
-			money.setVerticalAlignment(SwingConstants.BOTTOM);
-			money.setFont(new Font("Arial", Font.BOLD, Integer.valueOf(Constants.fonts.get("money"))));
-			statsList[i + 4] = money;
-
-			moneyPanel.add(money);
-			stats.add(moneyPanel, Integer.valueOf(0));
-			base.add(stats);
-
-		}
-		frame.add(base);
-		frame.repaint();
-	}
-
+	
+	//---------------------Anzeige der Spielfiguren------------------------------------
+	//Updaten der Anzeigen, wo sich Spielfiguren befinden
 	public void figurenUpdate(int[] pos) {
 		if (figuernPos[0] > -1) {
 			fields[figuernPos[0]].removePlayer("Prot");
@@ -934,6 +915,7 @@ public class Spielfeld extends Constants {
 		}
 	}
 
+	//Anzeige einer Spielerfigur in Gefängis
 	public void insGef(int x) {
 		switch (x) {
 		case 0:
@@ -955,6 +937,7 @@ public class Spielfeld extends Constants {
 		}
 	}
 
+	//Entfernen einer Spielfigur aus Gefängnis
 	public void ausGef(int x) {
 		switch (x) {
 		case 0:
@@ -976,6 +959,38 @@ public class Spielfeld extends Constants {
 		}
 	}
 
+	//---------------------Infoanzeigen------------------------------------
+	//Anzeige einer Gemeinschaftskarte
+	public void showGKarte(int id) {
+		// center.removeAll();
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
+
+		karte = new GEKarte(sl.getGcardsList()[id].getText(), "Gemeinschaftskarte",
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
+		center.add(karte);
+		center.revalidate();
+		center.repaint();
+		kartePrev = true;
+	}
+	//Anzeige einer Ereigniskarte
+	public void showEKarte(int id) {
+		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
+
+		// center.removeAll();
+		karte = new GEKarte(sl.getEcardsList()[id].getText(), "Ereigniskarte",
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
+				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2
+						- (1.25 * (1.85 * Constants.cardWidth)) / 2),
+				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game);
+		center.add(karte);
+		center.repaint();
+		kartePrev = true;
+
+	}
+	
+	//Info: Spieler muss Miete bezahlen
 	public void zahleMiete(int spieler, int miete) {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -989,6 +1004,7 @@ public class Spielfeld extends Constants {
 
 	}
 
+	//Info: Spieler muss würfeln, um Höhe der Miete auf Werk zu bestimmen
 	public void zahleMieteWerk(int spieler, int zahl) {
 		String[] buttons = { "Würfeln" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1003,6 +1019,7 @@ public class Spielfeld extends Constants {
 		center.repaint();
 	}
 
+	//Info: Spieler befindet sich auf Feld, dass keinem anderen gehört und wird gefragt, ob er es kaufen möchte
 	public void grundstueckKaufen(int position) {
 		String[] buttons = { "Ja", "Nein" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1019,6 +1036,7 @@ public class Spielfeld extends Constants {
 
 	}
 
+	//Info: Spieler hat Kontostand <= 0; 
 	public void bankrottGehen() {
 		String[] buttons = { "Beenden", "Hypothek" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1031,17 +1049,19 @@ public class Spielfeld extends Constants {
 
 	}
 
+	//Info: Anleitung zum Hypothekaufnehmen
 	public void hypothekAufnehmen() {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
-		center.add(new Info("Wähle Besitztümer aus, die du mit einer Hypothek belasten möchtest", buttons,
+		center.add(new Info("Wähle im Besitzkasten Besitztümer aus, die du mit einer Hypothek belasten möchtest", buttons,
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (3.2 * Constants.cardWidth) / 2),
 				(int) ((Constants.screenHeight - 2 * Constants.cardHeight) / 2 - (1.85 * Constants.cardWidth) / 2),
 				(int) (3.2 * Constants.cardWidth), (int) (1.85 * Constants.cardWidth), game));
 		center.repaint();
 	}
 
+	//Info: Spieler hat Hypothek auf Grundstück aufgenommen
 	public void hypothekAufgenommen(String feld, int preis) {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1056,6 +1076,7 @@ public class Spielfeld extends Constants {
 		center.repaint();
 	}
 
+	//Info: Preis für Abbezahlen der Hypothek
 	public void hypothekBezahlen(String feld, int preis) {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1071,6 +1092,7 @@ public class Spielfeld extends Constants {
 
 	}
 
+	// Info: Spieler hat zu wenig Geld für gewünschte Transaktion
 	public void zuWenigGeld() {
 		String[] buttons = { "OK" };
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
@@ -1083,6 +1105,7 @@ public class Spielfeld extends Constants {
 
 	}
 
+	//Info: Möglichkeiten, aus Gefängnis freizukommen
 	public void imGefaegnis() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1107,6 +1130,7 @@ public class Spielfeld extends Constants {
 		center.repaint();
 	}
 
+	//Info: Hausbaumodus wird aktiviert
 	public void hausBauenEin() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
@@ -1197,7 +1221,7 @@ public class Spielfeld extends Constants {
 
 	}
 	
-	//---------------------Funktionen, die Buttons steuern
+	//---------------------Funktionen, die Buttons steuern------------------------------------
 
 	//aktiviert den Button zum Weiterschalten zum nächsten Spieler
 	public void enableNext() {
