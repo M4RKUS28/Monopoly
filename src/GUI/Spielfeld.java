@@ -292,7 +292,7 @@ public class Spielfeld extends Constants {
 					nextPlayer();
 					game.naechster();
 					disableNext();
-					naechsterSpieler();
+					//naechsterSpieler();
 				}
 
 			}
@@ -1219,7 +1219,7 @@ public class Spielfeld extends Constants {
 	}
 
 	// Info: nächster Spieler ist dran
-	public void naechsterSpieler() {
+	/*public void naechsterSpieler() {
 		center.remove(center.getComponentAt(center.getWidth() / 2, center.getHeight() / 2));
 
 		String[] buttons = { "OK" };
@@ -1230,7 +1230,7 @@ public class Spielfeld extends Constants {
 		center.repaint();
 
 	}
-
+*/
 	// ---------------------Funktionen, die Buttons
 	// steuern------------------------------------
 
