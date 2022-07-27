@@ -149,6 +149,8 @@ public class Spielfeld extends Constants {
 
 	// Diese Methode erstellt die Grundstruktur des JFrames
 	private void buildBasicFrame() {
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] gd = ge.getScreenDevices();
 		frame = new JFrame();
 		frame.setTitle("Monopoly");
 		frame.setIconImage((new ImageIcon("src/images/Dude.jpg")).getImage());
@@ -166,6 +168,7 @@ public class Spielfeld extends Constants {
 		createStats();
 		// setUpBorders();
 		// createFelder();
+        gd[1].setFullScreenWindow(frame); //gets the 2nd display.
 
 	}
 
